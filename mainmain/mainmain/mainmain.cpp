@@ -10,6 +10,7 @@ using namespace std;
 
 //ADD STRUCTS HERE
 
+int thisisatest = 0;
 
 struct user {
     int ID;
