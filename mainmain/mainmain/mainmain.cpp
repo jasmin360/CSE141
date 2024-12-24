@@ -1,4 +1,4 @@
-
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <vector>
@@ -32,6 +32,14 @@ struct user {
             double accbalance;
     */
 
+};
+struct Transaction {
+    double amount;
+    string receiver_name; // will need user info
+    string sender_name;   // will need user info
+    int transaction_id;    // will need user info
+    string currency = "$";
+    string status;
 };
 
 
@@ -203,6 +211,111 @@ void login() {
     cout << "Password confirmed\nRedirecting to dashboard...\n";
     //redirection to dashboard
 }
+
+struct Transaction {
+    double amount;
+    string receiver_name; // will need user info
+    string sender_name;   // will need user info
+    int transaction_id;    // will need user info
+    string currency = "$";
+    string status;
+};
+
+// (needs user2.name), checks data type and amount
+double GetValidAmount(string receiver_name) {
+    double amount;
+    cout << "How much money would u like to send to " << receiver_name << endl; // receiver_name will be changed need info
+    cin >> amount;
+    while (true) {
+        while (cin.fail()) { // error
+            cin.clear();              // clear error input
+            cin.ignore(1000, '\n');   // ignore invalid input
+            cout << "Invalid Character,please enter a real number. " << endl;
+            cin >> amount;
+        }
+        while (amount < 15) {
+            cout << "please enter a number bigger than 15 u brookie" << endl;
+            cin >> amount;
+        }
+        break; // exit the loop if the input is valid
+    }
+    return amount;
+}
+
+// checks if he has enough money
+bool HasEnoughBalance(double balance, double amount) {
+    if (balance >= amount) {
+        return 1;
+    }
+    else {
+        cout << "Not enough money to complete the transaction";
+        return 0;
+    }
+}
+
+double UpdateSenderBalance(double sender_balance, double amount_sent) {
+    return sender_balance -= amount_sent;
+}
+
+double UpdateReceiverBalance(double receiver_balance, double amount_received) {
+    return receiver_balance += amount_received;
+}
+
+int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
+    Transaction tx; // instance
+    tx.sender_name = "User1"; //
+    tx.receiver_name = "Omar"; //
+    tx.transaction_id = 101; //
+    tx.status = "pending"; //
+    tx.amount = GetValidAmount(tx.receiver_name);
+    char answer = 'Y';
+    bool isBalanceSufficient = 0;
+    double updated_sender_balance;
+    double updated_receiver_balance;
+
+    isBalanceSufficient = HasEnoughBalance(sender_balance, tx.amount);
+    if (!isBalanceSufficient) {
+        tx.status = "Cancelled";
+        return 0;
+    }
+
+    cout << "Are u sure u want to send " << tx.amount << " to " << tx.receiver_name << " ? If yes type Y If not type N. (Default is : Y) " << endl;
+    cin >> answer;
+    cin.ignore(); // tx.currency picks up answer did this to fix it
+    if (answer == 'N' || answer == 'n') {
+        cout << "Transaction cancelled";
+        tx.status = "Cancelled";
+        return 0;
+    }
+
+    cout << "Please enter the currency. Type $ for dollars or type € for euros. (Default is : $) " << endl;
+    cin >> tx.currency;
+    if (tx.currency != "€" && tx.currency != "$") {
+        tx.currency = "$"; // default value
+    }
+
+    updated_sender_balance = UpdateSenderBalance(sender_balance, tx.amount);
+    updated_receiver_balance = UpdateReceiverBalance(receiver_balance, tx.amount);
+    tx.status = "completed";
+
+    cout << "\nTransaction Successful!" << endl;
+    cout << "Transaction ID: " << tx.transaction_id << endl;
+    cout << "Sender: " << tx.sender_name << endl;
+    cout << "Receiver: " << tx.receiver_name << endl;
+    cout << "Amount: " << tx.currency << tx.amount << endl;
+    cout << "Sender's New Balance: " << updated_sender_balance << tx.currency << endl;
+    cout << "Receiver's New Balance: " << updated_receiver_balance << tx.currency << endl;
+
+    return 1; // returns success
+}
+
+int main() {
+    double sender_balance = 10000;
+    double receiver_balance = 0;
+    ProcessTransaction(sender_balance, receiver_balance);
+    return 0;
+}
+
 
 
 
