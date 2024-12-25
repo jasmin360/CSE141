@@ -1,12 +1,14 @@
 #define _CRT_SECURE_NO_WARNINGS
-
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <iomanip> 
 #include <string>
+#include <cstring>
+#include <vector>
+#include <Windows.h>
+#include <algorithm>
 #include <ctime>
-
 using namespace std;
+
 
 //ADD STRUCTS HERE
 
@@ -317,13 +319,6 @@ int main() {
 }
 
 
-#include <iostream>
-#include <iomanip> 
-#include <string>
-#include <cstring>
-#include <vector>
-#include <Windows.h>
-using namespace std;
 
 
 int horizontal = 100;
@@ -377,56 +372,6 @@ bool is_there(const vector <user>& userslist, user datamatch) {
     }
     return false;
 }
-
-//declaring login function before signup() since login() is called inside signup()
-void signup();
-
-void login() {
-
-    // user is redirected here if login option is chosen
-    user data, datamatch;
-    int choice;
-    cout << setw(horizontal / 2) << "Please enter your email\n";
-    cin >> data.email;
-
-    //verfies that email is linked to an account
-    //if not linked, user is prompted to either sign up or renter email
-    while (!is_there(userslist, data)) {
-        cout << setw(horizontal / 2) << "This email is not linked to an account\n";
-        cout << setw(horizontal / 2) << "If you wish to signup please press 1\nIf you wish to renter your email please press 2\n";
-        cin >> choice;
-
-        //verify input is within range
-        while (choice != 1 && choice != 2) {
-            cout << "Invalid choice, please renter\n";
-            cin >> choice;
-        }
-        if (choice == 1) {
-
-            //exits current function and redirects to signup
-            return signup();
-        }
-        else if (choice == 2) {
-            cin >> data.email;
-        }
-    }
-
-    //password checking
-    cout << "Account located successfully\nPlease enter your password\n";
-    string password;
-    cin >> password;
-    datamatch = find(userslist, data);
-    while (datamatch.password != password) {
-        cout << "Incorrect password, please renter your password\n";
-        cin >> password;
-    }
-    cout << "Password confirmed\nRedirecting to dashboard...\n";
-    //redirection to dashboard
-}
-
-
-
-
 
 
 void clear();
