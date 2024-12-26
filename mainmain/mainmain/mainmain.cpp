@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include<fstream>
 using namespace std;
 
 
@@ -45,6 +46,18 @@ struct Transaction {
     string status;
 };
 
+// admin struct
+struct admin {
+    int id;
+    string name;
+    string email;
+    string role;
+    bool is_prime = 0; // 1-> prime admin can creat enew admins 0-> cannot create new admins
+
+    // access level- i=0 : view profiles i = 1: suspend accounts i = 2: handle disputes
+    // false = no permission, true = has permission
+    bool permission[3] = { 0 };
+};
 
 
 //ADD GLOBAL VARIABLES HERE
@@ -64,6 +77,14 @@ const int horizontal = 120, vertical = 20;
 
 //ADD YOUR FUNCTIONS HERE
 
+// function that validates choices; takes 3 parameters 1. choice to validate 2. lb : lower-bound 2. ub : upper-bound
+int val_choices(int choice, int lb, int ub) {
+    while (choice < lb || choice >ub) {
+        cout << "Invalid input. PLease enter a number between 1 and 3";
+        cin >> choice;
+    }
+    return choice;
+}
 
 
 //this function DOES NOT deal with cases where there is no data match
@@ -104,7 +125,7 @@ void login() {
     // user is redirected here if login option is chosen
     user data, datamatch;
     int choice;
-    cout << "Please enter your email";
+    cout << "Please enter your email ";
     cin >> data.email;
 
     //verfies that email is linked to an account
@@ -181,7 +202,25 @@ double UpdateSenderBalance(double sender_balance, double amount_sent) {
 double UpdateReceiverBalance(double receiver_balance, double amount_received) {
     return receiver_balance += amount_received;
 }
+void transactionfile(Transaction& tx) {
+    ofstream transaction("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transaction history.txt");
+    if (transaction.is_open()) {
+        cout << "\nTransaction Successful!" << endl;
+        cout << "Transaction ID: " << tx.transaction_id << endl;
+        cout << "Sender: " << tx.sender_name << endl;
+        cout << "Receiver: " << tx.receiver_name << endl;
+        cout << "Amount: " << tx.currency << tx.amount << endl;
+        cout << "Sender's New Balance: " << updated_sender_balance << tx.currency << endl;
+        cout << "Receiver's New Balance: " << updated_receiver_balance << tx.currency << endl;
+        transaction.close();
+    }
 
+
+}
+bool transactionstatus(int transaction) {
+    ifstream transactionstatus("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transaction history.txt")
+
+}
 int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
     Transaction tx; // instance
     tx.sender_name = "User1"; //
@@ -214,7 +253,7 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     if (tx.currency != "€" && tx.currency != "$") {
         tx.currency = "$"; // default value
     }
-
+   
     updated_sender_balance = UpdateSenderBalance(sender_balance, tx.amount);
     updated_receiver_balance = UpdateReceiverBalance(receiver_balance, tx.amount);
     tx.status = "completed";
@@ -818,6 +857,59 @@ void ChangeContactInfo() {
 	clear();
 	Account();
 }
+
+//function that should only work when prime admin to add new admins
+admin AdminInfo(admin reg) {
+    cout << "enter Admin's ID";
+    cin >> reg.id;
+    cout << "enter Admin's name";
+    cin.ignore();  // clear input buffer
+    getline(cin, reg.name);
+    cout << "enter Admin's email";
+    cin >> reg.email;
+    cout << "enter Admin's role"; // it will just appear in the dashboard (Doesnt affect code)
+
+    int choice; // Prime Admin choices
+    cout << "enter Admin's permissions";
+    // permission 1
+    cout << "can they view profiles\n1. yes\n2. no : ";
+    cin >> choice;
+    choice = val_choices(choice, 1, 2);
+    switch (choice) {
+    case 1:
+        reg.permission[0] = 1; // store permission in array
+        break;
+    default:
+        reg.permission[0] = 0;
+    }
+
+    // permission 2
+    cout << "can they suspend accounts\n1. yes\n2. no : ";
+    cin >> choice;
+    choice = val_choices(choice, 1, 2);
+    switch (choice) {
+    case 1:
+        reg.permission[1] = 1;
+        break;
+    default:
+        reg.permission[1] = 0;
+    }
+
+    // permission 3
+    cout << "can they handle disputes\n1. yes\n2. no : ";
+    cin >> choice;
+    choice = val_choices(choice, 1, 2);
+    switch (choice) {
+    case 1:
+        reg.permission[2] = 1;
+        break;
+    default:
+        reg.permission[2] = 0;
+    }
+
+    return reg;
+}
+
 
 int main()
 {
