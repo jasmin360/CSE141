@@ -7,6 +7,7 @@
 #include <Windows.h>
 #include <algorithm>
 #include <ctime>
+#include<fstream>
 using namespace std;
 
 
@@ -94,7 +95,7 @@ void login() {
     // user is redirected here if login option is chosen
     user data, datamatch;
     int choice;
-    cout << "Please enter your email";
+    cout << "Please enter your email ";
     cin >> data.email;
 
     //verfies that email is linked to an account
@@ -171,7 +172,25 @@ double UpdateSenderBalance(double sender_balance, double amount_sent) {
 double UpdateReceiverBalance(double receiver_balance, double amount_received) {
     return receiver_balance += amount_received;
 }
+void transactionfile(Transaction& tx) {
+    ofstream transaction("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transaction history.txt");
+    if (transaction.is_open()) {
+        cout << "\nTransaction Successful!" << endl;
+        cout << "Transaction ID: " << tx.transaction_id << endl;
+        cout << "Sender: " << tx.sender_name << endl;
+        cout << "Receiver: " << tx.receiver_name << endl;
+        cout << "Amount: " << tx.currency << tx.amount << endl;
+        cout << "Sender's New Balance: " << updated_sender_balance << tx.currency << endl;
+        cout << "Receiver's New Balance: " << updated_receiver_balance << tx.currency << endl;
+        transaction.close();
+    }
 
+
+}
+bool transactionstatus(int transaction) {
+    ifstream transactionstatus("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transaction history.txt")
+
+}
 int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
     Transaction tx; // instance
     tx.sender_name = "User1"; //
@@ -204,7 +223,7 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     if (tx.currency != "€" && tx.currency != "$") {
         tx.currency = "$"; // default value
     }
-
+   
     updated_sender_balance = UpdateSenderBalance(sender_balance, tx.amount);
     updated_receiver_balance = UpdateReceiverBalance(receiver_balance, tx.amount);
     tx.status = "completed";
