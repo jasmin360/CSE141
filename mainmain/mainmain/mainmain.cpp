@@ -271,19 +271,19 @@ void signup() {
     // user is redirected here if signup option is chosen
     user data;
     cout << setw(horizontal / 2) << "Please enter your email\n";
-    cin >> data.email;
+    gl(data.email);
 
     //verfiy that this email does not exist
     //if already linked, user is prompted to either login or renter email
     while (is_there(userslist, data)) {
-        int choice;
+        string choice;
         cout << setw(horizontal / 2) << "This email is already linked to an account\n";
         cout << setw(horizontal / 2) << "If you wish to login please press 1\nIf you wish to renter your email please press 2\n";
-        cin >> choice;
+        gl (choice);
         //verify input is within range
         while (choice != 1 && choice != 2) {
             cout << setw(horizontal / 2) << "Invalid choice, please renter\n";
-            cin >> choice;
+            gl(choice);
         }
         if (choice == 1) {
             //exits current fujnction and redirects to login
@@ -291,17 +291,17 @@ void signup() {
             return login();
         }
         else if (choice == 2) {
-            cin >> data.email;
+            gl(data.email);
         }
     }
     cout << setw(horizontal / 2) << "Please enter your name\n";
     // Clearing input buffer
-    getline(cin, data.name);
+    gl(data.name);
     cout << setw(horizontal / 2) << "Please enter your password\n";
-    cin.ignore(); getline(cin, data.password);
+    gl(data.password);
     cout << "\"" << data.password << "\"\n";
     cout << setw(horizontal / 2) << "Please enter phone number\n";
-    cin >> data.contactinfo;
+    gl(data.contactinfo);
     //adding id as size of set + 1 as the new user has not been inserted yet
     data.ID = userslist.size() + 1;
     userslist.push_back(data);
