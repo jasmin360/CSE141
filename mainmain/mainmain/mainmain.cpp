@@ -445,6 +445,13 @@ void Display_login_interface() {
             SetColor(14, 0);
             cout << setw((horizontal - 2) / 2 - 5) << "||";
         }
+        else if (i == vertical / 2 + 1) {
+            cout << "||" << setw((horizontal - 2) / 2 + 10);
+            SetColor(15, 0);
+            cout << "Sign in as admin (3)";
+            SetColor(14, 0);
+            cout << setw((horizontal - 2) / 2 - 10) << "||";
+        }
         else if (i == vertical - 2) {
             cout << "||" << setw((horizontal - 2) / 2 + 12);
             SetColor(12, 0);
@@ -983,10 +990,10 @@ int main()
     ad3.id = 0; ad2.name = "jasmin"; ad3.email = "jasmin@gmail.com"; ad3.is_prime = 1; ad3.permission[0] = 1; ad3.permission[1] = 1; ad3.permission[2] = 1; ad3.role = "branch manager";
     adminlist.push_back(ad1); adminlist.push_back(ad2); adminlist.push_back(ad3);
 
-    //while (true) {
-    //    Display_login_interface();
-    //    clear();
-    //}
-    Account();
+    while (true) {
+        Display_login_interface();
+        clear();
+    }
+    /*Account();*/
     return 0;
 }
