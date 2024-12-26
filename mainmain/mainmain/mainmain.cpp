@@ -48,8 +48,9 @@ struct Transaction {
 
 //ADD GLOBAL VARIABLES HERE
 
-vector <user>userslist;
+vector <user> userslist;
 
+const int horizontal = 100, vertical = 20;
 
 
 //ADD YOUR FUNCTIONS HERE
@@ -69,9 +70,6 @@ user find(const vector <user>& userslist, user datamatch) {
     return matchfound;
 }
 
-
-
-
 //this function returns a boolean value to describe weather or not a certain email is linked to a user
 bool is_there(const vector <user>& userslist, user datamatch) {
     for (int i = 0; i < userslist.size(); i++) {
@@ -82,14 +80,8 @@ bool is_there(const vector <user>& userslist, user datamatch) {
     return false;
 }
 
-
-
-
 //declaring login function before signup() since login() is called inside signup()
 void login();
-
-
-
 
 void signup() {
 
@@ -168,9 +160,6 @@ void signup() {
     //redirection to dashboard
 }
 
-
-
-
 void login() {
 
     // user is redirected here if login option is chosen
@@ -213,15 +202,6 @@ void login() {
     cout << "Password confirmed\nRedirecting to dashboard...\n";
     //redirection to dashboard
 }
-
-struct Transaction {
-    double amount;
-    string receiver_name; // will need user info
-    string sender_name;   // will need user info
-    int transaction_id;    // will need user info
-    string currency = "$";
-    string status;
-};
 
 // (needs user2.name), checks data type and amount
 double GetValidAmount(string receiver_name) {
@@ -321,8 +301,7 @@ int main() {
 
 
 
-int horizontal = 100;
-int vertical = 20;
+
 
 
 
