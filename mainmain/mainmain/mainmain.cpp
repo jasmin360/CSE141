@@ -117,7 +117,7 @@ admin find(const vector <admin>& userslist, admin datamatch) {
 
 
 //this function returns a boolean value to describe weather or not a certain email is linked to a user
-bool is_there(const vector <user>& userslist, auto datamatch) {
+bool is_there(const vector <user>& userslist, admin datamatch) {
     for (int i = 0; i < userslist.size(); i++) {
         if (userslist[i].email == datamatch.email) {
             return true;
