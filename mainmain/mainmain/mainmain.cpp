@@ -203,7 +203,7 @@ double UpdateReceiverBalance(double receiver_balance, double amount_received) {
     return receiver_balance += amount_received;
 }
 void transactionfile(Transaction& tx) {
-    ofstream transaction("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transaction history.txt");
+    ofstream transaction("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transactionhistory.txt");
     if (transaction.is_open()) {
         cout << "\nTransaction Successful!" << endl;
         cout << "Transaction ID: " << tx.transaction_id << endl;
@@ -218,7 +218,7 @@ void transactionfile(Transaction& tx) {
 
 }
 bool transactionstatus(int transaction) {
-    ifstream transactionstatus("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transaction history.txt")
+    ifstream transactionstatus("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transactionstatus.txt")
 
 }
 int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
