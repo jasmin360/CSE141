@@ -89,7 +89,7 @@ int val_choices(int choice, int lb, int ub) {
 
 //this function DOES NOT deal with cases where there is no data match
 //user emails have been proved to exist in userslist using is_there in all instances where this function is used below
-user find(const vector <user>& userslist, user datamatch) {
+user find(const vector <user>& userslist, auto datamatch) {
     user matchfound;
     for (int i = 0; i < userslist.size(); i++) {
         if (userslist[i].email == datamatch.email) {
@@ -101,7 +101,7 @@ user find(const vector <user>& userslist, user datamatch) {
 }
 
 //this function returns a boolean value to describe weather or not a certain email is linked to a user
-bool is_there(const vector <user>& userslist, user datamatch) {
+bool is_there(const vector <user>& userslist, auto datamatch) {
     for (int i = 0; i < userslist.size(); i++) {
         if (userslist[i].email == datamatch.email) {
             return true;
@@ -342,10 +342,10 @@ void signup() {
         gl(data.password);
     }
     cout << "\"" << data.password << "\"\n";
-    cout << setw(horizontal / 2) << "Please enter phone number\n";
+    cout << setw(horizontal / 2) << "Please enter phone number in the format: +CCXXXXXXXXXX\n";
     gl(data.contactinfo);
-    while (strlen(data.contactinfo) != 11) {
-        cout << "your phone number must be 11 digits long";
+    while (strlen(data.contactinfo) != 12 || data.contactinfo[0]!='+') {
+        cout << "your phone number must be 12 digits long and must contain '+' as the first character";
         gl(data.contactinfo);
     }
     //adding id as size of set + 1 as the new user has not been inserted yet
