@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include<fstream>
 using namespace std;
 
 
@@ -133,21 +134,21 @@ void login() {
 
     // user is redirected here if login option is chosen
     user data, datamatch;
-    int choice;
-    cout << "Please enter your email";
-    cin >> data.email;
+    string choice;
+    cout << "Please enter your email ";
+    gl(data.email);
 
     //verfies that email is linked to an account
     //if not linked, user is prompted to either sign up or renter email
     while (!is_there(userslist, data)) {
         cout << "This email is not linked to an account\n";
         cout << "If you wish to signup please press 1\nIf you wish to renter your email please press 2\n";
-        cin >> choice;
+        gl(choice);
 
         //verify input is within range
         while (choice != 1 && choice != 2) {
             cout << "Invalid choice, please renter\n";
-            cin >> choice;
+            gl(choice);
         }
         if (choice == 1) {
 
@@ -155,7 +156,7 @@ void login() {
             return signup();
         }
         else if (choice == 2) {
-            cin >> data.email;
+            gl(data.email);
         }
     }
 
@@ -211,7 +212,25 @@ double UpdateSenderBalance(double sender_balance, double amount_sent) {
 double UpdateReceiverBalance(double receiver_balance, double amount_received) {
     return receiver_balance += amount_received;
 }
+void transactionfile(Transaction& tx) {
+    ofstream transaction("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transaction history.txt");
+    if (transaction.is_open()) {
+        cout << "\nTransaction Successful!" << endl;
+        cout << "Transaction ID: " << tx.transaction_id << endl;
+        cout << "Sender: " << tx.sender_name << endl;
+        cout << "Receiver: " << tx.receiver_name << endl;
+        cout << "Amount: " << tx.currency << tx.amount << endl;
+        cout << "Sender's New Balance: " << updated_sender_balance << tx.currency << endl;
+        cout << "Receiver's New Balance: " << updated_receiver_balance << tx.currency << endl;
+        transaction.close();
+    }
 
+
+}
+bool transactionstatus(int transaction) {
+    ifstream transactionstatus("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transaction history.txt")
+
+}
 int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
     Transaction tx; // instance
     tx.sender_name = "User1"; //
@@ -244,7 +263,7 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     if (tx.currency != "€" && tx.currency != "$") {
         tx.currency = "$"; // default value
     }
-
+   
     updated_sender_balance = UpdateSenderBalance(sender_balance, tx.amount);
     updated_receiver_balance = UpdateReceiverBalance(receiver_balance, tx.amount);
     tx.status = "completed";
@@ -301,19 +320,19 @@ void signup() {
     // user is redirected here if signup option is chosen
     user data;
     cout << setw(horizontal / 2) << "Please enter your email\n";
-    cin >> data.email;
+    gl(data.email);
 
     //verfiy that this email does not exist
     //if already linked, user is prompted to either login or renter email
     while (is_there(userslist, data)) {
-        int choice;
+        string choice;
         cout << setw(horizontal / 2) << "This email is already linked to an account\n";
         cout << setw(horizontal / 2) << "If you wish to login please press 1\nIf you wish to renter your email please press 2\n";
-        cin >> choice;
+        gl (choice);
         //verify input is within range
         while (choice != 1 && choice != 2) {
             cout << setw(horizontal / 2) << "Invalid choice, please renter\n";
-            cin >> choice;
+            gl(choice);
         }
         if (choice == 1) {
             //exits current fujnction and redirects to login
@@ -321,17 +340,24 @@ void signup() {
             return login();
         }
         else if (choice == 2) {
-            cin >> data.email;
+            gl(data.email);
         }
     }
     cout << setw(horizontal / 2) << "Please enter your name\n";
-    // Clearing input buffer
-    getline(cin, data.name);
+    gl(data.name);
     cout << setw(horizontal / 2) << "Please enter your password\n";
-    cin.ignore(); getline(cin, data.password);
+    gl(data.password);
+    while (strlen(data.password) < 8) {
+        cout << "Password must contain at least 8 characters";
+        gl(data.password);
+    }
     cout << "\"" << data.password << "\"\n";
     cout << setw(horizontal / 2) << "Please enter phone number\n";
-    cin >> data.contactinfo;
+    gl(data.contactinfo);
+    while (strlen(data.contactinfo) != 11) {
+        cout << "your phone number must be 11 digits long";
+        gl(data.contactinfo);
+    }
     //adding id as size of set + 1 as the new user has not been inserted yet
     data.ID = userslist.size() + 1;
     userslist.push_back(data);
@@ -901,6 +927,40 @@ admin AdminInfo(admin reg) {
     return reg;
 }
 
+
+void adminlogin() {
+    admin data, datamatch;
+    string choice;
+    cout << "Please enter your email ";
+    gl(data.email);
+    while (!is_there(adminslist, data)) {
+        cout << "This email is not linked to an account\n";
+        cout << "Please contact a prime admin to add your account or press 1 to re-enter your email\n";
+        gl(choice);
+
+        //verify input is within range
+        while (choice != 1 ) {
+            cout << "Invalid choice, please renter\n";
+            gl(choice);
+        }
+        if (choice == 1) {
+            gl(data.email);
+            
+        }
+   
+    }
+    //password checking
+    cout << "Account located successfully\nPlease enter your password\n";
+    string password;
+    gl(password);
+    datamatch = find(adminlist, data);
+    while (datamatch.password != password) {
+        cout << "Incorrect password, please renter your password\n";
+        gl(password);
+    }
+    cout << "Password confirmed\nRedirecting to dashboard...\n";
+    //redirection to admin dashboard
+}
 
 int main()
 {
