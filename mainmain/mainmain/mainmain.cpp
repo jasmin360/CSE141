@@ -152,6 +152,7 @@ void gl(string &s) {
 //declaring login function before signup() since login() is called inside signup()
 void login();
 void signup();
+void Dashboard();
 
 void login() {
 
@@ -195,6 +196,7 @@ void login() {
     cout << "Password confirmed\nRedirecting to dashboard...\n";
     datamatch.logincounter++;
     //redirection to dashboard
+    Dashboard();
 }
 
 // (needs user2.name), checks data type and amount
