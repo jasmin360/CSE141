@@ -45,6 +45,18 @@ struct Transaction {
     string status;
 };
 
+// admin struct
+struct admin {
+    int id;
+    string name;
+    string email;
+    string role;
+    bool is_prime = 0; // 1-> prime admin can creat enew admins 0-> cannot create new admins
+
+    // access level- i=0 : view profiles i = 1: suspend accounts i = 2: handle disputes
+    // false = no permission, true = has permission
+    bool permission[3] = { 0 };
+};
 
 
 //ADD GLOBAL VARIABLES HERE
@@ -64,6 +76,14 @@ const int horizontal = 120, vertical = 20;
 
 //ADD YOUR FUNCTIONS HERE
 
+// function that validates choices; takes 3 parameters 1. choice to validate 2. lb : lower-bound 2. ub : upper-bound
+int val_choices(int choice, int lb, int ub) {
+    while (choice < lb || choice >ub) {
+        cout << "Invalid input. PLease enter a number between 1 and 3";
+        cin >> choice;
+    }
+    return choice;
+}
 
 
 //this function DOES NOT deal with cases where there is no data match
@@ -818,6 +838,59 @@ void ChangeContactInfo() {
 	clear();
 	Account();
 }
+
+//function that should only work when prime admin to add new admins
+admin AdminInfo(admin reg) {
+    cout << "enter Admin's ID";
+    cin >> reg.id;
+    cout << "enter Admin's name";
+    cin.ignore();  // clear input buffer
+    getline(cin, reg.name);
+    cout << "enter Admin's email";
+    cin >> reg.email;
+    cout << "enter Admin's role"; // it will just appear in the dashboard (Doesnt affect code)
+
+    int choice; // Prime Admin choices
+    cout << "enter Admin's permissions";
+    // permission 1
+    cout << "can they view profiles\n1. yes\n2. no : ";
+    cin >> choice;
+    choice = val_choices(choice, 1, 2);
+    switch (choice) {
+    case 1:
+        reg.permission[0] = 1; // store permission in array
+        break;
+    default:
+        reg.permission[0] = 0;
+    }
+
+    // permission 2
+    cout << "can they suspend accounts\n1. yes\n2. no : ";
+    cin >> choice;
+    choice = val_choices(choice, 1, 2);
+    switch (choice) {
+    case 1:
+        reg.permission[1] = 1;
+        break;
+    default:
+        reg.permission[1] = 0;
+    }
+
+    // permission 3
+    cout << "can they handle disputes\n1. yes\n2. no : ";
+    cin >> choice;
+    choice = val_choices(choice, 1, 2);
+    switch (choice) {
+    case 1:
+        reg.permission[2] = 1;
+        break;
+    default:
+        reg.permission[2] = 0;
+    }
+
+    return reg;
+}
+
 
 int main()
 {
