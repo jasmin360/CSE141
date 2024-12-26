@@ -939,6 +939,17 @@ void adminlogin() {
         }
    
     }
+    //password checking
+    cout << "Account located successfully\nPlease enter your password\n";
+    string password;
+    gl(password);
+    datamatch = find(adminlist, data);
+    while (datamatch.password != password) {
+        cout << "Incorrect password, please renter your password\n";
+        gl(password);
+    }
+    cout << "Password confirmed\nRedirecting to dashboard...\n";
+    //redirection to admin dashboard
 }
 
 int main()
