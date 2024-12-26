@@ -1,6 +1,6 @@
 ﻿  mainmain.cpp
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(405,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(410,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(429,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(529,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(403,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(408,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(427,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(527,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   mainmain.vcxproj -> C:\Users\Habeb\source\repos\CSE141\mainmain\x64\Debug\mainmain.exe
