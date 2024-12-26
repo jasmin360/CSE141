@@ -451,15 +451,17 @@ void Display_login_interface() {
             cout << "||";
         }
         else if (i == vertical / 2 + 1) {
-            cout << "||" << setw((horizontal - 2) / 2 + 10);
-            SetColor(15, 0);
+            cout << "||";
+            cout << string(((horizontal - 2) / 2 - 10), ' ');
+            SetColor(15, 5);
             cout << "Sign in as admin (3)";
             SetColor(14, 0);
-            cout << setw((horizontal - 2) / 2 - 10) << "||";
+            cout << string(((horizontal - 2) / 2 - 12), ' ');
+            cout << "||";
         }
         else if (i == vertical - 2) {
             cout << "||" << setw((horizontal - 2) / 2 + 8);
-            SetColor(12, 0);
+            SetColor(10, 0);
             cout << "Choose an option";
             SetColor(14, 0);
             cout << setw((horizontal - 2) / 2 - 8) << "||";
@@ -478,17 +480,13 @@ void Display_login_interface() {
     switch (option) {
     case 1:
         clear();
-        SetColor(15, 0);
-        signup();
         break;
     case 2:
         clear();
-        SetColor(15, 0);
         login();
         break;
     case 3:
         clear();
-        SetColor(15, 0);
         adminlogin();
         break;
     }

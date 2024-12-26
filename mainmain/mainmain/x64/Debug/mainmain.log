@@ -1,6 +1,1 @@
-﻿  mainmain.cpp
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(378,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(383,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(402,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(506,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  mainmain.vcxproj -> C:\Users\Habeb\source\repos\CSE141\mainmain\x64\Debug\mainmain.exe
+﻿  mainmain.vcxproj -> C:\Users\Habeb\source\repos\CSE141\mainmain\x64\Debug\mainmain.exe
