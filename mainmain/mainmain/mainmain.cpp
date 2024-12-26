@@ -124,21 +124,21 @@ void login() {
 
     // user is redirected here if login option is chosen
     user data, datamatch;
-    int choice;
+    string choice;
     cout << "Please enter your email ";
-    cin >> data.email;
+    gl(data.email);
 
     //verfies that email is linked to an account
     //if not linked, user is prompted to either sign up or renter email
     while (!is_there(userslist, data)) {
         cout << "This email is not linked to an account\n";
         cout << "If you wish to signup please press 1\nIf you wish to renter your email please press 2\n";
-        cin >> choice;
+        gl(choice);
 
         //verify input is within range
         while (choice != 1 && choice != 2) {
             cout << "Invalid choice, please renter\n";
-            cin >> choice;
+            gl(choice);
         }
         if (choice == 1) {
 
@@ -146,7 +146,7 @@ void login() {
             return signup();
         }
         else if (choice == 2) {
-            cin >> data.email;
+            gl(data.email);
         }
     }
 
@@ -917,6 +917,29 @@ admin AdminInfo(admin reg) {
     return reg;
 }
 
+
+void adminlogin() {
+    admin data, datamatch;
+    string choice;
+    cout << "Please enter your email ";
+    gl(data.email);
+    while (!is_there(adminslist, data)) {
+        cout << "This email is not linked to an account\n";
+        cout << "Please contact a prime admin to add your account or press 1 to re-enter your email\n";
+        gl(choice);
+
+        //verify input is within range
+        while (choice != 1 ) {
+            cout << "Invalid choice, please renter\n";
+            gl(choice);
+        }
+        if (choice == 1) {
+            gl(data.email);
+            
+        }
+   
+    }
+}
 
 int main()
 {
