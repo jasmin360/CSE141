@@ -50,7 +50,12 @@ struct Transaction {
 
 vector <user> userslist;
 
-const int horizontal = 100, vertical = 20;
+string emailone;
+string passwordone;
+string emailtwo;
+string passwordtwo;
+
+const int horizontal = 120, vertical = 20;
 
 
 //ADD YOUR FUNCTIONS HERE
@@ -82,83 +87,7 @@ bool is_there(const vector <user>& userslist, user datamatch) {
 
 //declaring login function before signup() since login() is called inside signup()
 void login();
-
-void signup() {
-
-    // user is redirected here if signup option is chosen
-    user data;
-    cout << "Please enter your email\n";
-    cin >> data.email;
-
-    //verfiy that this email does not exist
-    //if already linked, user is prompted to either login or renter email
-    while (is_there(userslist, data)) {
-        int choice;
-        cout << "This email is already linked to an account\n";
-        cout << "If you wish to login please press 1\nIf you wish to renter your email please press 2\n";
-        cin >> choice;
-        cin.ignore();  // Clear input buffer
-
-        //verify input is within range
-        while (choice != 1 && choice != 2) {
-            cout << "Invalid choice, please renter\n";
-            cin >> choice;
-            cin.ignore();  // Clear input buffer
-        }
-        if (choice == 1) {
-
-            //exits current fujnction and redirects to login
-            return login();
-        }
-        else if (choice == 2) {
-            cin >> data.email;
-        }
-    }
-    cout << "Please enter your name\n";
-    cin.ignore(); // Clearing input buffer
-    getline(cin, data.name);
-    cout << "Please enter your password\n";
-    cin.ignore();
-    getline(cin, data.password);
-    cout << "Please enter phone number\n";
-    cin >> data.contactinfo;
-    cin.ignore();
-
-    //adding id as size of set + 1 as the new user has not been inserted yet
-    data.ID = userslist.size() + 1;
-    userslist.push_back(data);
-
-    //randomizing OTP
-    cout << "This is your OTP\n";
-    srand(time(0));
-    int OTP, renter;
-    //generates a 4 digit OTP
-    OTP = 1000 + rand() % 9000;
-    cout << OTP << "\n Please renter the OTP\n";
-    cin >> renter;
-
-    //Verify the OTP has been rentered correctly
-    //user has 3 tries to enter OTP, if still incorrect, OTP changes
-    while (renter != OTP) {
-        for (int i = 0; renter != OTP && i < 3; i++) {
-            cout << "OTP does not match, please renter\n" << 3 - i << " tries left\n";
-            cin >> renter;
-        }
-        if (renter == OTP) {
-            break;
-        }
-        cout << "Your OTP has changed\n";
-        cout << "This is your new OTP\n";
-        srand(time(0));
-        OTP = 1000 + rand() % 9000;
-        cout << OTP << "\n Please renter the OTP\n";
-        cin >> renter;
-    }
-
-
-    cout << "Signup succesfull\nRedirecting to dashboard...\n";
-    //redirection to dashboard
-}
+void signup();
 
 void login() {
 
@@ -291,68 +220,6 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     return 1; // returns success
 }
 
-int main() {
-    double sender_balance = 10000;
-    double receiver_balance = 0;
-    ProcessTransaction(sender_balance, receiver_balance);
-    return 0;
-}
-
-
-
-
-
-
-
-
-
-struct user {
-    int ID;
-    string name;
-    string email;
-    string password;
-
-    //contactinfo is declared as a string to protect left hand side zeros (phone numbers)
-    string contactinfo;
-
-    //vector of pairs: where each pair's first value is the linked bank account ID and the second value is balance of said acc
-    vector<pair<int, double>> linkedbankacc_balance;
-
-    /*
-    //may be added later on in development of project
-            //vector of pairs: where each pair's first value is the linked bank account ID
-            //and the second pair's first value is the balance of the account and the second value is the currency symbol
-            vector<pair<int,pair<double, char>>> linkedbankacc_balance;
-    */
-
-};
-vector <user>userslist;
-
-
-//this function DOES NOT deal with cases where there is no data match
-//user emails have been proved to exist in userslist using is_there in all instances where this function is used below
-user find(const vector <user>& userslist, user datamatch) {
-    user matchfound;
-    for (int i = 0; i < userslist.size(); i++) {
-        if (userslist[i].email == datamatch.email) {
-            matchfound = userslist[i];
-            break;
-        }
-    }
-    return matchfound;
-}
-
-//this function returns a boolean value to describe weather or not a certain email is linked to a user
-bool is_there(const vector <user>& userslist, user datamatch) {
-    for (int i = 0; i < userslist.size(); i++) {
-        if (userslist[i].email == datamatch.email) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
 void clear();
 void Display_login_interface();
 
@@ -363,7 +230,6 @@ void SetColor(int textColor, int bgColor)
     SetConsoleTextAttribute(hConsole,
         (bgColor << 4) | textColor);
 }
-
 
 void centretext(string h) {
     cout << "||" << setw((horizontal - 2) / 2 + h.length() / 2) << h
@@ -390,14 +256,8 @@ void delay(double delay = 1) {
     clock_t start_time = clock();
     while ((clock() - start_time) / 1000 < delay);
 }
-string emailone;
-string passwordone;
-string emailtwo;
-string passwordtwo;
+
 void signup() {
-
-
-
     // user is redirected here if signup option is chosen
     user data;
     cout << setw(horizontal / 2) << "Please enter your email\n";
@@ -421,6 +281,7 @@ void signup() {
         if (choice == 1) {
 
             //exits current fujnction and redirects to login
+            clear();
             return login();
         }
         else if (choice == 2) {
@@ -444,17 +305,17 @@ void signup() {
     //randomizing OTP
     cout << setw(horizontal / 2) << "This is your OTP\n";
     srand(time(0));
-    int OTP, renter;
+    string OTP, renter;
     //generates a 4 digit OTP
-    OTP = 1000 + rand() % 9000;
+    OTP = to_string(rand() % 10000);
     cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
     cin >> renter;
 
     //Verify the OTP has been rentered correctly
     //user has 3 tries to enter OTP, if still incorrect, OTP changes
     while (renter != OTP) {
-        for (int i = 0; renter != OTP && i < 3; i++) {
-            cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 3 - i << " tries left\n";
+        for (int i = 0; renter != OTP && i < 2; i++) {
+            cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2-i!=1?"ies":"y") << " left\n";
             cin >> renter;
         }
         if (renter == OTP) {
@@ -463,7 +324,7 @@ void signup() {
         cout << setw(horizontal / 2) << "Your OTP has changed\n";
         cout << setw(horizontal / 2) << "This is your new OTP\n";
         srand(time(0));
-        OTP = 1000 + rand() % 9000;
+        OTP = to_string(rand() % 10000);
         cout << OTP << "\nPlease renter the OTP\n";
         cin >> renter;
     }
@@ -478,15 +339,10 @@ void signup() {
 }
 
 void clear() {
-
     system("cls");
-
 }
 
 void Display_login_interface() {
-    int horizontal = 120;
-    int vertical = 20;
-
     for (int i = 1; i <= horizontal; i++) {
         SetColor(14, 0);
         cout << "-";
@@ -545,20 +401,12 @@ void Display_login_interface() {
     }
 }
 
-
-
-
-
-
-
-
-
-
 int main()
 {
-
-    Display_login_interface();
+    while (true) {
+        Display_login_interface();
+        clear();
+    }
     return 0;
-
 }
 
