@@ -137,7 +137,7 @@ bool is_there(const vector <admin>& userslist, admin datamatch) {
 
 void gl(string &s) {
     getline(cin, s);
-    if (s.empty() || s[0] == '\n') getline(cin, s);
+    while (s.empty() || s[0] == '\n') getline(cin, s);
 }
 
 //declaring login function before signup() since login() is called inside signup()
