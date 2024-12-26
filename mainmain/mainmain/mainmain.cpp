@@ -6,6 +6,7 @@
 #include <vector>
 #include <Windows.h>
 #include <algorithm>
+#include <cstdlib>
 #include <ctime>
 #include<fstream>
 using namespace std;
@@ -45,11 +46,26 @@ struct Transaction {
     string status;
 };
 
+// admin struct
+struct admin {
+    int id;
+    string name;
+    string email;
+    string role;
+    bool is_prime = 0; // 1-> prime admin can creat enew admins 0-> cannot create new admins
+
+    // access level- i=0 : view profiles i = 1: suspend accounts i = 2: handle disputes
+    // false = no permission, true = has permission
+    bool permission[3] = { 0 };
+};
 
 
 //ADD GLOBAL VARIABLES HERE
 
 vector <user> userslist;
+
+string FakeUserPass = "test"; // replace where this is used with user pass stored in user struct when full implementation
+
 
 string emailone;
 string passwordone;
@@ -61,6 +77,14 @@ const int horizontal = 120, vertical = 20;
 
 //ADD YOUR FUNCTIONS HERE
 
+// function that validates choices; takes 3 parameters 1. choice to validate 2. lb : lower-bound 2. ub : upper-bound
+int val_choices(int choice, int lb, int ub) {
+    while (choice < lb || choice >ub) {
+        cout << "Invalid input. PLease enter a number between 1 and 3";
+        cin >> choice;
+    }
+    return choice;
+}
 
 
 //this function DOES NOT deal with cases where there is no data match
@@ -86,9 +110,15 @@ bool is_there(const vector <user>& userslist, user datamatch) {
     return false;
 }
 
+void gl(string &s) {
+    getline(cin, s);
+    if (s.empty() || s[0] == '\n') getline(cin, s);
+}
+
 //declaring login function before signup() since login() is called inside signup()
 void login();
 void signup();
+
 
 void login() {
 
@@ -289,16 +319,12 @@ void signup() {
         cout << setw(horizontal / 2) << "This email is already linked to an account\n";
         cout << setw(horizontal / 2) << "If you wish to login please press 1\nIf you wish to renter your email please press 2\n";
         cin >> choice;
-        cin.ignore();  // Clear input buffer
-
         //verify input is within range
         while (choice != 1 && choice != 2) {
             cout << setw(horizontal / 2) << "Invalid choice, please renter\n";
             cin >> choice;
-            cin.ignore();  // Clear input buffer
         }
         if (choice == 1) {
-
             //exits current fujnction and redirects to login
             clear();
             return login();
@@ -308,15 +334,13 @@ void signup() {
         }
     }
     cout << setw(horizontal / 2) << "Please enter your name\n";
-    cin.ignore(); // Clearing input buffer
+    // Clearing input buffer
     getline(cin, data.name);
     cout << setw(horizontal / 2) << "Please enter your password\n";
-    cin.ignore();
-    getline(cin, data.password);
+    cin.ignore(); getline(cin, data.password);
+    cout << "\"" << data.password << "\"\n";
     cout << setw(horizontal / 2) << "Please enter phone number\n";
     cin >> data.contactinfo;
-    cin.ignore();
-
     //adding id as size of set + 1 as the new user has not been inserted yet
     data.ID = userslist.size() + 1;
     userslist.push_back(data);
@@ -420,12 +444,480 @@ void Display_login_interface() {
     }
 }
 
+void Dashboard();
+void Account();
+void ChangeEmail();
+void center(string& text, int boxwidth);
+void ChangePass();
+void ChangeContactInfo();
+
+void center(string& text, int boxwidth = 50) {
+	int numspc = (boxwidth - text.length()) / 2;
+
+	cout << endl << string(numspc, ' ') << text << endl;
+
+}
+
+void Dashboard() { //function to output list of commands that can be used in dashboard
+	string dashboard[] = {
+
+		"   choose a number to navigate   ",
+		"   user.name   ", //output name stored in user struct
+		"   user.balance   ", //output balance stored in user struct
+		"   Send Money (1)                 Account Management (2)   ",/*PLEASE DONT REMOVE THE BLANK OUTPUT!!!*/ "",// (1) redirects to money transfer page (2) redirects to account page
+		"   Most recent transaction   ",
+		"   (Function of most recent transaction)   ", //should output data for the most recent transaction (sent/recieved - value - date - status)
+		"   Open Transaction History (3)   "
+
+	};
+	int n = 8;
+	for (int i = 0; i < n; i++) {
+		if (i != 1 && i != 2) {
+			center(dashboard[i], 100);
+		}
+		else {
+			cout << endl << dashboard[i] << endl;
+		}
+	}
+	int dashboard_nav;
+	cin >> dashboard_nav;
+	while (dashboard_nav != 1 && dashboard_nav != 2 && dashboard_nav != 3) {
+		cout << "invalid number please re-enter navigation numeber";
+		cin >> dashboard_nav;
+	}
+
+	switch (dashboard_nav) {
+
+	case 1:
+		clear();
+		cout << "1";
+		break;//redirect to money transfer
+	case 2:
+		clear();
+		Account();
+
+	case 3:
+		clear();
+		cout << "3";
+		break;//redirect to transaction history
+
+	}
+}
+
+void Account() {
+
+	int accountnav;
+
+	string account[] = {
+		"\tID:           ","user.id",
+		"\tUsername:     ", "user.name",
+		"\tEmail:        ", "user.email",
+		"\tChange email (1)",
+		"\tPassword:     ", string(FakeUserPass.length(), '*'),
+		"\tChange password (2)",
+		"\tContact Info: ","user.contactinfo",
+		"\tChange contact info (3)",
+		"\tLogout (4)",
+		"\tBack to dashboard(5)"
+	};
+
+	int n = 15;
+	for (int i = 0; i < n; i++) {
+		if (i == 0 || i == 2 || i == 4 || i == 7 || i == 10) {
+			cout << account[i];
+		}
+		else cout << account[i] << endl;
+	}
+
+	cin >> accountnav;
+	cin.ignore();
+	while (accountnav != 1 && accountnav != 2 && accountnav != 3 && accountnav != 4 && accountnav != 5) {
+		cout << "invalid number please re-enter navigation number ";
+		cin >> accountnav;
+		cin.ignore();
+	}
+
+	switch (accountnav) {
+
+	case 1:
+		clear();
+		ChangeEmail();
+		break;
+	case 2:
+		clear();
+		ChangePass();
+		break;
+	case 3:
+		clear();
+		ChangeContactInfo();
+		break;
+	case 4:
+		clear();
+		cout << endl << "logged out" << endl;     // send user back to login page and clear currently used user data
+		break;
+	case 5:
+		clear();
+		Dashboard();
+		break;
+	}
+
+}
+
+void ChangeEmail() { //change email function
+	int fakeOTP;//will be used to compare with real OTP 
+	string FakeUserEmail = "fakeemail";//will be replaced with email struct value
+	string TempMail;
+	string UserEmailVerify;
+
+	bool masterbreaker = 0;
+
+	cout << "please enter the OTP sent to your phone number \n";
+
+	cin >> fakeOTP;
+	cin.ignore();
+
+	TempMail = FakeUserEmail;
+
+	if (fakeOTP == 1234/*correct OTP*/) {
+
+		cout << "Enter your new email:\n";
+
+
+
+
+
+		while (masterbreaker == 0) {
+
+			getline(cin, TempMail);
+
+			if (TempMail.find('@') == string::npos) {//checks that email has @
+
+				cout << "Email must contain @ please enter a valid email\n";
+				continue;
+			}
+			else {
+
+				if (TempMail.length() < 4) {
+
+					cout << "email must be atleast 4 characters\nplease enter a valid email\n";
+					continue;
+				}
+				else {
+					bool continuefrominsideloop = 0;
+					for (int i = 0; i < TempMail.length(); i++) {//check that email doesnt contain spaces
+
+						if (TempMail[i] == ' ') {
+
+							cout << "Email cant contain spaces please enter a valid email \n";
+							continuefrominsideloop = 1;
+							break;
+						}
+					}
+					if (continuefrominsideloop == 1) {
+						continue;
+					}
+
+				}
+
+			}
+			masterbreaker = 1;
+		}
+		cout << "\nValidation passed\n\n";
+
+
+		cout << "Please re-enter your new email:\n";
+
+		getline(cin, UserEmailVerify);
+
+		int i = 0;
+
+		while (TempMail.compare(UserEmailVerify) != 0) {
+
+			if (i == 3) {
+				cout << "\nEmail couldn't be changed\nReason: Max number of tries reached\nyou will be returned to account page\n";
+				delay(3.0);
+				break;
+			}
+
+			cout << "Emails dont match please re-enter your email:\n";
+			cout << 3 - i << " tries left \n";
+
+			getline(cin, UserEmailVerify);
+			i++;
+		}
+
+		cout << "Enter the OTP that was sent to the new email\n";
+		cin >> fakeOTP;
+		cin.ignore();
+		for (int i = 0; i < 5; i++) {
+			if (i >= 3) {
+				cout << "Email couldnt be changed\nReason: out of tries\n";
+				delay(3.0);
+				break;
+			}
+			if (fakeOTP == 1234) {
+
+				FakeUserEmail = TempMail;
+				cout << "Email successfully changed\nYou will be returned to account page\n";
+				delay(3.0);
+				break;
+			}
+			else {
+
+				cout << "OTP is incorrect " << 3 - i << " tries left\n";
+				cin >> fakeOTP;
+
+			}
+
+		}
+	}
+	else {
+		cout << "\nEmail couldn't be changed\nReason: OTP is incorrect\nyou will be returned to account page\n";
+		delay(3.0);
+	}
+
+	clear();
+
+	Account();
+
+}
+
+void ChangePass() {
+
+	bool masterbreaker = 0;
+
+	string PassVerify;
+	string userpasstemp = FakeUserPass;
+
+	cout << "Please enter current password: ";
+
+	getline(cin, PassVerify);
+
+	int i = 0;
+
+	while (i < 3) {
+
+		if (userpasstemp.compare(PassVerify) != 0) {//compare original password with the password entered
+
+			cout << "Password is incorrect re-enter your password: " << 3 - i << " tries left\n";
+
+			getline(cin, PassVerify);
+
+			i++;
+
+		}
+		else {
+
+			break;
+
+		}
+	}
+	if (i != 3) {
+		while (true) {
+
+			cout << "Enter your new password: \n";
+
+			getline(cin, userpasstemp);
+
+			cout << "Re-enter your password: \n";
+
+			getline(cin, PassVerify);
+
+			if (userpasstemp.compare(PassVerify) != 0) {
+
+				cout << "Passwords dont match\n";
+
+			}
+			else {
+
+				if (PassVerify.empty()) {
+
+					cout << "Password cannot be empty\n";
+
+				}
+				else {
+
+					break;
+				}
+			}
+		}
+	}
+
+	FakeUserPass = userpasstemp;
+
+	cout << "Password changed successfully\nReturning to account page";
+
+	delay(3.0);
+
+	clear();
+
+	Account();
+
+}
+
+void ChangeContactInfo() {
+
+	bool masterbreaker = 0;
+
+	string Userdotcontactinfo;
+	string PhoneNumberVerify;
+
+	int FakeOTP;//will be replaced with real OTP
+
+	cout << "Please enter an OTP sent to your Email: \n";
+	cin >> FakeOTP;
+	cin.ignore();
+	if (FakeOTP == 1234) {//entered OTP compare to real OTP
+
+		cout << "Please enter your new Phone number in the format: +CCXXXXXXXXXX\n";
+
+		cin >> PhoneNumberVerify;
+		cin.ignore();
+
+		PhoneNumberVerify[0] = '+';
+
+		while (masterbreaker == 0) {
+			if (PhoneNumberVerify.length() != 13) { //checks if entered number is 13 character long ex: +20XXXXXXXXXX
+
+				cout << "phone number must have 13 digits\nPlease re-enter your new phone number in the format: +CCXXXXXXXXXX\n";
+
+				cin >> PhoneNumberVerify;
+				cin.ignore();
+
+				PhoneNumberVerify[0] = '+';
+
+
+				for (int i = 1; i < 13; i++) {//first character will be always '+' so i starts with the second character ⁂int i = 1;
+
+					if (PhoneNumberVerify[i] < '0' || PhoneNumberVerify[i] > '9') {//check if the character entered in PhoneNumberVerify is a digit
+
+						cout << "Phone number cant contain characters other than [0-9]\nPlease re-enter your phone number in the format: +CCXXXXXXXXXX\n";
+						cin >> PhoneNumberVerify;
+						cin.ignore();
+						PhoneNumberVerify[0] = '+';
+
+						i = 0;
+
+					}
+				}
+			}
+			else {
+				break;
+
+			}
+		}
+		if (masterbreaker == 0) {
+
+
+			cout << "Please enter the OTP sent to the new phone number:\n";
+
+			cin >> FakeOTP;
+
+			if (FakeOTP == 1234) {//checks if OTP entered is same as real OTP
+
+				Userdotcontactinfo = PhoneNumberVerify;
+
+				cout << "Phone number changed successfully!!\nReturning to account page";
+
+				delay(4.0);
+
+			}
+			else {
+				for (int i = 0; i < 5; i++) {
+					if (i == 3) {
+						cout << "failed to change phone number\nReason:out of tries\nReturning to account page";
+						delay(4.0);
+						break;
+					}
+					cout << "OTP is incorrect please re-enter " << 3 - i << " tries left\n";
+					cin >> FakeOTP;
+					if (FakeOTP == 1234) {
+
+						Userdotcontactinfo = PhoneNumberVerify;
+
+						cout << "Phone number changed successfully!! \nReturning to account page";
+
+						delay(4.0);
+
+						break;
+					}
+				}
+			}
+		}
+
+
+
+	}
+	else {
+
+		cout << "failed to change phone number\nReason: failed to enter OTP\nReturning to account page";
+		delay(4.0);
+
+	}
+	clear();
+	Account();
+}
+
+//function that should only work when prime admin to add new admins
+admin AdminInfo(admin reg) {
+    cout << "enter Admin's ID";
+    cin >> reg.id;
+    cout << "enter Admin's name";
+    cin.ignore();  // clear input buffer
+    getline(cin, reg.name);
+    cout << "enter Admin's email";
+    cin >> reg.email;
+    cout << "enter Admin's role"; // it will just appear in the dashboard (Doesnt affect code)
+
+    int choice; // Prime Admin choices
+    cout << "enter Admin's permissions";
+    // permission 1
+    cout << "can they view profiles\n1. yes\n2. no : ";
+    cin >> choice;
+    choice = val_choices(choice, 1, 2);
+    switch (choice) {
+    case 1:
+        reg.permission[0] = 1; // store permission in array
+        break;
+    default:
+        reg.permission[0] = 0;
+    }
+
+    // permission 2
+    cout << "can they suspend accounts\n1. yes\n2. no : ";
+    cin >> choice;
+    choice = val_choices(choice, 1, 2);
+    switch (choice) {
+    case 1:
+        reg.permission[1] = 1;
+        break;
+    default:
+        reg.permission[1] = 0;
+    }
+
+    // permission 3
+    cout << "can they handle disputes\n1. yes\n2. no : ";
+    cin >> choice;
+    choice = val_choices(choice, 1, 2);
+    switch (choice) {
+    case 1:
+        reg.permission[2] = 1;
+        break;
+    default:
+        reg.permission[2] = 0;
+    }
+
+    return reg;
+}
+
+
 int main()
 {
-    while (true) {
+    /*while (true) {
         Display_login_interface();
         clear();
-    }
+    }*/
+    Account();
     return 0;
 }
 
