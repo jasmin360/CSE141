@@ -1,5 +1,6 @@
 ﻿  mainmain.cpp
-C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(302,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(307,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(326,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(306,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(311,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(330,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(416,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   mainmain.vcxproj -> C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\x64\Debug\mainmain.exe
