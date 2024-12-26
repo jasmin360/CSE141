@@ -227,18 +227,31 @@ double UpdateReceiverBalance(double receiver_balance, double amount_received) {
     return receiver_balance += amount_received;
 }
 
-void transactionfile(Transaction& tx) {
-    ofstream transaction("transaction history.txt");
-    if (transaction.is_open()) {
-        cout << "\nTransaction Successful!" << endl;
-        cout << "Transaction ID: " << tx.transaction_id << endl;
-        cout << "Sender: " << tx.sender_name << endl;
-        cout << "Receiver: " << tx.receiver_name << endl;
-        cout << "Amount: " << tx.currency << tx.amount << endl;
-        /*cout << "Sender's New Balance: " << updated_sender_balance << tx.currency << endl;
-        cout << "Receiver's New Balance: " << updated_receiver_balance << tx.currency << endl;*/
-        transaction.close();
+void transactionfile(Transaction tx) {
+    ofstream("temp.txt");
+    fstream O; O.open("temp.txt");
+    fstream H; H.open("history.txt");
+    string s;
+    while (getline(H, s)) {
+        O << s << endl;
     }
+    H.close();
+    int _status = remove("history.txt");
+    ofstream("history.txt");
+    H.open("history.txt");
+    H << "Transaction Successful!" << endl;
+    H << "Transaction ID: " << tx.transaction_id << endl;
+    H << "Sender: " << tx.sender_name << endl;
+    H << "Receiver: " << tx.receiver_name << endl;
+    H << "Amount: " << tx.currency << tx.amount << endl;
+    H << "Time: " << clock() << endl;
+    H << "-------------------------------------" << endl;
+    O.seekg(0);
+    while (getline(O, s)) {
+        H << s << endl;
+    }
+    O.close(); H.close();
+    _status = remove("temp.txt");
 }
 
 bool transactionstatus(int transaction) {
