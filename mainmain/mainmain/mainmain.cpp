@@ -331,6 +331,7 @@ void delay(double delay = 1) {
     while ((clock() - start_time) / 1000 < delay);
 }
 
+void adminlogin();
 void signup() {
     // user is redirected here if signup option is chosen
     user data;
@@ -433,18 +434,22 @@ void Display_login_interface() {
             cout << setw((horizontal - 2) / 2 - 10) << "||";
         }
         else if (i == vertical / 2 - 1) {
-            cout << "||" << setw((horizontal - 2) / 2 + 5);
-            SetColor(15, 0);
+            cout << "||";
+            cout << string(((horizontal - 2) / 2 - 6), ' ');
+            SetColor(15, 5);
             cout << "Sign up (1)";
             SetColor(14, 0);
-            cout << setw((horizontal - 2) / 2 - 5) << "||";
+            cout << string(((horizontal - 2) / 2 - 7), ' ');
+            cout << "||";
         }
         else if (i == vertical / 2) {
-            cout << "||" << setw((horizontal - 2) / 2 + 5);
-            SetColor(15, 0);
+            cout << "||";
+            cout << string(((horizontal - 2) / 2 - 6), ' ');
+            SetColor(15, 5);
             cout << "Sign in (2)";
             SetColor(14, 0);
-            cout << setw((horizontal - 2) / 2 - 5) << "||";
+            cout << string(((horizontal - 2) / 2 - 7), ' '); 
+            cout << "||";
         }
         else if (i == vertical / 2 + 1) {
             cout << "||" << setw((horizontal - 2) / 2 + 10);
@@ -454,11 +459,11 @@ void Display_login_interface() {
             cout << setw((horizontal - 2) / 2 - 10) << "||";
         }
         else if (i == vertical - 2) {
-            cout << "||" << setw((horizontal - 2) / 2 + 12);
+            cout << "||" << setw((horizontal - 2) / 2 + 8);
             SetColor(12, 0);
-            cout << "Please choose an option";
+            cout << "Choose an option";
             SetColor(14, 0);
-            cout << setw((horizontal - 2) / 2 - 12) << "||";
+            cout << setw((horizontal - 2) / 2 - 8) << "||";
         }
         else {
             cout << "||" << setw(horizontal - 2) << "||";
@@ -474,11 +479,18 @@ void Display_login_interface() {
     switch (option) {
     case 1:
         clear();
+        SetColor(15, 0);
         signup();
         break;
     case 2:
         clear();
+        SetColor(15, 0);
         login();
+        break;
+    case 3:
+        clear();
+        SetColor(15, 0);
+        adminlogin();
         break;
     }
 }
