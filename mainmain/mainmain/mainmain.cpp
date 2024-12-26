@@ -82,6 +82,8 @@ const int horizontal = 120, vertical = 20;
 
 //ADD YOUR FUNCTIONS HERE
 
+
+
 // function that validates choices; takes 3 parameters 1. choice to validate 2. lb : lower-bound 2. ub : upper-bound
 int val_choices(int choice, int lb, int ub) {
     while (choice < lb || choice >ub) {
@@ -90,7 +92,14 @@ int val_choices(int choice, int lb, int ub) {
     }
     return choice;
 }
+void delay(double delay = 1) {
 
+    clock_t start_time = clock();
+    while ((clock() - start_time) / 1000 < delay);
+}
+void clear() {
+    system("cls");
+}
 
 //this function DOES NOT deal with cases where there is no data match
 //user emails have been proved to exist in userslist using is_there in all instances where this function is used below
@@ -196,6 +205,8 @@ void login() {
     cout << "Password confirmed\nRedirecting to dashboard...\n";
     datamatch.logincounter++;
     //redirection to dashboard
+    delay(3.0);
+    clear();
     Dashboard();
 }
 
@@ -317,8 +328,6 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
 
     return 1; // returns success
 }
-
-void clear();
 void Display_login_interface();
 
 // Function to set the console text and background color
@@ -347,12 +356,6 @@ void setborder() {
     for (int i = 1; i <= horizontal; i++) {
         cout << "-";
     }
-}
-
-void delay(double delay = 1) {
-
-    clock_t start_time = clock();
-    while ((clock() - start_time) / 1000 < delay);
 }
 
 void adminlogin();
@@ -438,9 +441,6 @@ void signup() {
     Display_login_interface();
 }
 
-void clear() {
-    system("cls");
-}
 
 void Display_login_interface() {
     for (int i = 1; i <= horizontal; i++) {
