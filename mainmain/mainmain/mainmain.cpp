@@ -39,7 +39,7 @@ struct user {
     int logincounter = 0;
 
 };
-struct Transaction {
+struct transaction {
     double amount;
     string receiver_name; // will need user info
     string sender_name;   // will need user info
@@ -239,7 +239,7 @@ double UpdateReceiverBalance(double receiver_balance, double amount_received) {
     return receiver_balance += amount_received;
 }
 
-void transactionfile(Transaction tx) {
+void transactionfile(transaction tx) {
     ofstream("temp.txt");
     fstream O; O.open("temp.txt");
     fstream H; H.open("history.txt");
@@ -251,7 +251,9 @@ void transactionfile(Transaction tx) {
     int _status = remove("history.txt");
     ofstream("history.txt");
     H.open("history.txt");
-    H << "Transaction Successful!" << endl;
+    if (tx.status == "completed") H << "Transaction Successful!" << endl;
+    else if (tx.status == "Cancelled") H << "Transaction Failed!" << endl;
+    else H << "Transaction Pending!" << endl;
     H << "Transaction ID: " << tx.transaction_id << endl;
     H << "Sender: " << tx.sender_name << endl;
     H << "Receiver: " << tx.receiver_name << endl;
@@ -266,12 +268,8 @@ void transactionfile(Transaction tx) {
     _status = remove("temp.txt");
 }
 
-bool transactionstatus(int transaction) {
-    ifstream transactionstatus("transaction history.txt");
-    return 0;
-}
 int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
-    Transaction tx; // instance
+    transaction tx; // instance
     tx.sender_name = "User1"; //
     tx.receiver_name = "Omar"; //
     tx.transaction_id = 101; //
@@ -312,9 +310,9 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     cout << "Sender: " << tx.sender_name << endl;
     cout << "Receiver: " << tx.receiver_name << endl;
     cout << "Amount: " << tx.currency << tx.amount << endl;
-    cout << "Sender's New Balance: " << updated_sender_balance << tx.currency << endl;
-    cout << "Receiver's New Balance: " << updated_receiver_balance << tx.currency << endl;
-
+    cout << "Sender's New Balance: " << tx.currency << updated_sender_balance  << endl;
+    cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
+    
     return 1; // returns success
 }
 
