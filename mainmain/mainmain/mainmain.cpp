@@ -36,6 +36,7 @@ struct user {
             vector<pair<int,pair<double, char>>> linkedbankacc_balance;
             double accbalance;
     */
+    int logincounter = 0;
 
 };
 struct Transaction {
@@ -192,6 +193,7 @@ void login() {
         cin >> password;
     }
     cout << "Password confirmed\nRedirecting to dashboard...\n";
+    datamatch.logincounter++;
     //redirection to dashboard
 }
 
