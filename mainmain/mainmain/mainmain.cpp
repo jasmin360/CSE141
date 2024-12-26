@@ -8,7 +8,8 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
-#include<fstream>
+#include <fstream>
+
 using namespace std;
 
 
@@ -45,13 +46,12 @@ struct Transaction {
     string currency = "$";
     string status;
 };
-
-// admin struct
 struct admin {
     int id;
     string name;
     string email;
     string role;
+    string password;
     bool is_prime = 0; // 1-> prime admin can creat enew admins 0-> cannot create new admins
 
     // access level- i=0 : view profiles i = 1: suspend accounts i = 2: handle disputes
@@ -66,16 +66,10 @@ admin ad1;
 admin ad2;
 admin ad3;
 
-
 vector <user> userslist;
 vector <admin> adminlist;
 
-
-
-
-
 string FakeUserPass = "test"; // replace where this is used with user pass stored in user struct when full implementation
-
 
 string emailone;
 string passwordone;
@@ -110,8 +104,29 @@ user find(const vector <user>& userslist, user datamatch) {
     return matchfound;
 }
 
+admin find(const vector <admin>& userslist, admin datamatch) {
+    admin matchfound;
+    for (int i = 0; i < userslist.size(); i++) {
+        if (userslist[i].email == datamatch.email) {
+            matchfound = userslist[i];
+            break;
+        }
+    }
+    return matchfound;
+}
+
+
 //this function returns a boolean value to describe weather or not a certain email is linked to a user
 bool is_there(const vector <user>& userslist, user datamatch) {
+    for (int i = 0; i < userslist.size(); i++) {
+        if (userslist[i].email == datamatch.email) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool is_there(const vector <admin>& userslist, admin datamatch) {
     for (int i = 0; i < userslist.size(); i++) {
         if (userslist[i].email == datamatch.email) {
             return true;
@@ -146,16 +161,16 @@ void login() {
         gl(choice);
 
         //verify input is within range
-        while (choice != 1 && choice != 2) {
+        while (choice != "1" && choice != "2") {
             cout << "Invalid choice, please renter\n";
             gl(choice);
         }
-        if (choice == 1) {
+        if (choice == "1") {
 
             //exits current function and redirects to signup
             return signup();
         }
-        else if (choice == 2) {
+        else if (choice == "2") {
             gl(data.email);
         }
     }
@@ -212,24 +227,24 @@ double UpdateSenderBalance(double sender_balance, double amount_sent) {
 double UpdateReceiverBalance(double receiver_balance, double amount_received) {
     return receiver_balance += amount_received;
 }
+
 void transactionfile(Transaction& tx) {
-    ofstream transaction("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transaction history.txt");
+    ofstream transaction("transaction history.txt");
     if (transaction.is_open()) {
         cout << "\nTransaction Successful!" << endl;
         cout << "Transaction ID: " << tx.transaction_id << endl;
         cout << "Sender: " << tx.sender_name << endl;
         cout << "Receiver: " << tx.receiver_name << endl;
         cout << "Amount: " << tx.currency << tx.amount << endl;
-        cout << "Sender's New Balance: " << updated_sender_balance << tx.currency << endl;
-        cout << "Receiver's New Balance: " << updated_receiver_balance << tx.currency << endl;
+        /*cout << "Sender's New Balance: " << updated_sender_balance << tx.currency << endl;
+        cout << "Receiver's New Balance: " << updated_receiver_balance << tx.currency << endl;*/
         transaction.close();
     }
-
-
 }
-bool transactionstatus(int transaction) {
-    ifstream transactionstatus("C:\Users\OMAR\source\repos\jasmin360\CSE141\mainmain\mainmain\x64\transaction history.txt")
 
+bool transactionstatus(int transaction) {
+    ifstream transactionstatus("transaction history.txt");
+    return 0;
 }
 int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
     Transaction tx; // instance
@@ -330,16 +345,16 @@ void signup() {
         cout << setw(horizontal / 2) << "If you wish to login please press 1\nIf you wish to renter your email please press 2\n";
         gl (choice);
         //verify input is within range
-        while (choice != 1 && choice != 2) {
+        while (choice != "1" && choice != "2") {
             cout << setw(horizontal / 2) << "Invalid choice, please renter\n";
             gl(choice);
         }
-        if (choice == 1) {
+        if (choice == "1") {
             //exits current fujnction and redirects to login
             clear();
             return login();
         }
-        else if (choice == 2) {
+        else if (choice == "2") {
             gl(data.email);
         }
     }
@@ -347,14 +362,14 @@ void signup() {
     gl(data.name);
     cout << setw(horizontal / 2) << "Please enter your password\n";
     gl(data.password);
-    while (strlen(data.password) < 8) {
+    while (data.password.size() < 8) {
         cout << "Password must contain at least 8 characters";
         gl(data.password);
     }
     cout << "\"" << data.password << "\"\n";
     cout << setw(horizontal / 2) << "Please enter phone number\n";
     gl(data.contactinfo);
-    while (strlen(data.contactinfo) != 11) {
+    while (data.contactinfo.size() != 11) {
         cout << "your phone number must be 11 digits long";
         gl(data.contactinfo);
     }
@@ -927,23 +942,22 @@ admin AdminInfo(admin reg) {
     return reg;
 }
 
-
 void adminlogin() {
     admin data, datamatch;
     string choice;
     cout << "Please enter your email ";
     gl(data.email);
-    while (!is_there(adminslist, data)) {
+    while (!is_there(adminlist, data)) {
         cout << "This email is not linked to an account\n";
         cout << "Please contact a prime admin to add your account or press 1 to re-enter your email\n";
         gl(choice);
 
         //verify input is within range
-        while (choice != 1 ) {
+        while (choice != "1") {
             cout << "Invalid choice, please renter\n";
             gl(choice);
         }
-        if (choice == 1) {
+        if (choice == "1") {
             gl(data.email);
             
         }
