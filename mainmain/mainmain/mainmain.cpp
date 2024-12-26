@@ -89,7 +89,7 @@ bool is_there(const vector <user>& userslist, user datamatch) {
     return false;
 }
 
-void getline(string &s) {
+void gl(string &s) {
     getline(cin, s);
     if (s.empty() || s[0] == '\n') getline(cin, s);
 }
