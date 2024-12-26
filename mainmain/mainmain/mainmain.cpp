@@ -480,6 +480,7 @@ void Display_login_interface() {
     switch (option) {
     case 1:
         clear();
+        signup();
         break;
     case 2:
         clear();
