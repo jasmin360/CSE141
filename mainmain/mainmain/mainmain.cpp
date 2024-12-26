@@ -93,7 +93,7 @@ int val_choices(int choice, int lb, int ub) {
 
 //this function DOES NOT deal with cases where there is no data match
 //user emails have been proved to exist in userslist using is_there in all instances where this function is used below
-user find(const vector <user>& userslist, auto datamatch) {
+user find(const vector <user>& userslist, user datamatch) {
     user matchfound;
     for (int i = 0; i < userslist.size(); i++) {
         if (userslist[i].email == datamatch.email) {
@@ -117,7 +117,7 @@ admin find(const vector <admin>& userslist, admin datamatch) {
 
 
 //this function returns a boolean value to describe weather or not a certain email is linked to a user
-bool is_there(const vector <user>& userslist, admin datamatch) {
+bool is_there(const vector <user>& userslist, user datamatch) {
     for (int i = 0; i < userslist.size(); i++) {
         if (userslist[i].email == datamatch.email) {
             return true;
