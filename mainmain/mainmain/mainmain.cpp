@@ -135,6 +135,14 @@ bool is_there(const vector <admin>& userslist, admin datamatch) {
     return false;
 }
 
+string stringifyotp(int x, int n=4) {
+    string s;
+    while (x) s.push_back('0' + x%10), x /= 10;
+    while (s.size() < n) s.push_back('0');
+    reverse(s.begin(), s.end());
+    return s;
+}
+
 void gl(string &s) {
     getline(cin, s);
     while (s.empty() || s[0] == '\n') getline(cin, s);
@@ -395,7 +403,7 @@ void signup() {
     srand(time(0));
     string OTP, renter;
     //generates a 4 digit OTP
-    OTP = to_string(rand() % 10000);
+    OTP = stringifyotp(rand() % 10000);
     cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
     cin >> renter;
 
@@ -412,7 +420,7 @@ void signup() {
         cout << setw(horizontal / 2) << "Your OTP has changed\n";
         cout << setw(horizontal / 2) << "This is your new OTP\n";
         srand(time(0));
-        OTP = to_string(rand() % 10000);
+        OTP = stringifyotp(rand() % 10000);
         cout << OTP << "\nPlease renter the OTP\n";
         cin >> renter;
     }
