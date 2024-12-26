@@ -1018,6 +1018,13 @@ void adminlogin() {
     //redirection to admin dashboard
 }
 
+void displayhistory() {
+    fstream H; H.open("history.txt");
+    string s;
+    while (getline(H, s)) cout << s << endl;
+    return;
+}
+
 int main()
 {
     // initialized prime admins
