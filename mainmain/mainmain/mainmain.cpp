@@ -144,7 +144,6 @@ void gl(string &s) {
 void login();
 void signup();
 
-
 void login() {
 
     // user is redirected here if login option is chosen
@@ -991,4 +990,3 @@ int main()
     Account();
     return 0;
 }
-
