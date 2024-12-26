@@ -334,13 +334,20 @@ void signup() {
         }
     }
     cout << setw(horizontal / 2) << "Please enter your name\n";
-    // Clearing input buffer
     gl(data.name);
     cout << setw(horizontal / 2) << "Please enter your password\n";
     gl(data.password);
+    while (strlen(data.password) < 8) {
+        cout << "Password must contain at least 8 characters";
+        gl(data.password);
+    }
     cout << "\"" << data.password << "\"\n";
     cout << setw(horizontal / 2) << "Please enter phone number\n";
     gl(data.contactinfo);
+    while (strlen(data.contactinfo) != 11) {
+        cout << "your phone number must be 11 digits long";
+        gl(data.contactinfo);
+    }
     //adding id as size of set + 1 as the new user has not been inserted yet
     data.ID = userslist.size() + 1;
     userslist.push_back(data);
