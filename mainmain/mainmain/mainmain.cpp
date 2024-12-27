@@ -333,12 +333,36 @@ int generateid() {
     srand(time(0));
     return rand() % 99999 + 1;
 }
-int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
+int ProcessTransaction() { // to use it in main function properly
     transaction tx; // instance
-    cout << "Enter the recipient's name: ";
-    gl(tx.receiver_name);
-    cout << "Enter the recipient's phone number or account details: ";
-    gl(tx.receiver_contact);
+    int bankID;
+    int sender_balance, idx = -1;
+    while (idx == -1) {
+        cout << "Choose a bank account ID" << endl;
+        cin >> bankID;
+        user sender = session_user;
+        for (int i = 0;i < sender.linkedbankacc_balance.size();i++) {
+            if (sender.linkedbankacc_balance[i].first == bankID) sender_balance = sender.linkedbankacc_balance[i].second, idx = i;
+        }
+        if (idx == -1) cout << "Bank accound not found. Try again." << endl;
+    }
+    cout << "Enter reciever email: ";
+    bool flag = 0;
+    int r_idx = 0;
+    while (!flag) {
+        string r_email;
+        gl(r_email);
+        for (int i = 0;i < userslist.size();i++) {
+            if (userslist[i].email == r_email) {
+                flag = 1; r_idx = i; break;
+            }
+        }
+        if (flag) break;
+        cout << "User not found. Try again" << endl;
+    }
+    user reciever = userslist[r_idx];
+    tx.receiver_name = reciever.name;
+    tx.receiver_contact = reciever.contactinfo;
     cout << "Choose the source of funds (e.g., Bank or Wallet): ";
     gl(tx.source);
     tx.sender_name = session_user.name;
@@ -367,7 +391,6 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
         tx.type = "instant";
     }
 
-
     isBalanceSufficient = HasEnoughBalance(sender_balance, tx.amount);
     if (!isBalanceSufficient) {
         tx.status = "Cancelled";
@@ -380,31 +403,34 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     cin >> answer;
     cin.ignore(1000,'\n'); // tx.currency picks up answer did this to fix it
     if (answer == 'N' || answer == 'n') {
-        cout << "Transaction cancelled." << endl;
+        //cout << "Transaction cancelled." << endl;
         tx.status = "Cancelled";
         transactionfile(tx);
         return 0;
     }
 
-    cout << "Please enter the currency. Type $ for dollars or type € for euros." << endl;
-    while (true) {
-        cin >> tx.currency;
-        if (tx.currency == "$" || tx.currency == "€") {
-            break;  // Valid currency input, exit loop
-        }
-        cout << "Invalid input. Please enter $ or €: ";
-    }
+    //cout << "Please enter the currency. Type $ for dollars or type € for euros." << endl;
+    //while (true) {
+    //    cin >> tx.currency;
+    //    if (tx.currency == "$" || tx.currency == "€") {
+    //        break;  // Valid currency input, exit loop
+    //    }
+    //    cout << "Invalid input. Please enter $ or €: ";
+    //}
 
     updated_sender_balance = UpdateSenderBalance(sender_balance, tx.amount);
-    updated_receiver_balance = UpdateReceiverBalance(receiver_balance, tx.amount);
+    updated_receiver_balance = UpdateReceiverBalance(reciever.linkedbankacc_balance[0].second, tx.amount);
     tx.status = "completed";
     transactionfile(tx);
     cout << "Sender's New Balance: " << tx.currency << updated_sender_balance << endl;
     cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
     
-    sender_balance = updated_receiver_balance;
-    receiver_balance = updated_receiver_balance;
+    session_user.linkedbankacc_balance[idx].second = updated_receiver_balance;
+    reciever.linkedbankacc_balance[0].second = updated_receiver_balance;
     
+
+    userslist[r_idx] = reciever;
+
     return 1;
 }
 void Display_login_interface();
@@ -665,11 +691,12 @@ void Dashboard() { //function to output list of commands that can be used in das
     case 1:
         clear();
         cout << "1";
+        ProcessTransaction();
         break;//redirect to money transfer
     case 2:
         clear();
         Account();
-
+        break;
     case 3:
         clear();
         cout << "3";
