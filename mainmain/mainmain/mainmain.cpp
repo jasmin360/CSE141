@@ -17,12 +17,6 @@ string session_email = "ss";
 string session_password = "11";
 string session_contactinfo = "123";
 
-int session_id = -1;
-string session_name = "12";
-string session_email = "ss";
-string session_password = "11";
-string session_contactinfo = "123";
-
 
 //ADD STRUCTS HERE
 
