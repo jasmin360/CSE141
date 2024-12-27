@@ -1,9 +1,283 @@
 ﻿  mainmain.cpp
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(409,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(414,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(433,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(533,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1021,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1108,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(165,1): warning C4717: 'gl': recursive on all control paths, function will cause runtime stack overflow
-  mainmain.vcxproj -> C:\Users\Habeb\source\repos\CSE141\mainmain\x64\Debug\mainmain.exe
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(14,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(14,7): error C2146: syntax error: missing ';' before identifier 'session_admin'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(15,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(15,6): error C2146: syntax error: missing ';' before identifier 'session_user'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(66,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(66,1): error C2086: 'int admin': redefinition
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(14,1):
+      see declaration of 'admin'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(66,7): error C2146: syntax error: missing ';' before identifier 'ad1'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(67,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(67,1): error C2086: 'int admin': redefinition
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(14,1):
+      see declaration of 'admin'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(67,7): error C2146: syntax error: missing ';' before identifier 'ad2'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(68,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(68,1): error C2086: 'int admin': redefinition
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(14,1):
+      see declaration of 'admin'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(68,7): error C2146: syntax error: missing ';' before identifier 'ad3'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(71,1): error C2923: 'std::vector': 'user' is not a valid template type argument for parameter '_Ty'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(15,1):
+      see declaration of 'user'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(71,1): error C2976: 'std::vector': too few template arguments
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(71,15): error C2133: 'userslist': unknown size
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(71,15): error C2512: 'std::vector': no appropriate default constructor available
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(72,1): error C2923: 'std::vector': 'admin' is not a valid template type argument for parameter '_Ty'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(14,1):
+      see declaration of 'admin'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(72,1): error C2976: 'std::vector': too few template arguments
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(72,16): error C2133: 'adminlist': unknown size
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(72,16): error C2512: 'std::vector': no appropriate default constructor available
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(107,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(107,1): error C2086: 'int user': redefinition
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(15,1):
+      see declaration of 'user'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(107,6): error C2146: syntax error: missing ';' before identifier 'find'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(107,17): error C2923: 'std::vector': 'user' is not a valid template type argument for parameter '_Ty'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(15,1):
+      see declaration of 'user'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(107,17): error C2976: 'std::vector': too few template arguments
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(107,59): error C2143: syntax error: missing ';' before '{'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(107,59): error C2447: '{': missing function header (old-style formal list?)
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(118,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(118,1): error C2086: 'int admin': redefinition
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(14,1):
+      see declaration of 'admin'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(118,7): error C2146: syntax error: missing ';' before identifier 'find'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(118,18): error C2923: 'std::vector': 'admin' is not a valid template type argument for parameter '_Ty'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(14,1):
+      see declaration of 'admin'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(118,18): error C2976: 'std::vector': too few template arguments
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(118,62): error C2143: syntax error: missing ';' before '{'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(118,62): error C2447: '{': missing function header (old-style formal list?)
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(131,21): error C2923: 'std::vector': 'user' is not a valid template type argument for parameter '_Ty'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(15,1):
+      see declaration of 'user'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(131,21): error C2976: 'std::vector': too few template arguments
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(131,47): error C2061: syntax error: identifier 'user'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(132,35): error C2662: 'allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type std::vector<_Ty,_Alloc>::size(void) noexcept const': cannot convert 'this' pointer from 'const std::vector' to 'const std::vector<_Ty,_Alloc> &'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(132,25):
+      Reason: cannot convert from 'const std::vector' to 'const std::vector<_Ty,_Alloc>'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(132,25):
+      Conversion requires a second user-defined-conversion operator or constructor
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1871,39):
+      see declaration of 'std::vector<_Ty,_Alloc>::size'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(132,35):
+      while trying to match the argument list '()'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(133,13): error C2678: binary '[': no operator found which takes a left-hand operand of type 'const std::vector' (or there is no acceptable conversion)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1895,40):
+      could be 'const _Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept const'
+          C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(133,13):
+          'const _Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept const': cannot convert 'this' pointer from 'const std::vector' to 'const std::vector<_Ty,_Alloc> &'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(133,13):
+              Reason: cannot convert from 'const std::vector' to 'const std::vector<_Ty,_Alloc>'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(133,13):
+              Conversion requires a second user-defined-conversion operator or constructor
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1885,34):
+      or       '_Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept'
+          C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(133,13):
+          '_Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept': cannot convert 'this' pointer from 'const std::vector' to 'std::vector<_Ty,_Alloc> &'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(133,13):
+              Reason: cannot convert from 'const std::vector' to 'std::vector<_Ty,_Alloc>'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(133,13):
+              Conversion requires a second user-defined-conversion operator or constructor
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(133,13):
+      while trying to match the argument list '(const std::vector, int)'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(133,35): error C2065: 'datamatch': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(140,21): error C2923: 'std::vector': 'admin' is not a valid template type argument for parameter '_Ty'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(14,1):
+      see declaration of 'admin'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(140,21): error C2976: 'std::vector': too few template arguments
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(140,48): error C2061: syntax error: identifier 'admin'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(140,6): error C2084: function 'bool is_there(const std::vector &)' already has a body
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(131,6):
+      see previous definition of 'is_there'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(141,35): error C2662: 'allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type std::vector<_Ty,_Alloc>::size(void) noexcept const': cannot convert 'this' pointer from 'const std::vector' to 'const std::vector<_Ty,_Alloc> &'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(141,25):
+      Reason: cannot convert from 'const std::vector' to 'const std::vector<_Ty,_Alloc>'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(141,25):
+      Conversion requires a second user-defined-conversion operator or constructor
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1871,39):
+      see declaration of 'std::vector<_Ty,_Alloc>::size'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(141,35):
+      while trying to match the argument list '()'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(142,13): error C2678: binary '[': no operator found which takes a left-hand operand of type 'const std::vector' (or there is no acceptable conversion)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1895,40):
+      could be 'const _Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept const'
+          C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(142,13):
+          'const _Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept const': cannot convert 'this' pointer from 'const std::vector' to 'const std::vector<_Ty,_Alloc> &'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(142,13):
+              Reason: cannot convert from 'const std::vector' to 'const std::vector<_Ty,_Alloc>'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(142,13):
+              Conversion requires a second user-defined-conversion operator or constructor
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1885,34):
+      or       '_Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept'
+          C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(142,13):
+          '_Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept': cannot convert 'this' pointer from 'const std::vector' to 'std::vector<_Ty,_Alloc> &'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(142,13):
+              Reason: cannot convert from 'const std::vector' to 'std::vector<_Ty,_Alloc>'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(142,13):
+              Conversion requires a second user-defined-conversion operator or constructor
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(142,13):
+      while trying to match the argument list '(const std::vector, int)'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(142,35): error C2065: 'datamatch': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(170,10): error C2146: syntax error: missing ';' before identifier 'data'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(170,16): error C2065: 'datamatch': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(170,10): error C2563: mismatch in formal parameter list
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(177,13): error C2660: 'is_there': function does not take 2 arguments
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(140,6):
+      see declaration of 'is_there'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(177,13):
+      while trying to match the argument list '(std::vector, overloaded-function)'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(201,5): error C2065: 'datamatch': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(201,17): error C2672: 'find': no matching overloaded function found
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(6019,31):
+      could be '_InIt std::find(_InIt,const _InIt,const _Ty &)'
+          C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(201,17):
+          '_InIt std::find(_InIt,const _InIt,const _Ty &)': expects 3 arguments - 2 provided
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(202,12): error C2065: 'datamatch': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(207,5): error C2065: 'datamatch': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(363,10): error C2146: syntax error: missing ';' before identifier 'data'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(363,10): warning C4551: function call missing argument list
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(369,12): error C2660: 'is_there': function does not take 2 arguments
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(140,6):
+      see declaration of 'is_there'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(369,12):
+      while trying to match the argument list '(std::vector, overloaded-function)'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(404,25): error C2662: 'allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type std::vector<_Ty,_Alloc>::size(void) noexcept const': cannot convert 'this' pointer from 'std::vector' to 'const std::vector<_Ty,_Alloc> &'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(404,15):
+      Reason: cannot convert from 'std::vector' to 'const std::vector<_Ty,_Alloc>'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(404,15):
+      Conversion requires a second user-defined-conversion operator or constructor
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1871,39):
+      see declaration of 'std::vector<_Ty,_Alloc>::size'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(404,25):
+      while trying to match the argument list '()'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(405,15): error C2663: 'std::vector<_Ty,_Alloc>::push_back': no overloaded function has valid conversion for 'this' pointer
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23):
+      could be 'void std::vector<_Ty,_Alloc>::push_back(_Ty &&)'
+          C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(405,15):
+          'void std::vector<_Ty,_Alloc>::push_back(_Ty &&)': cannot convert 'this' pointer from 'std::vector' to 'std::vector<_Ty,_Alloc> &'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(405,5):
+              Reason: cannot convert from 'std::vector' to 'std::vector<_Ty,_Alloc>'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(405,5):
+              Conversion requires a second user-defined-conversion operator or constructor
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(866,23):
+      or       'void std::vector<_Ty,_Alloc>::push_back(const _Ty &)'
+          C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(405,15):
+          'void std::vector<_Ty,_Alloc>::push_back(const _Ty &)': cannot convert 'this' pointer from 'std::vector' to 'std::vector<_Ty,_Alloc> &'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(405,5):
+              Reason: cannot convert from 'std::vector' to 'std::vector<_Ty,_Alloc>'
+              C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(405,5):
+              Conversion requires a second user-defined-conversion operator or constructor
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(405,15):
+      while trying to match the argument list '(overloaded-function)'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(409,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(428,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(528,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(633,26): error C2065: 'session_email': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(635,1): error C2059: syntax error: '}'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(996,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(996,1): error C2086: 'int user': redefinition
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(15,1):
+      see declaration of 'user'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(996,6): error C2146: syntax error: missing ';' before identifier 'email_search'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(996,25): error C2923: 'std::vector': 'user' is not a valid template type argument for parameter '_Ty'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(15,1):
+      see declaration of 'user'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(996,25): error C2976: 'std::vector': too few template arguments
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(996,51): error C2143: syntax error: missing ';' before '{'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(996,51): error C2447: '{': missing function header (old-style formal list?)
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1014,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1014,1): error C2086: 'int admin': redefinition
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(14,1):
+      see declaration of 'admin'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1014,7): error C2146: syntax error: missing ';' before identifier 'AddAdmins'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1014,28): error C2143: syntax error: missing ';' before '{'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1014,28): error C2447: '{': missing function header (old-style formal list?)
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1070,10): error C2146: syntax error: missing ';' before identifier 'matchfound'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1070,10): error C2065: 'matchfound': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1074,5): error C2065: 'matchfound': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1074,18): error C3861: 'email_search': identifier not found
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1076,13): error C2065: 'matchfound': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1078,13): error C2065: 'matchfound': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1080,13): error C2065: 'matchfound': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1082,13): error C2065: 'matchfound': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1085,25): error C2065: 'matchfound': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1086,17): error C2065: 'matchfound': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1086,71): error C2065: 'matchfound': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1090,6): error C2182: 'suspend_accs': this use of 'void' is not valid
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1090,25): error C2146: syntax error: missing ')' before identifier 'person'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1090,33): error C2143: syntax error: missing ';' before '{'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1090,33): error C2447: '{': missing function header (old-style formal list?)
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1114,11): error C2146: syntax error: missing ';' before identifier 'data'
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1114,17): error C2065: 'datamatch': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1114,11): error C2563: mismatch in formal parameter list
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1118,13): error C2660: 'is_there': function does not take 2 arguments
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(140,6):
+      see declaration of 'is_there'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1118,13):
+      while trying to match the argument list '(std::vector, overloaded-function)'
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1138,5): error C2065: 'datamatch': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1138,17): error C2672: 'find': no matching overloaded function found
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(6019,31):
+      could be '_InIt std::find(_InIt,const _InIt,const _Ty &)'
+          C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1138,17):
+          '_InIt std::find(_InIt,const _InIt,const _Ty &)': expects 3 arguments - 2 provided
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1139,12): error C2065: 'datamatch': undeclared identifier
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1139,12): error C1003: error count exceeds 100; stopping compilation
