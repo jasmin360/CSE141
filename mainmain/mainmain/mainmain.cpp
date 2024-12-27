@@ -297,7 +297,7 @@ void transactionfile(transaction tx) {
 }
 int generateid() {
     srand(time(0));
-    return rand() % 99999 + 1
+    return rand() % 99999 + 1;
 }
 int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
     transaction tx; // instance
@@ -307,8 +307,8 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     gl(tx.receiver_contact);
     cout << "Choose the source of funds (e.g., Bank or Wallet): ";
     gl(tx.source);
-    tx.sender_name = session_name;
-    tx.email = session_email;
+    tx.sender_name = session_user.name;
+    tx.email = session_user.email;
     tx.transaction_id = generateid(); //
     tx.status = "pending"; //
     tx.amount = GetValidAmount(tx.receiver_name);
