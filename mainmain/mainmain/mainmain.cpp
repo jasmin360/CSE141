@@ -734,6 +734,32 @@ void adminCTRL() {
     if (find(adminlist, session_admin).id);
 
 }
+//adds bank accounts
+void addbk() {
+    int banklink;
+    cout << "Enter how many bank accounts you wish to link with your insta-pay account\n"; cin >> banklink;
+    for (int i = session_user.linkedbankacc_balance.size(); i < banklink + session_user.linkedbankacc_balance.size(); i++) {
+        cout << "Enter your bank account ID\n"; cin >> session_user.linkedbankacc_balance[i].first;
+        cout << "Enter your deposit in USD\n"; cin >> session_user.linkedbankacc_balance[i].second;
+    }
+}
+//removes bank account
+void erasebk() {
+    int banklink;
+    cout << "Enter how many bank accounts you wish to remove from your insta-pay account\n"; cin >> banklink;
+    for (int i = 0; i < banklink; i++) {
+        int bankid;
+        cout << "Enter the ID of the bank account you wish to delete"; cin >> bankid;
+        user matchfound;
+        for (int j = 0; j < session_user.linkedbankacc_balance.size(); j++) {
+            if (session_user.linkedbankacc_balance[j].first == bankid) {
+                userslist[session_user.ID].linkedbankacc_balance.erase(userslist[session_user.ID].linkedbankacc_balance.begin() + j);
+                break;
+            }
+        }
+
+    }
+}
 void Account() {
 
     int accountnav;
@@ -750,6 +776,7 @@ void Account() {
         "\tLogout (4)",
         "\tBack to dashboard (5)",
         "\tAdd or remove multiple bank accounts (6)"
+        "\tRemove multiple bank accounts (7)"
     };
 
     int n = 16;
@@ -794,7 +821,11 @@ void Account() {
         break;
     case 6:
         clear();
-        //add function here
+        addbk();
+        break;
+    case 7:
+        clear();
+        erasebk();
         break;
     }
 
