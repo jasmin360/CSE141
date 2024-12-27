@@ -175,7 +175,7 @@ void login() {
     string choice;
     cout << "Please enter your email ";
     getline(cin, data.email);
-    cin.ignore();
+    cin.ignore(1000,'\n');
 
     //verfies that email is linked to an account
     //if not linked, user is prompted to either sign up or renter email
@@ -183,13 +183,13 @@ void login() {
         cout << "This email is not linked to an account\n";
         cout << "If you wish to signup please press 1\nIf you wish to renter your email please press 2\n";
         getline(cin, choice);
-        cin.ignore();
+        cin.ignore(1000,'\n');
 
         //verify input is within range
         while (choice != "1" && choice != "2") {
             cout << "Invalid choice, please renter\n";
             getline(cin, choice);
-            cin.ignore();
+            cin.ignore(1000,'\n');
         }
         if (choice == "1") {
 
@@ -198,7 +198,7 @@ void login() {
         }
         else if (choice == "2") {
             getline(cin, data.email);
-            cin.ignore();
+            cin.ignore(1000,'\n');
         }
     }
 
@@ -341,7 +341,7 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
 
     cout << "Are u sure u want to send " << tx.amount << " to " << tx.receiver_name << " ? If yes type Y If not type N. (Default is : Y) " << endl;
     cin >> answer;
-    cin.ignore(); // tx.currency picks up answer did this to fix it
+    cin.ignore(1000,'\n'); // tx.currency picks up answer did this to fix it
     if (answer == 'N' || answer == 'n') {
         cout << "Transaction cancelled." << endl;
         tx.status = "Cancelled";
@@ -402,51 +402,49 @@ void signup() {
     // user is redirected here if signup option is chosen
     user data;
     cout << setw(horizontal / 2) << "Please enter your email\n";
-    getline(cin, data.email);
-    cin.ignore();
+    cin >> data.email;
+    
     //verfiy that this email does not exist
     //if already linked, user is prompted to either login or renter email
     while (is_there(userslist, data)) {
-        string choice;
+        int choice;
         cout << setw(horizontal / 2) << "This email is already linked to an account\n";
         cout << setw(horizontal / 2) << "If you wish to login please press 1\nIf you wish to renter your email please press 2\n";
-        getline(cin,choice);
-        cin.ignore();
+        cin >> choice;
         //verify input is within range
-        while (choice != "1" && choice != "2") {
+        while (choice != 1 && choice != 2) {
             cout << setw(horizontal / 2) << "Invalid choice, please renter\n";
-            getline(cin, choice);
-            cin.ignore();
+            cin >> choice;
         }
-        if (choice == "1") {
+        if (choice == 1) {
             //exits current fujnction and redirects to login
             clear();
             return login();
         }
-        else if (choice == "2") {
-            getline(cin, data.email);
-            cin.ignore();
+        else if (choice == 2) {
+            cin >> data.email;
         }
     }
     cout << setw(horizontal / 2) << "Please enter your name\n";
-    getline(cin, data.name);
-    cin.ignore();
+    cin.ignore(1000, '\n');
+    getline(cin, data.name, '\n');
     cout << setw(horizontal / 2) << "Please enter your password\n";
-    getline(cin, data.password);
-    cin.ignore();
+    getline(cin, data.password); 
+    
     while (data.password.size() < 8) {
         cout << "Password must contain at least 8 characters";
         getline(cin, data.password);
-        cin.ignore();
+       
     }
-    cout << "\"" << data.password << "\"\n";
     cout << setw(horizontal / 2) << "Please enter phone number in the format: +CCXXXXXXXXXX\n";
+    
     getline(cin, data.contactinfo);
-    cin.ignore();
-    while (data.contactinfo.size() != 11) {
-        cout << "your phone number must be 11 digits long";
+    
+    
+    while (data.contactinfo.size() != 13) {
+        cout << "your phone number must be 12 digits long\n";
         getline(cin, data.contactinfo);
-        cin.ignore();
+        cin.ignore(1000,'\n');
     }
     //adding id as size of set + 1 as the new user has not been inserted yet
     data.ID = userslist.size() + 1;
@@ -707,11 +705,11 @@ void Account() {
     }
 
     cin >> accountnav;
-    cin.ignore();
+    cin.ignore(1000,'\n');
     while (accountnav != 1 && accountnav != 2 && accountnav != 3 && accountnav != 4 && accountnav != 5) {
         cout << "invalid number please re-enter navigation number ";
         cin >> accountnav;
-        cin.ignore();
+        cin.ignore(1000,'\n');
     }
 
     switch (accountnav) {
@@ -751,7 +749,7 @@ void ChangeEmail() { //change email function
     cout << "please enter the OTP sent to your phone number \n";
 
     cin >> fakeOTP;
-    cin.ignore();
+    cin.ignore(1000,'\n');
 
     TempMail = FakeUserEmail;
 
@@ -825,7 +823,7 @@ void ChangeEmail() { //change email function
 
         cout << "Enter the OTP that was sent to the new email\n";
         cin >> fakeOTP;
-        cin.ignore();
+        cin.ignore(1000,'\n');
         for (int i = 0; i < 5; i++) {
             if (i >= 3) {
                 cout << "Email couldnt be changed\nReason: out of tries\n";
@@ -943,13 +941,13 @@ void ChangeContactInfo() {
 
     cout << "Please enter an OTP sent to your Email: \n";
     cin >> FakeOTP;
-    cin.ignore();
+    cin.ignore(1000,'\n');
     if (FakeOTP == 1234) {//entered OTP compare to real OTP
 
         cout << "Please enter your new Phone number in the format: +CCXXXXXXXXXX\n";
 
         cin >> PhoneNumberVerify;
-        cin.ignore();
+        cin.ignore(1000,'\n');
 
         PhoneNumberVerify[0] = '+';
 
@@ -959,7 +957,7 @@ void ChangeContactInfo() {
                 cout << "phone number must have 13 digits\nPlease re-enter your new phone number in the format: +CCXXXXXXXXXX\n";
 
                 cin >> PhoneNumberVerify;
-                cin.ignore();
+                cin.ignore(1000,'\n');
 
                 PhoneNumberVerify[0] = '+';
 
@@ -970,7 +968,7 @@ void ChangeContactInfo() {
 
                         cout << "Phone number cant contain characters other than [0-9]\nPlease re-enter your phone number in the format: +CCXXXXXXXXXX\n";
                         cin >> PhoneNumberVerify;
-                        cin.ignore();
+                        cin.ignore(1000,'\n');
                         PhoneNumberVerify[0] = '+';
 
                         i = 0;
@@ -1063,7 +1061,7 @@ admin AddAdmins(admin reg) {
     // automatically create id
     reg.id = adminlist.size() + 1;
     cout << "enter Admin's name";
-    cin.ignore();  // clear input buffer
+    cin.ignore(1000,'\n');  // clear input buffer
     getline(cin, reg.name);
     cout << "enter Admin's email";
     getline(cin, reg.email);
@@ -1163,21 +1161,21 @@ void adminlogin() {
     string choice;
     cout << "Please enter your email ";
     getline(cin, data.email);
-    cin.ignore();
+    cin.ignore(1000,'\n');
     while (!is_there(adminlist, data)) {
         cout << "This email is not linked to an account\n";
         cout << "Please contact a prime admin to add your account or press 1 to re-enter your email\n";
         getline(cin, choice);
-        cin.ignore();
+        cin.ignore(1000,'\n');
         //verify input is within range
         while (choice != "1") {
             cout << "Invalid choice, please renter\n";
             getline(cin, choice);
-            cin.ignore();
+            cin.ignore(1000,'\n');
         }
         if (choice == "1") {
             getline(cin, data.email);
-            cin.ignore();
+            cin.ignore(1000,'\n');
         }
 
     }
@@ -1185,12 +1183,12 @@ void adminlogin() {
     cout << "Account located successfully\nPlease enter your password\n";
     string password;
     getline(cin, password);
-    cin.ignore();
+    cin.ignore(1000,'\n');
     datamatch = find(adminlist, data);
     while (datamatch.password != password) {
         cout << "Incorrect password, please renter your password\n";
         getline(cin, password);
-        cin.ignore();
+        cin.ignore(1000,'\n');
     }
     cout << "Password confirmed\nRedirecting to dashboard...\n";
     //redirection to admin dashboard
