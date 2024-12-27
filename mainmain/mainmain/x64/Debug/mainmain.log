@@ -1,10 +1,20 @@
 ﻿  mainmain.cpp
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(296,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(450,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(455,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(474,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(574,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(679,43): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1062,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1149,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  mainmain.vcxproj -> C:\Users\Middle East\source\repos\CSE141\mainmain\x64\Debug\mainmain.exe
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(224,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(243,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(333,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(494,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(499,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(518,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(629,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(734,43): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(809,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(828,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(901,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(920,23): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(1015,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(1034,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(1081,23): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(1100,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(1138,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\mainmain\mainmain.cpp(1225,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  mainmain.vcxproj -> C:\Users\ahmed\OneDrive\Desktop\PROGRAMMING PROJECT\mainmain\x64\Debug\mainmain.exe
