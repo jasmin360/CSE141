@@ -1661,9 +1661,9 @@ int main()
 {
     ofstream("history.txt");
     // initialized prime admins
-    ad1.id = 0; ad1.name = "omar"; ad1.email = "omar@gmail.com"; ad1.is_prime = 1; ad1.permission[0] = 1; ad1.permission[1] = 1; ad1.permission[2] = 1; ad1.role = "manager";
-    ad2.id = 1; ad2.name = "jasmin"; ad2.email = "jasmin@gmail.com"; ad2.is_prime = 1; ad2.permission[0] = 1; ad2.permission[1] = 1; ad2.permission[2] = 1; ad2.role = "moderator";
-    ad3.id = 2; ad3.name = "eyad"; ad3.email = "eyad@gmail.com"; ad3.is_prime = 1; ad3.permission[0] = 1; ad3.permission[1] = 1; ad3.permission[2] = 1; ad3.role = "branch manager";
+    ad1.id = 0; ad1.name = "omar"; ad1.email = "omar@gmail.com"; ad1.is_prime = 1; ad1.permission[0] = 1; ad1.permission[1] = 1; ad1.permission[2] = 1; ad1.role = "manager"; ad1.password = "000";
+    ad2.id = 1; ad2.name = "jasmin"; ad2.email = "jasmin@gmail.com"; ad2.is_prime = 1; ad2.permission[0] = 1; ad2.permission[1] = 1; ad2.permission[2] = 1; ad2.role = "moderator"; ad2.password = "1111";
+    ad3.id = 2; ad3.name = "eyad"; ad3.email = "eyad@gmail.com"; ad3.is_prime = 1; ad3.permission[0] = 1; ad3.permission[1] = 1; ad3.permission[2] = 1; ad3.role = "branch manager"; ad3.password = "2222";
     adminlist.push_back(ad1); adminlist.push_back(ad2); adminlist.push_back(ad3);
 
     while (true) {

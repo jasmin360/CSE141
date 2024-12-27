@@ -1,26 +1,29 @@
 ﻿  mainmain.cpp
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(228,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(247,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(337,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(349,114): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(349,114): warning C4244:         with
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(349,114): warning C4244:         [
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(349,114): warning C4244:             _Ty2=double
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(349,114): warning C4244:         ]
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(524,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(529,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(548,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(659,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(765,43): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(772,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(871,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(890,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(964,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(983,23): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1080,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1099,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1146,23): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1165,27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1204,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1291,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  mainmain.vcxproj -> C:\Users\Middle East\source\repos\CSE141\mainmain\x64\Debug\mainmain.exe
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(233,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(252,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(344,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(356,114): warning C4244: '=': conversion from '_Ty2' to 'int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(356,114): warning C4244:         with
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(356,114): warning C4244:         [
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(356,114): warning C4244:             _Ty2=double
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(356,114): warning C4244:         ]
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(527,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(532,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(551,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(662,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(879,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(978,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(997,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1071,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1090,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1187,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1206,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1253,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1272,23): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1291,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1310,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1383,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1402,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1515,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Karma\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1602,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  mainmain.vcxproj -> C:\Users\Karma\source\repos\CSE141\mainmain\x64\Debug\mainmain.exe
