@@ -995,6 +995,25 @@ void ChangeContactInfo() {
 // ONLY RETURNS AN ELEMENT OF THE VECTOR
 // ** RETURNED VALUE MUST BE PUSHED INTO THE VECTOR ** 
 
+//function to find user email, returns matchfound
+user email_search(const vector <user>& userslist) {
+    user matchfound;
+    string email;
+    bool flag = false;
+    do {
+        cout << "Enter users' email :\n";
+        cin >> email;
+        for (int i = 0; i < userslist.size(); i++) {
+            if (userslist[i].email == email) {
+                matchfound = userslist[i];
+                flag = true;
+                break;
+            }
+        }
+    } while (flag == false);
+    return matchfound;
+}
+
 admin AddAdmins(admin reg) {
     // automatically create id
     reg.id = adminlist.size() + 1;
