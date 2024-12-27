@@ -212,7 +212,6 @@ void login() {
     string password;
     cin.ignore();
     getline(cin, password);
-    cout << password;
     datamatch = find(userslist, data);
     while (datamatch.password != password) {
         cout << "Incorrect password, please renter your password\n";
@@ -220,7 +219,6 @@ void login() {
     }
     cout << "Password confirmed\nRedirecting to dashboard...\n";
     datamatch.logincounter++;
-    cout << datamatch.logincounter;
     session_user = datamatch;
     //redirection to dashboard
     delay(3.0);

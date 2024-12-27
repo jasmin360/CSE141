@@ -1,10 +1,10 @@
 ﻿  mainmain.cpp
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(308,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(466,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(471,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(490,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(590,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(695,43): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1080,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1167,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(306,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(464,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(469,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(488,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(588,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(693,43): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1078,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1165,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   mainmain.vcxproj -> C:\Users\Middle East\source\repos\CSE141\mainmain\x64\Debug\mainmain.exe
