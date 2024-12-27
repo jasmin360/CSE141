@@ -462,7 +462,7 @@ void signup() {
     }
     //adding id as size of set + 1 as the new user has not been inserted yet
     data.ID = userslist.size() + 1;
-    userslist.push_back(data);
+    
 
     //randomizing OTP
     cout << setw(horizontal / 2) << "This is your OTP\n";
@@ -490,10 +490,18 @@ void signup() {
         cout << OTP << "\nPlease renter the OTP\n";
         cin >> renter;
     }
-
+    int banklink;
+    cout << "Enter how many bank accounts you wish to link with your insta-pay account"; cin >> banklink;
+    cout << "The first account you enter will be considered as your primary account";
+    for(int i=0; i<banklink; i++){
+        cout << "Enter your bank account ID"; cin >> data.linkedbankacc_balance[0].first;
+        cout << "Enter your deposit in USD"; cin>> data.linkedbankacc_balance[0].second;
+    }
 
     cout << "Signup succesfull\nRedirecting to dashboard...\n";
+    userslist.push_back(data);
     //redirection to dashboard
+
 
     delay(3.0);
     clear();
@@ -1207,6 +1215,7 @@ void adminlogin() {
         cin.ignore(1000,'\n');
     }
     cout << "Password confirmed\nRedirecting to dashboard...\n";
+
     //redirection to admin dashboard
 }
 
