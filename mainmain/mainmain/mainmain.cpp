@@ -999,7 +999,7 @@ user email_search(const vector <user>& userslist) {
     bool flag = false;
     do {
         cout << "Enter users' email :\n";
-        cin >> email;
+        gl(email);
         for (int i = 0; i < userslist.size(); i++) {
             if (userslist[i].email == email) {
                 matchfound = userslist[i];
