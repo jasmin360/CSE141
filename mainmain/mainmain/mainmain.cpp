@@ -260,7 +260,7 @@ void transactionfile(transaction tx) {
     }
     H.close();
     int _status = remove("history.txt");
-    ofstream("history.txt");
+    ofstream("history.txt",ios::app);
     H.open("history.txt");
     if (tx.status == "completed") H << "Transaction Successful!" << endl;
     else if (tx.status == "Cancelled") H << "Transaction Failed!" << endl;
@@ -269,7 +269,8 @@ void transactionfile(transaction tx) {
     H << "Sender: " << tx.sender_name << endl;
     H << "Receiver: " << tx.receiver_name << endl;
     H << "Amount: " << tx.currency << tx.amount << endl;
-    H << "Time: " << clock() << endl;
+    time_t timern = time(0);
+    H << "Time: " << ctime(&timern) << endl;
     H << "-------------------------------------" << endl;
     O.seekg(0);
     while (getline(O, s)) {
@@ -306,21 +307,19 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
         return 0;
     }
 
-    cout << "Please enter the currency. Type $ for dollars or type € for euros. (Default is : $) " << endl;
-    cin >> tx.currency;
-    if (tx.currency != "€" && tx.currency != "$") {
-        tx.currency = "$"; // default value
+    cout << "Please enter the currency. Type $ for dollars or type € for euros." << endl;
+    while (true) {
+        cin >> tx.currency;
+        if (tx.currency == "$" || tx.currency == "€") {
+            break;  // Valid currency input, exit loop
+        }
+        cout << "Invalid input. Please enter $ or €: ";
     }
    
     updated_sender_balance = UpdateSenderBalance(sender_balance, tx.amount);
     updated_receiver_balance = UpdateReceiverBalance(receiver_balance, tx.amount);
     tx.status = "completed";
-
-    cout << "\nTransaction Successful!" << endl;
-    cout << "Transaction ID: " << tx.transaction_id << endl;
-    cout << "Sender: " << tx.sender_name << endl;
-    cout << "Receiver: " << tx.receiver_name << endl;
-    cout << "Amount: " << tx.currency << tx.amount << endl;
+    transactionfile(tx);
     cout << "Sender's New Balance: " << tx.currency << updated_sender_balance  << endl;
     cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
     
