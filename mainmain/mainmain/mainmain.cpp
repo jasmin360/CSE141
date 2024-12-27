@@ -443,17 +443,17 @@ void signup() {
 void Display_login_interface() {
     for (int i = 1; i <= horizontal; i++) {
         SetColor(14, 0);
-        cout << "-";
+        cout << "-";  //Printing the upper horizontal lines along with setting its colors to yellow
     }
     cout << endl;
     for (int i = 1; i <= vertical; i++) {
         SetColor(14, 0);
         if (i == 2) {
-            cout << "||" << setw((horizontal - 2) / 2 + 10);
+            cout << "||" << setw((horizontal - 2) / 2 + 10); //Formula for each line tht contatins text
             SetColor(15, 0);
             cout << "Welcome to Instapay";
             SetColor(14, 0);
-            cout << setw((horizontal - 2) / 2 - 10) << "||";
+            cout << setw((horizontal - 2) / 2 - 10) << "||";  // Making the title
         }
         else if (i == vertical / 2 - 1) {
             cout << "||";
@@ -462,7 +462,7 @@ void Display_login_interface() {
             cout << "Sign up (1)";
             SetColor(14, 0);
             cout << string(((horizontal - 2) / 2 - 7), ' ');
-            cout << "||";
+            cout << "||"; //Making the sign up button
         }
         else if (i == vertical / 2) {
             cout << "||";
@@ -471,7 +471,7 @@ void Display_login_interface() {
             cout << "Sign in (2)";
             SetColor(14, 0);
             cout << string(((horizontal - 2) / 2 - 7), ' '); 
-            cout << "||";
+            cout << "||"; //Making the sign in button
         }
         else if (i == vertical / 2 + 1) {
             cout << "||";
@@ -480,14 +480,14 @@ void Display_login_interface() {
             cout << "Sign in as admin (3)";
             SetColor(14, 0);
             cout << string(((horizontal - 2) / 2 - 12), ' ');
-            cout << "||";
+            cout << "||"; //Making the sgining in as admin button
         }
         else if (i == vertical - 2) {
             cout << "||" << setw((horizontal - 2) / 2 + 8);
             SetColor(10, 0);
             cout << "Choose an option";
             SetColor(14, 0);
-            cout << setw((horizontal - 2) / 2 - 8) << "||";
+            cout << setw((horizontal - 2) / 2 - 8) << "||"; // Choose an option comment
         }
         else {
             cout << "||" << setw(horizontal - 2) << "||";
@@ -500,7 +500,7 @@ void Display_login_interface() {
     }
     int option;
     cin >> option;
-    switch (option) {
+    switch (option) { 
     case 1:
         clear();
         signup();
@@ -513,7 +513,7 @@ void Display_login_interface() {
         clear();
         adminlogin();
         break;
-    }
+    } //Making cases for each of the three options in the user interface
 }
 
 void Dashboard();
