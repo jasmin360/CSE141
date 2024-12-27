@@ -11,6 +11,17 @@
 #include <fstream>
 
 using namespace std;
+int session_id = -1;
+string session_name = "12";
+string session_email = "ss";
+string session_password = "11";
+string session_contactinfo = "123";
+
+int session_id = -1;
+string session_name = "12";
+string session_email = "ss";
+string session_password = "11";
+string session_contactinfo = "123";
 
 
 //ADD STRUCTS HERE
@@ -154,8 +165,8 @@ string stringifyotp(int x, int n=4) {
 }
 
 void gl(string &s) {
-    getline(cin, s);
-    while (s.empty() || s[0] == '\n') getline(cin, s);
+    gl(s);
+    while (s.empty() || s[0] == '\n') gl( s);
 }
 
 //declaring login function before signup() since login() is called inside signup()
@@ -574,7 +585,61 @@ void Dashboard() { //function to output list of commands that can be used in das
 
 	}
 }
+void ADashboard() { //function to output list of commands that can be used in dashboard
 
+    string dashboard[] = {
+
+        "   choose a number to navigate   ",
+        "   user.name   ", //output name stored in user struct
+        "   user.balance   ", //output balance stored in user struct
+        "   Send Money (1)                 Account Management (2)   ",/*PLEASE DONT REMOVE THE BLANK OUTPUT!!!*/ "",// (1) redirects to money transfer page (2) redirects to account page
+        "   Most recent transaction   ",
+        "   (Function of most recent transaction)   ", //should output data for the most recent transaction (sent/recieved - value - date - status)
+        "   Open Transaction History (3)   ",
+        "   Admin Controls (4)"
+
+    };
+    int n = 9;
+    for (int i = 0; i < n; i++) {
+        if (i != 1 && i != 2) {
+            center(dashboard[i], 100);
+        }
+        else {
+            cout << endl << dashboard[i] << endl;
+        }
+    }
+    int dashboard_nav;
+    cin >> dashboard_nav;
+    while (dashboard_nav != 1 && dashboard_nav != 2 && dashboard_nav != 3 && dashboard_nav != 4) {
+        cout << "invalid number please re-enter navigation number";
+        cin >> dashboard_nav;
+    }
+
+    switch (dashboard_nav) {
+
+    case 1:
+        clear();
+        cout << "1";
+        break;//redirect to money transfer
+    case 2:
+        clear();
+        Account();
+
+    case 3:
+        clear();
+        cout << "3";
+        break;//redirect to transaction history
+
+    case 4:
+        clear();
+        cout << "admin controls";
+        break;
+    }
+}
+
+void adminCTRL() {
+
+}
 void Account() {
 
 	int accountnav;
@@ -659,7 +724,7 @@ void ChangeEmail() { //change email function
 
 		while (masterbreaker == 0) {
 
-			getline(cin, TempMail);
+			gl( TempMail);
 
 			if (TempMail.find('@') == string::npos) {//checks that email has @
 
@@ -698,7 +763,7 @@ void ChangeEmail() { //change email function
 
 		cout << "Please re-enter your new email:\n";
 
-		getline(cin, UserEmailVerify);
+		gl( UserEmailVerify);
 
 		int i = 0;
 
@@ -713,7 +778,7 @@ void ChangeEmail() { //change email function
 			cout << "Emails dont match please re-enter your email:\n";
 			cout << 3 - i << " tries left \n";
 
-			getline(cin, UserEmailVerify);
+			gl( UserEmailVerify);
 			i++;
 		}
 
@@ -762,7 +827,7 @@ void ChangePass() {
 
 	cout << "Please enter current password: ";
 
-	getline(cin, PassVerify);
+	gl( PassVerify);
 
 	int i = 0;
 
@@ -772,7 +837,7 @@ void ChangePass() {
 
 			cout << "Password is incorrect re-enter your password: " << 3 - i << " tries left\n";
 
-			getline(cin, PassVerify);
+			gl( PassVerify);
 
 			i++;
 
@@ -788,11 +853,11 @@ void ChangePass() {
 
 			cout << "Enter your new password: \n";
 
-			getline(cin, userpasstemp);
+			gl( userpasstemp);
 
 			cout << "Re-enter your password: \n";
 
-			getline(cin, PassVerify);
+			gl( PassVerify);
 
 			if (userpasstemp.compare(PassVerify) != 0) {
 
@@ -935,7 +1000,7 @@ admin AdminInfo(admin reg) {
     cin >> reg.id;
     cout << "enter Admin's name";
     cin.ignore();  // clear input buffer
-    getline(cin, reg.name);
+    gl( reg.name);
     cout << "enter Admin's email";
     cin >> reg.email;
     cout << "enter Admin's role"; // it will just appear in the dashboard (Doesnt affect code)
