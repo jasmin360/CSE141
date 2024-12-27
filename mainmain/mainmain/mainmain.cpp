@@ -276,7 +276,10 @@ void transactionfile(transaction tx) {
     else H << "Transaction Pending!" << endl;
     H << "Transaction ID: " << tx.transaction_id << endl;
     H << "Sender: " << tx.sender_name << endl;
+    H << "Sender: " << tx.email << endl;
     H << "Receiver: " << tx.receiver_name << endl;
+    H << "Reciever contact info: " << tx.receiver_contact << endl;
+    H << "Source: " << tx.source << endl;
     H << "Amount: " << tx.currency << tx.amount << endl;
     H << "Type" << tx.type << endl;
     if (tx.type == "scheduled") {
