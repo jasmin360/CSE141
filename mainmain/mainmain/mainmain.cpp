@@ -39,10 +39,10 @@ struct user {
 };
 struct transaction {
     double amount;
-    string receiver_name; // will need user info
+    string receiver_name; 
     string sender_name;
-    string email;// will need user info
-    int transaction_id;    // will need user info
+    string email;
+    int transaction_id;  
     string currency = "$";
     string status;
     string type;
@@ -383,7 +383,7 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
         cout << "Transaction cancelled." << endl;
         tx.status = "Cancelled";
         transactionfile(tx);
-            return 0;
+        return 0;
     }
 
     cout << "Please enter the currency. Type $ for dollars or type € for euros." << endl;
@@ -401,7 +401,10 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     transactionfile(tx);
     cout << "Sender's New Balance: " << tx.currency << updated_sender_balance << endl;
     cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
-
+    
+    sender_balance = updated_receiver_balance;
+    receiver_balance = updated_receiver_balance;
+    
     return 1;
 }
 void Display_login_interface();
@@ -520,6 +523,7 @@ void signup() {
     int banklink;
     cout << "Enter how many bank accounts you wish to link with your insta-pay account"; cin >> banklink;
     cout << "The first account you enter will be considered as your primary account";
+    data.linkedbankacc_balance.resize(banklink);
     for(int i=0; i<banklink; i++){
         cout << "Enter your bank account ID"; cin >> data.linkedbankacc_balance[0].first;
         cout << "Enter your deposit in USD"; cin>> data.linkedbankacc_balance[0].second;
@@ -527,12 +531,13 @@ void signup() {
 
     cout << "Signup succesfull\nRedirecting to dashboard...\n";
     userslist.push_back(data);
+    session_user = data;
     //redirection to dashboard
 
 
     delay(3.0);
     clear();
-    Display_login_interface();
+    Dashboard();
 }
 
 
@@ -618,6 +623,7 @@ void ChangeEmail();
 void center(string& text, int boxwidth);
 void ChangePass();
 void ChangeContactInfo();
+void adminCTRL();
 
 void center(string& text, int boxwidth = 50) {
     int numspc = (boxwidth - text.length()) / 2;
@@ -718,7 +724,7 @@ void ADashboard() { //function to output list of commands that can be used in da
 
     case 4:
         clear();
-        adminCTRL;
+        adminCTRL();
         break;
     }
 }
@@ -1271,8 +1277,6 @@ void displayhistory() {
     while (getline(H, s)) cout << s << endl;
     return;
 }
-
-void 
 
 int main()
 {
