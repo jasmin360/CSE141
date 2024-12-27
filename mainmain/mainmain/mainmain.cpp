@@ -217,8 +217,35 @@ void login() {
         cout << "Incorrect password, please renter your password\n";
         cin >> password;
     }
-    cout << "Password confirmed\nRedirecting to dashboard...\n";
+    cout << "Password confirmed\n";
     datamatch.logincounter++;
+    //randomizing OTP
+    cout << setw(horizontal / 2) << "This is your OTP\n";
+    srand(time(0));
+    string OTP, renter;
+    //generates a 4 digit OTP
+    OTP = stringifyotp(rand() % 10000);
+    cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
+    cin >> renter;
+
+    //Verify the OTP has been rentered correctly
+    //user has 3 tries to enter OTP, if still incorrect, OTP changes
+    while (renter != OTP) {
+        for (int i = 0; renter != OTP && i < 2; i++) {
+            cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
+            cin >> renter;
+        }
+        if (renter == OTP) {
+            break;
+        }
+        cout << setw(horizontal / 2) << "Your OTP has changed\n";
+        cout << setw(horizontal / 2) << "This is your new OTP\n";
+        srand(time(0));
+        OTP = stringifyotp(rand() % 10000);
+        cout << OTP << "\nPlease renter the OTP\n";
+        cin >> renter;
+    }
+    cout << "Redirecting to dashboard...\n";
     session_user = datamatch;
     //redirection to dashboard
     delay(3.0);
@@ -691,7 +718,7 @@ void ADashboard() { //function to output list of commands that can be used in da
 
     case 4:
         clear();
-        cout << "admin controls";
+        adminCTRL;
         break;
     }
 }
@@ -715,10 +742,11 @@ void Account() {
         "\tContact Info: ","user.contactinfo",
         "\tChange contact info (3)",
         "\tLogout (4)",
-        "\tBack to dashboard(5)"
+        "\tBack to dashboard (5)",
+        "\tAdd or remove multiple bank accounts (6)"
     };
 
-    int n = 15;
+    int n = 16;
     for (int i = 0; i < n; i++) {
         if (i == 0 || i == 2 || i == 4 || i == 7 || i == 10) {
             cout << account[i];
@@ -758,32 +786,49 @@ void Account() {
         clear();
         Dashboard();
         break;
+    case 6:
+        clear();
+        //add function here
+        break;
     }
 
 }
 
 void ChangeEmail() { //change email function
-    int fakeOTP;//will be used to compare with real OTP 
-    string FakeUserEmail = "fakeemail";//will be replaced with email struct value
+    
     string TempMail;
     string UserEmailVerify;
+    //randomizing OTP
+    cout << setw(horizontal / 2) << "This is your OTP\n";
+    srand(time(0));
+    string OTP, renter;
+    //generates a 4 digit OTP
+    OTP = stringifyotp(rand() % 10000);
+    cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
+    cin >> renter;
 
+    //Verify the OTP has been rentered correctly
+    //user has 3 tries to enter OTP, if still incorrect, OTP changes
+    while (renter != OTP) {
+        for (int i = 0; renter != OTP && i < 2; i++) {
+            cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
+            cin >> renter;
+        }
+        if (renter == OTP) {
+            break;
+        }
+        cout << setw(horizontal / 2) << "Your OTP has changed\n";
+        cout << setw(horizontal / 2) << "This is your new OTP\n";
+        srand(time(0));
+        OTP = stringifyotp(rand() % 10000);
+        cout << OTP << "\nPlease renter the OTP\n";
+        cin >> renter;
+    }
     bool masterbreaker = 0;
 
-    cout << "please enter the OTP sent to your phone number \n";
-
-    cin >> fakeOTP;
-    cin.ignore(1000,'\n');
-
-    TempMail = FakeUserEmail;
-
-    if (fakeOTP == 1234/*correct OTP*/) {
+    TempMail = session_user.email;
 
         cout << "Enter your new email:\n";
-
-
-
-
 
         while (masterbreaker == 0) {
 
@@ -845,35 +890,33 @@ void ChangeEmail() { //change email function
             i++;
         }
 
-        cout << "Enter the OTP that was sent to the new email\n";
-        cin >> fakeOTP;
-        cin.ignore(1000,'\n');
-        for (int i = 0; i < 5; i++) {
-            if (i >= 3) {
-                cout << "Email couldnt be changed\nReason: out of tries\n";
-                delay(3.0);
+        //randomizing OTP
+        cout << setw(horizontal / 2) << "This is your OTP\n";
+        srand(time(0));
+ 
+        //generates a 4 digit OTP
+        OTP = stringifyotp(rand() % 10000);
+        cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
+        cin >> renter;
+
+        //Verify the OTP has been rentered correctly
+        //user has 3 tries to enter OTP, if still incorrect, OTP changes
+        while (renter != OTP) {
+            for (int i = 0; renter != OTP && i < 2; i++) {
+                cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
+                cin >> renter;
+            }
+            if (renter == OTP) {
                 break;
             }
-            if (fakeOTP == 1234) {
-
-                FakeUserEmail = TempMail;
-                cout << "Email successfully changed\nYou will be returned to account page\n";
-                delay(3.0);
-                break;
-            }
-            else {
-
-                cout << "OTP is incorrect " << 3 - i << " tries left\n";
-                cin >> fakeOTP;
-
-            }
-
+            cout << setw(horizontal / 2) << "Your OTP has changed\n";
+            cout << setw(horizontal / 2) << "This is your new OTP\n";
+            srand(time(0));
+            OTP = stringifyotp(rand() % 10000);
+            cout << OTP << "\nPlease renter the OTP\n";
+            cin >> renter;
         }
-    }
-    else {
-        cout << "\nEmail couldn't be changed\nReason: OTP is incorrect\nyou will be returned to account page\n";
         delay(3.0);
-    }
 
     clear();
 
@@ -886,7 +929,7 @@ void ChangePass() {
     bool masterbreaker = 0;
 
     string PassVerify;
-    string userpasstemp = FakeUserPass;
+    string userpasstemp = session_user.password;
 
     cout << "Please enter current password: ";
 
@@ -958,15 +1001,35 @@ void ChangeContactInfo() {
 
     bool masterbreaker = 0;
 
-    string Userdotcontactinfo;
+    string userphone = session_user.contactinfo;
     string PhoneNumberVerify;
 
-    int FakeOTP;//will be replaced with real OTP
+    //randomizing OTP
+    cout << setw(horizontal / 2) << "This is your OTP\n";
+    srand(time(0));
+    string OTP, renter;
+    //generates a 4 digit OTP
+    OTP = stringifyotp(rand() % 10000);
+    cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
+    cin >> renter;
 
-    cout << "Please enter an OTP sent to your Email: \n";
-    cin >> FakeOTP;
-    cin.ignore(1000,'\n');
-    if (FakeOTP == 1234) {//entered OTP compare to real OTP
+    //Verify the OTP has been rentered correctly
+    //user has 3 tries to enter OTP, if still incorrect, OTP changes
+    while (renter != OTP) {
+        for (int i = 0; renter != OTP && i < 2; i++) {
+            cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
+            cin >> renter;
+        }
+        if (renter == OTP) {
+            break;
+        }
+        cout << setw(horizontal / 2) << "Your OTP has changed\n";
+        cout << setw(horizontal / 2) << "This is your new OTP\n";
+        srand(time(0));
+        OTP = stringifyotp(rand() % 10000);
+        cout << OTP << "\nPlease renter the OTP\n";
+        cin >> renter;
+    }
 
         cout << "Please enter your new Phone number in the format: +CCXXXXXXXXXX\n";
 
@@ -1007,52 +1070,35 @@ void ChangeContactInfo() {
         }
         if (masterbreaker == 0) {
 
+            //randomizing OTP
+            cout << setw(horizontal / 2) << "This is your OTP\n";
+            srand(time(0));
+            string OTP, renter;
+            //generates a 4 digit OTP
+            OTP = stringifyotp(rand() % 10000);
+            cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
+            cin >> renter;
 
-            cout << "Please enter the OTP sent to the new phone number:\n";
-
-            cin >> FakeOTP;
-
-            if (FakeOTP == 1234) {//checks if OTP entered is same as real OTP
-
-                Userdotcontactinfo = PhoneNumberVerify;
-
-                cout << "Phone number changed successfully!!\nReturning to account page";
-
-                delay(4.0);
-
-            }
-            else {
-                for (int i = 0; i < 5; i++) {
-                    if (i == 3) {
-                        cout << "failed to change phone number\nReason:out of tries\nReturning to account page";
-                        delay(4.0);
-                        break;
-                    }
-                    cout << "OTP is incorrect please re-enter " << 3 - i << " tries left\n";
-                    cin >> FakeOTP;
-                    if (FakeOTP == 1234) {
-
-                        Userdotcontactinfo = PhoneNumberVerify;
-
-                        cout << "Phone number changed successfully!! \nReturning to account page";
-
-                        delay(4.0);
-
-                        break;
-                    }
+            //Verify the OTP has been rentered correctly
+            //user has 3 tries to enter OTP, if still incorrect, OTP changes
+            while (renter != OTP) {
+                for (int i = 0; renter != OTP && i < 2; i++) {
+                    cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
+                    cin >> renter;
                 }
+                if (renter == OTP) {
+                    break;
+                }
+                cout << setw(horizontal / 2) << "Your OTP has changed\n";
+                cout << setw(horizontal / 2) << "This is your new OTP\n";
+                srand(time(0));
+                OTP = stringifyotp(rand() % 10000);
+                cout << OTP << "\nPlease renter the OTP\n";
+                cin >> renter;
             }
+            
         }
 
-
-
-    }
-    else {
-
-        cout << "failed to change phone number\nReason: failed to enter OTP\nReturning to account page";
-        delay(4.0);
-
-    }
     clear();
     Account();
 }
@@ -1225,6 +1271,8 @@ void displayhistory() {
     while (getline(H, s)) cout << s << endl;
     return;
 }
+
+void 
 
 int main()
 {
