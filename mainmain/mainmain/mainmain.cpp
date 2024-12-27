@@ -310,8 +310,9 @@ string fileifytransaction(transaction tx) {
     if (tx.status == "completed") s += "Transaction Successful!";
     else if (tx.status == "Cancelled") s += "Transaction Failed!";
     else s += "Transaction Pending!";
+    s += "\n";
     s += "Transaction ID: " + to_string(tx.transaction_id) + "\n";
-    s += "Sender: " + tx.sender_email + "\n";
+    s += "Sender: " + tx.sender_email + "\n"; 
     s += "Receiver: " + tx.receiver_email + "\n";
     s += "Receiver contact info: " + tx.receiver_contact + "\n";
     s += "Source: " + tx.source + "\n";
@@ -344,7 +345,7 @@ void transactionfile(transaction tx) {
     int _status = remove("history.txt");
     ofstream("history.txt", ios::app);
     H.open("history.txt");
-    H << fileifytransaction(tx);
+    H << fileifytransaction(tx); H.flush();
     O.seekg(0);
     while (getline(O, s)) {
         H << s << endl;
@@ -352,12 +353,29 @@ void transactionfile(transaction tx) {
     O.close(); H.close();
     _status = remove("temp.txt");
 }
-void displaytransactionhistory(string filter="") {
+void displaytransactionhistory(user u, bool admin=0) {
     fstream H; H.open("history.txt");
-    string s;
+    string s, a; bool skip = 1;
     while (getline(H, s)) {
-        cout << s << endl;
+        if (admin) {
+            cout << s << endl; continue;
+        }
+        if (s[0] == '-') {
+            if(!skip) cout << a << endl;
+            skip = 1;
+        }
+        if (s.size() >= 7) {
+            if (s.substr(0, 6) == "Sender") {
+                if (s.substr(8) == u.email) skip = 0;
+            }
+            if (s.substr(0, 8) == "Receiver") {
+                if (s.substr(10) == u.email) skip = 0;
+            }
+        }
+        a += s + "\n";
     }
+    char enter;
+    while (enter = getchar(), enter != '\n') {}
 }
 int generateid() {
     srand(time(0));
@@ -726,7 +744,7 @@ void Dashboard() { //function to output list of commands that can be used in das
         break;
     case 3:
         clear();
-        displaytransactionhistory();
+        displaytransactionhistory(session_user);
         clear();
         Dashboard();
         break;//redirect to transaction history
@@ -1689,7 +1707,6 @@ int main()
         userslist.push_back(u);
     }
     U.close();
-    ofstream("history.txt");
     // initialized prime admins
     ad1.id = 0; ad1.name = "omar"; ad1.email = "omar@gmail.com"; ad1.is_prime = 1; ad1.permission[0] = 1; ad1.permission[1] = 1; ad1.permission[2] = 1; ad1.role = "manager"; ad1.password = "000";
     ad2.id = 1; ad2.name = "jasmin"; ad2.email = "jasmin@gmail.com"; ad2.is_prime = 1; ad2.permission[0] = 1; ad2.permission[1] = 1; ad2.permission[2] = 1; ad2.role = "moderator"; ad2.password = "1111";
