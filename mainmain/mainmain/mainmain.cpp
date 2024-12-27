@@ -513,7 +513,7 @@ void signup() {
     cout << setw(horizontal / 2) << "Please enter phone number in the format: +CCXXXXXXXXXX\n";
     
     getline(cin, data.contactinfo);
-    
+
     
     while (data.contactinfo.size() != 13) {
         cout << "your phone number must be 12 digits long with '+' as the first digit\n";
@@ -1302,7 +1302,9 @@ void adminlogin() {
     admin data, datamatch;
     string choice;
     cout << "Please enter your email ";
+    cin.ignore(1000, '\n');
     getline(cin, data.email);
+    
     cin.ignore(1000,'\n');
     while (!is_there(adminlist, data)) {
         cout << "This email is not linked to an account\n";
@@ -1327,6 +1329,7 @@ void adminlogin() {
     getline(cin, password);
     cin.ignore(1000,'\n');
     datamatch = find(adminlist, data);
+    
     while (datamatch.password != password) {
         cout << "Incorrect password, please renter your password\n";
         getline(cin, password);
