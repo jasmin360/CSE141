@@ -67,6 +67,7 @@ admin ad1;
 admin ad2;
 admin ad3;
 
+
 vector <user> userslist;
 vector <admin> adminlist;
 
@@ -230,6 +231,7 @@ double GetValidAmount(string receiver_name) {
     }
     return amount;
 }
+
 
 // checks if he has enough money
 bool HasEnoughBalance(double balance, double amount) {
@@ -930,16 +932,23 @@ void ChangeContactInfo() {
 	Account();
 }
 
+
 //function that should only work when prime admin to add new admins
-admin AdminInfo(admin reg) {
-    cout << "enter Admin's ID";
-    cin >> reg.id;
+// ONLY RETURNS AN ELEMENT OF THE VECTOR
+// ** RETURNED VALUE MUST BE PUSHED INTO THE VECTOR ** 
+
+admin AddAdmins(admin reg) {
+    // automatically create id
+    reg.id = adminlist.size() + 1;
     cout << "enter Admin's name";
     cin.ignore();  // clear input buffer
     getline(cin, reg.name);
     cout << "enter Admin's email";
-    cin >> reg.email;
+    getline(cin, reg.email);
+    cout << "enter Admin's password";
+    getline(cin, reg.password);
     cout << "enter Admin's role"; // it will just appear in the dashboard (Doesnt affect code)
+    getline(cin, reg.role);
 
     int choice; // Prime Admin choices
     cout << "enter Admin's permissions";
@@ -981,6 +990,51 @@ admin AdminInfo(admin reg) {
 
     return reg;
 }
+
+// View profiles takes in
+void view_profiles() {
+    user matchfound;
+    string AdminIn; // admin input of user's email
+
+    // search for email
+    matchfound = email_search(userslist);
+    cout << "ID : ";
+    cout << matchfound.ID;
+    cout << "Name : ";
+    cout << matchfound.name;
+    cout << "Email : ";
+    cout << matchfound.email;
+    cout << "Contact Info : ";
+    cout << matchfound.contactinfo;
+    cout << "Bank accounts : \n";
+
+    for (int i = 0; i < matchfound.linkedbankacc_balance.size(); i++) {
+        cout << matchfound.linkedbankacc_balance[i].first << " : " << matchfound.linkedbankacc_balance[i].second;
+    }
+}
+
+void suspend_accs(admin person) {
+    user matchfound;
+    string AdminIn; // admin input of user's email
+
+    // search for email
+    matchfound = email_search(userslist);
+
+    // prompt admin to choose the bankaccount to suspend
+    for (int i = 1; i < matchfound.linkedbankacc_balance.size(); i++) {
+        cout << i << " : " << matchfound.linkedbankacc_balance[i - 1].first;
+    }
+    cout << "Enter the bank account you want to suspend : ";
+    int choice; cin >> choice;
+    choice = val_choices(choice, 1, matchfound.linkedbankacc_balance.size());
+
+
+    // suspend the account
+    matchfound.linkedbankacc_balance.erase(matchfound.linkedbankacc_balance.begin() + choice - 1);
+
+
+}
+
 
 void adminlogin() {
     admin data, datamatch;
@@ -1027,8 +1081,8 @@ int main()
 {
     // initialized prime admins
     ad1.id = 0; ad1.name = "omar"; ad1.email = "omar@gmail.com"; ad1.is_prime = 1; ad1.permission[0] = 1; ad1.permission[1] = 1; ad1.permission[2] = 1; ad1.role = "manager";
-    ad2.id = 0; ad2.name = "jasmin"; ad2.email = "jasmin@gmail.com"; ad2.is_prime = 1; ad2.permission[0] = 1; ad2.permission[1] = 1; ad2.permission[2] = 1; ad2.role = "moderator";
-    ad3.id = 0; ad2.name = "jasmin"; ad3.email = "jasmin@gmail.com"; ad3.is_prime = 1; ad3.permission[0] = 1; ad3.permission[1] = 1; ad3.permission[2] = 1; ad3.role = "branch manager";
+    ad2.id = 1; ad2.name = "jasmin"; ad2.email = "jasmin@gmail.com"; ad2.is_prime = 1; ad2.permission[0] = 1; ad2.permission[1] = 1; ad2.permission[2] = 1; ad2.role = "moderator";
+    ad3.id = 2; ad3.name = "eyad"; ad3.email = "eyad@gmail.com"; ad3.is_prime = 1; ad3.permission[0] = 1; ad3.permission[1] = 1; ad3.permission[2] = 1; ad3.role = "branch manager";
     adminlist.push_back(ad1); adminlist.push_back(ad2); adminlist.push_back(ad3);
 
     while (true) {
