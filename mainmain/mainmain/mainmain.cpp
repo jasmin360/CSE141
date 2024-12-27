@@ -170,6 +170,7 @@ void login() {
     string choice;
     cout << "Please enter your email ";
     getline(cin, data.email);
+    cin.ignore();
 
     //verfies that email is linked to an account
     //if not linked, user is prompted to either sign up or renter email
@@ -177,11 +178,13 @@ void login() {
         cout << "This email is not linked to an account\n";
         cout << "If you wish to signup please press 1\nIf you wish to renter your email please press 2\n";
         getline(cin, choice);
+        cin.ignore();
 
         //verify input is within range
         while (choice != "1" && choice != "2") {
             cout << "Invalid choice, please renter\n";
             getline(cin, choice);
+            cin.ignore();
         }
         if (choice == "1") {
 
@@ -190,6 +193,7 @@ void login() {
         }
         else if (choice == "2") {
             getline(cin, data.email);
+            cin.ignore();
         }
     }
 
@@ -1122,19 +1126,21 @@ void adminlogin() {
     string choice;
     cout << "Please enter your email ";
     getline(cin, data.email);
+    cin.ignore();
     while (!is_there(adminlist, data)) {
         cout << "This email is not linked to an account\n";
         cout << "Please contact a prime admin to add your account or press 1 to re-enter your email\n";
         getline(cin, choice);
-
+        cin.ignore();
         //verify input is within range
         while (choice != "1") {
             cout << "Invalid choice, please renter\n";
             getline(cin, choice);
+            cin.ignore();
         }
         if (choice == "1") {
             getline(cin, data.email);
-
+            cin.ignore();
         }
 
     }
@@ -1142,10 +1148,12 @@ void adminlogin() {
     cout << "Account located successfully\nPlease enter your password\n";
     string password;
     getline(cin, password);
+    cin.ignore();
     datamatch = find(adminlist, data);
     while (datamatch.password != password) {
         cout << "Incorrect password, please renter your password\n";
         getline(cin, password);
+        cin.ignore();
     }
     cout << "Password confirmed\nRedirecting to dashboard...\n";
     //redirection to admin dashboard
