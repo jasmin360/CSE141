@@ -35,6 +35,7 @@ struct user {
             double accbalance;
     */
     int logincounter = 0;
+    bool is_suspended = false;
 
 };
 struct transaction {
@@ -206,7 +207,10 @@ void login() {
             }
         }
     }
-
+    if (session_user.is_suspended == true) {
+        cout << "Your account is suspended";
+        return;
+    }
     //password checking
     cout << "Account located successfully\nPlease enter your password\n";
     string password;
@@ -739,8 +743,8 @@ void addbk() {
     int banklink;
     cout << "Enter how many bank accounts you wish to link with your insta-pay account\n"; cin >> banklink;
     for (int i = session_user.linkedbankacc_balance.size(); i < banklink + session_user.linkedbankacc_balance.size(); i++) {
-        cout << "Enter your bank account ID\n"; cin >> session_user.linkedbankacc_balance[i].first;
-        cout << "Enter your deposit in USD\n"; cin >> session_user.linkedbankacc_balance[i].second;
+        cout << "Enter your bank account ID\n"; cin >> userslist[session_user.ID].linkedbankacc_balance[i].first;
+        cout << "Enter your deposit in USD\n"; cin >> userslist[session_user.ID].linkedbankacc_balance[i].second;
     }
 }
 //removes bank account
