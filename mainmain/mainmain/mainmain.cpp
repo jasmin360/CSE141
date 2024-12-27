@@ -958,6 +958,7 @@ void ChangeEmail() { //change email function
             i++;
         }
 
+
         //randomizing OTP
         cout << setw(horizontal / 2) << "This is your OTP\n";
         srand(time(0));
@@ -984,6 +985,8 @@ void ChangeEmail() { //change email function
             cout << OTP << "\nPlease renter the OTP\n";
             cin >> renter;
         }
+
+        userslist[session_user.ID].email = UserEmailVerify;
         delay(3.0);
 
     clear();
@@ -1053,7 +1056,7 @@ void ChangePass() {
         }
     }
 
-    FakeUserPass = userpasstemp;
+    userslist[session_user.ID].password = userpasstemp;
 
     cout << "Password changed successfully\nReturning to account page";
 
@@ -1166,6 +1169,7 @@ void ChangeContactInfo() {
             }
             
         }
+        userslist[session_user.ID].contactinfo = PhoneNumberVerify;
 
     clear();
     Account();
