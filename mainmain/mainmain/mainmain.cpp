@@ -174,22 +174,23 @@ void login() {
     user data, datamatch;
     string choice;
     cout << "Please enter your email ";
-    getline(cin, data.email);
-    cin.ignore(1000,'\n');
+    cin >> data.email;
+    while (data.email.find('@') == string::npos) {//checks that email has @
 
+        cout << "Email must contain @ please enter a valid email\n";
+        cin >> data.email;
+    }
     //verfies that email is linked to an account
     //if not linked, user is prompted to either sign up or renter email
     while (!is_there(userslist, data)) {
         cout << "This email is not linked to an account\n";
         cout << "If you wish to signup please press 1\nIf you wish to renter your email please press 2\n";
-        getline(cin, choice);
-        cin.ignore(1000,'\n');
+        cin >> choice;
 
         //verify input is within range
         while (choice != "1" && choice != "2") {
             cout << "Invalid choice, please renter\n";
-            getline(cin, choice);
-            cin.ignore(1000,'\n');
+            cin >> choice;
         }
         if (choice == "1") {
 
@@ -197,15 +198,21 @@ void login() {
             return signup();
         }
         else if (choice == "2") {
-            getline(cin, data.email);
-            cin.ignore(1000,'\n');
+            cout << "please renter your email\n";
+            cin >> data.email;
+            while (data.email.find('@') == string::npos) {//checks that email has @
+                cout << "Email must contain @ please enter a valid email\n";
+                cin >> data.email;
+            }
         }
     }
 
     //password checking
     cout << "Account located successfully\nPlease enter your password\n";
     string password;
-    cin >> password;
+    cin.ignore();
+    getline(cin, password);
+    cout << password;
     datamatch = find(userslist, data);
     while (datamatch.password != password) {
         cout << "Incorrect password, please renter your password\n";
@@ -213,6 +220,8 @@ void login() {
     }
     cout << "Password confirmed\nRedirecting to dashboard...\n";
     datamatch.logincounter++;
+    cout << datamatch.logincounter;
+    session_user = datamatch;
     //redirection to dashboard
     delay(3.0);
     clear();
@@ -406,7 +415,11 @@ void signup() {
     user data;
     cout << setw(horizontal / 2) << "Please enter your email\n";
     cin >> data.email;
-    
+    while (data.email.find('@') == string::npos) {//checks that email has @
+
+        cout << "Email must contain @ please enter a valid email\n";
+        cin >> data.email;
+    }
     //verfiy that this email does not exist
     //if already linked, user is prompted to either login or renter email
     while (is_there(userslist, data)) {
@@ -445,7 +458,7 @@ void signup() {
     
     
     while (data.contactinfo.size() != 13) {
-        cout << "your phone number must be 12 digits long\n";
+        cout << "your phone number must be 12 digits long with '+' as the first digit\n";
         getline(cin, data.contactinfo);
         cin.ignore(1000,'\n');
     }
@@ -607,7 +620,7 @@ void Dashboard() { //function to output list of commands that can be used in das
         cout << "invalid number please re-enter navigation numeber";
         cin >> dashboard_nav;
     }
-
+    cin.ignore();
     switch (dashboard_nav) {
 
     case 1:
@@ -687,11 +700,11 @@ void Account() {
     int accountnav;
 
     string account[] = {
-        "\tID:           ","user.id",
-        "\tUsername:     ", "user.name",
-        "\tEmail:        ", "user.email",
+        "\tID:           ",to_string(session_user.ID),
+        "\tUsername:     ", session_user.name,
+        "\tEmail:        ", session_user.email,
         "\tChange email (1)",
-        "\tPassword:     ", string(FakeUserPass.length(), '*'),
+        "\tPassword:     ", string(session_user.password.length(), '*'),
         "\tChange password (2)",
         "\tContact Info: ","user.contactinfo",
         "\tChange contact info (3)",
@@ -731,7 +744,9 @@ void Account() {
         break;
     case 4:
         clear();
-        cout << endl << "logged out" << endl;     // send user back to login page and clear currently used user data
+        cout << endl << "logged out" << endl;
+        delay(3.0);
+            // send user back to login page and clear currently used user data
         break;
     case 5:
         clear();
