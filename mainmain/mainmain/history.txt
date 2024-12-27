@@ -1,0 +1,11 @@
+Transaction Successful!
+Transaction ID: 5873
+Sender: b
+Receiver: a@
+Reciever contact info: +201234567890
+Source: bank
+Amount: $20
+Typeinstant
+Time: Fri Dec 27 09:18:58 2024
+
+-------------------------------------

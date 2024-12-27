@@ -426,7 +426,7 @@ int ProcessTransaction() { // to use it in main function properly
     cout << "Sender's New Balance: " << tx.currency << updated_sender_balance << endl;
     cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
     
-    session_user.linkedbankacc_balance[idx].second = updated_receiver_balance;
+    session_user.linkedbankacc_balance[idx].second = updated_sender_balance;
     reciever.linkedbankacc_balance[0].second = updated_receiver_balance;
     
 
@@ -691,8 +691,9 @@ void Dashboard() { //function to output list of commands that can be used in das
 
     case 1:
         clear();
-        cout << "1";
         ProcessTransaction();
+        clear();
+        Dashboard();
         break;//redirect to money transfer
     case 2:
         clear();
@@ -839,6 +840,9 @@ void Account() {
         break;
     case 4:
         clear();
+        for (auto& u : userslist) {
+            if (session_user.email == u.email) u = session_user;
+        }
         cout << endl << "logged out" << endl;
         delay(3.0);
             // send user back to login page and clear currently used user data
