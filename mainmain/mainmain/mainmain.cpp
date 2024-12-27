@@ -11,13 +11,8 @@
 #include <fstream>
 
 using namespace std;
-int session_id = -1;
-string session_name = "12";
-string session_email = "ss";
-string session_password = "11";
-string session_contactinfo = "123";
-
-
+admin session_admin;
+user session_user;
 //ADD STRUCTS HERE
 
 
@@ -634,8 +629,8 @@ void ADashboard() { //function to output list of commands that can be used in da
 }
 
 void adminCTRL() {
-
-        
+    
+      if (find(adminlist,session_email).id)
 
 }
 void Account() {
