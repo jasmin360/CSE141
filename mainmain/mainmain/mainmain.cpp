@@ -604,7 +604,7 @@ void Dashboard() { //function to output list of commands that can be used in das
 
         "   choose a number to navigate   ",
         session_user.name, //output name stored in user struct
-        to_string(session_user.linkedbankacc_balance[0]), //output balance stored in user struct
+        to_string(session_user.linkedbankacc_balance[0].second), //output balance stored in user struct
         "   Send Money (1)                 Account Management (2)   ",/*PLEASE DONT REMOVE THE BLANK OUTPUT!!!*/ "",// (1) redirects to money transfer page (2) redirects to account page
         "   Most recent transaction   ",
         "   (Function of most recent transaction)   ", //should output data for the most recent transaction (sent/recieved - value - date - status)
