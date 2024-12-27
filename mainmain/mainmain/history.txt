@@ -1,0 +1,10 @@
+Transaction Successful!
+Transaction ID: 19738
+Sender: b@
+Receiver: a@
+Receiver contact info: 1
+Source: bank
+Amount: $20.000000
+Type: instant
+Time: 
+--------------------------------------
