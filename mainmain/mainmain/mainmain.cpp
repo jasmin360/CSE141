@@ -42,7 +42,7 @@ struct transaction {
     double amount;
     string receiver_email;
     string sender_email;
-    int transaction_id;  
+    int transaction_id;
     string currency = "$";
     string status;
     string type;
@@ -86,7 +86,13 @@ const int horizontal = 120, vertical = 20;
 admin session_admin;
 user session_user;
 //ADD YOUR FUNCTIONS HERE
-
+void aa();
+void ma();
+void tsr();
+void hndldspts();
+void mngtrans();
+void vwprfl();
+void adminCTRL();
 
 
 // function that validates choices; takes 3 parameters 1. choice to validate 2. lb : lower-bound 2. ub : upper-bound
@@ -346,7 +352,7 @@ int ProcessTransaction() { // to use it in main function properly
         cout << "Choose a bank account ID" << endl;
         cin >> bankID;
         user sender = session_user;
-        for (int i = 0;i < sender.linkedbankacc_balance.size();i++) {
+        for (int i = 0; i < sender.linkedbankacc_balance.size(); i++) {
             if (sender.linkedbankacc_balance[i].first == bankID) sender_balance = sender.linkedbankacc_balance[i].second, idx = i;
         }
         if (idx == -1) cout << "Bank accound not found. Try again." << endl;
@@ -357,7 +363,7 @@ int ProcessTransaction() { // to use it in main function properly
     while (!flag) {
         string r_email;
         gl(r_email);
-        for (int i = 0;i < userslist.size();i++) {
+        for (int i = 0; i < userslist.size(); i++) {
             if (userslist[i].email == r_email) {
                 flag = 1; r_idx = i; break;
             }
@@ -402,7 +408,7 @@ int ProcessTransaction() { // to use it in main function properly
 
     cout << "Are u sure u want to send " << tx.amount << " to " << tx.receiver_email << " ? If yes type Y If not type N. (Default is : Y) " << endl;
     cin >> answer;
-    cin.ignore(1000,'\n'); // tx.currency picks up answer did this to fix it
+    cin.ignore(1000, '\n'); // tx.currency picks up answer did this to fix it
     if (answer == 'N' || answer == 'n') {
         //cout << "Transaction cancelled." << endl;
         tx.status = "Cancelled";
@@ -425,10 +431,10 @@ int ProcessTransaction() { // to use it in main function properly
     transactionfile(tx);
     cout << "Sender's New Balance: " << tx.currency << updated_sender_balance << endl;
     cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
-    
+
     session_user.linkedbankacc_balance[idx].second = updated_receiver_balance;
     reciever.linkedbankacc_balance[0].second = updated_receiver_balance;
-    
+
 
     userslist[r_idx] = reciever;
 
@@ -500,26 +506,26 @@ void signup() {
     cin.ignore(1000, '\n');
     getline(cin, data.name, '\n');
     cout << setw(horizontal / 2) << "Please enter your password\n";
-    getline(cin, data.password); 
-    
+    getline(cin, data.password);
+
     while (data.password.size() < 8) {
         cout << "Password must contain at least 8 characters";
         getline(cin, data.password);
-       
+
     }
     cout << setw(horizontal / 2) << "Please enter phone number in the format: +CCXXXXXXXXXX\n";
-    
+
     getline(cin, data.contactinfo);
-    
-    
+
+
     while (data.contactinfo.size() != 13) {
         cout << "your phone number must be 12 digits long with '+' as the first digit\n";
         getline(cin, data.contactinfo);
-        cin.ignore(1000,'\n');
+        cin.ignore(1000, '\n');
     }
     //adding id as size of set + 1 as the new user has not been inserted yet
     data.ID = userslist.size() + 1;
-    
+
 
     //randomizing OTP
     cout << setw(horizontal / 2) << "This is your OTP\n";
@@ -551,9 +557,9 @@ void signup() {
     cout << "Enter how many bank accounts you wish to link with your insta-pay account"; cin >> banklink;
     cout << "The first account you enter will be considered as your primary account";
     data.linkedbankacc_balance.resize(banklink);
-    for(int i=0; i<banklink; i++){
+    for (int i = 0; i < banklink; i++) {
         cout << "Enter your bank account ID"; cin >> data.linkedbankacc_balance[0].first;
-        cout << "Enter your deposit in USD"; cin>> data.linkedbankacc_balance[0].second;
+        cout << "Enter your deposit in USD"; cin >> data.linkedbankacc_balance[0].second;
     }
 
     cout << "Signup succesfull\nRedirecting to dashboard...\n";
@@ -759,7 +765,111 @@ void ADashboard() { //function to output list of commands that can be used in da
 
 void adminCTRL() {
 
-    if (find(adminlist, session_admin).id);
+    if (find(adminlist, session_admin).is_prime == 1) {
+        int counter = 0;
+        string dashboard[] = {
+        "Add Admins (1)",
+        "View Profiles (2)",
+        "Sus-pend Accounts (3)",
+        "Manage Transactions (4)",
+        "Return to dashboard (5)"
+
+        };
+        int n = 5;
+        for (int i = 0; i < n; i++) {
+            if (true) {
+                center(dashboard[i], 100);
+            }
+            else {
+                cout << endl << dashboard[i] << endl;
+            }
+        }
+        int dashboard_nav;
+        cin >> dashboard_nav;
+        while (dashboard_nav != 1 && dashboard_nav != 2 && dashboard_nav != 3 && dashboard_nav != 4 && dashboard_nav != 5) {
+            cout << "invalid number please re-enter navigation number";
+            cin >> dashboard_nav;
+        }
+
+        switch (dashboard_nav) {
+
+        case 1:
+            clear();
+            cout << "redirect to Add Admins page";
+            delay(3.0);
+            break;
+        case 2:
+            clear();
+            cout << "redirect view profiles page";
+            delay(3.0);
+            break;
+        case 3:
+            clear();
+            cout << "redirect to susped account page";
+            delay(3.0);
+            break;
+
+        case 4:
+            clear();
+            mngtrans();
+            break;
+        case 5:
+            clear();
+            ADashboard();
+            break;
+        }
+
+    }
+
+}
+
+void mngtrans() {
+    string dashboard[] = {
+       "Handle Disputes (1)",
+       "Transaction Summary reports (2)",
+       "Monthly Activity (3)",
+       "Annual Activity (4)"
+
+    };
+    int n = 4;
+    for (int i = 0; i < n; i++) {
+        if (true) {
+            center(dashboard[i], 100);
+        }
+        else {
+            cout << endl << dashboard[i] << endl;
+        }
+    }
+    int dashboard_nav;
+    cin >> dashboard_nav;
+    while (dashboard_nav != 1 && dashboard_nav != 2 && dashboard_nav != 3 && dashboard_nav != 4) {
+        cout << "invalid number please re-enter navigation number";
+        cin >> dashboard_nav;
+    }
+
+    switch (dashboard_nav) {
+
+    case 1:
+        clear();
+        //handle disputes
+        delay(3.0);
+        break;
+    case 2:
+        clear();
+        //transaction summary reports
+        delay(3.0);
+        break;
+    case 3:
+        clear();
+        //monthly activities
+        delay(3.0);
+        break;
+
+    case 4:
+        clear();
+        //annual activities
+        break;
+    }
 
 }
 //adds bank accounts
@@ -816,11 +926,11 @@ void Account() {
     }
 
     cin >> accountnav;
-    cin.ignore(1000,'\n');
+    cin.ignore(1000, '\n');
     while (accountnav != 1 && accountnav != 2 && accountnav != 3 && accountnav != 4 && accountnav != 5) {
         cout << "invalid number please re-enter navigation number ";
         cin >> accountnav;
-        cin.ignore(1000,'\n');
+        cin.ignore(1000, '\n');
     }
 
     switch (accountnav) {
@@ -841,7 +951,7 @@ void Account() {
         clear();
         cout << endl << "logged out" << endl;
         delay(3.0);
-            // send user back to login page and clear currently used user data
+        // send user back to login page and clear currently used user data
         break;
     case 5:
         clear();
@@ -860,7 +970,7 @@ void Account() {
 }
 
 void ChangeEmail() { //change email function
-    
+
     string TempMail;
     string UserEmailVerify;
     //randomizing OTP
@@ -893,98 +1003,98 @@ void ChangeEmail() { //change email function
 
     TempMail = session_user.email;
 
-        cout << "Enter your new email:\n";
+    cout << "Enter your new email:\n";
 
-        while (masterbreaker == 0) {
+    while (masterbreaker == 0) {
 
-            getline(cin, TempMail);
+        getline(cin, TempMail);
 
-            if (TempMail.find('@') == string::npos) {//checks that email has @
+        if (TempMail.find('@') == string::npos) {//checks that email has @
 
-                cout << "Email must contain @ please enter a valid email\n";
+            cout << "Email must contain @ please enter a valid email\n";
+            continue;
+        }
+        else {
+
+            if (TempMail.length() < 4) {
+
+                cout << "email must be atleast 4 characters\nplease enter a valid email\n";
                 continue;
             }
             else {
+                bool continuefrominsideloop = 0;
+                for (int i = 0; i < TempMail.length(); i++) {//check that email doesnt contain spaces
 
-                if (TempMail.length() < 4) {
+                    if (TempMail[i] == ' ') {
 
-                    cout << "email must be atleast 4 characters\nplease enter a valid email\n";
+                        cout << "Email cant contain spaces please enter a valid email \n";
+                        continuefrominsideloop = 1;
+                        break;
+                    }
+                }
+                if (continuefrominsideloop == 1) {
                     continue;
                 }
-                else {
-                    bool continuefrominsideloop = 0;
-                    for (int i = 0; i < TempMail.length(); i++) {//check that email doesnt contain spaces
-
-                        if (TempMail[i] == ' ') {
-
-                            cout << "Email cant contain spaces please enter a valid email \n";
-                            continuefrominsideloop = 1;
-                            break;
-                        }
-                    }
-                    if (continuefrominsideloop == 1) {
-                        continue;
-                    }
-
-                }
 
             }
-            masterbreaker = 1;
+
         }
-        cout << "\nValidation passed\n\n";
+        masterbreaker = 1;
+    }
+    cout << "\nValidation passed\n\n";
 
 
-        cout << "Please re-enter your new email:\n";
+    cout << "Please re-enter your new email:\n";
+
+    getline(cin, UserEmailVerify);
+
+    int i = 0;
+
+    while (TempMail.compare(UserEmailVerify) != 0) {
+
+        if (i == 3) {
+            cout << "\nEmail couldn't be changed\nReason: Max number of tries reached\nyou will be returned to account page\n";
+            delay(3.0);
+            break;
+        }
+
+        cout << "Emails dont match please re-enter your email:\n";
+        cout << 3 - i << " tries left \n";
 
         getline(cin, UserEmailVerify);
-
-        int i = 0;
-
-        while (TempMail.compare(UserEmailVerify) != 0) {
-
-            if (i == 3) {
-                cout << "\nEmail couldn't be changed\nReason: Max number of tries reached\nyou will be returned to account page\n";
-                delay(3.0);
-                break;
-            }
-
-            cout << "Emails dont match please re-enter your email:\n";
-            cout << 3 - i << " tries left \n";
-
-            getline(cin, UserEmailVerify);
-            i++;
-        }
+        i++;
+    }
 
 
-        //randomizing OTP
-        cout << setw(horizontal / 2) << "This is your OTP\n";
-        srand(time(0));
- 
-        //generates a 4 digit OTP
-        OTP = stringifyotp(rand() % 10000);
-        cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
-        cin >> renter;
+    //randomizing OTP
+    cout << setw(horizontal / 2) << "This is your OTP\n";
+    srand(time(0));
 
-        //Verify the OTP has been rentered correctly
-        //user has 3 tries to enter OTP, if still incorrect, OTP changes
-        while (renter != OTP) {
-            for (int i = 0; renter != OTP && i < 2; i++) {
-                cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
-                cin >> renter;
-            }
-            if (renter == OTP) {
-                break;
-            }
-            cout << setw(horizontal / 2) << "Your OTP has changed\n";
-            cout << setw(horizontal / 2) << "This is your new OTP\n";
-            srand(time(0));
-            OTP = stringifyotp(rand() % 10000);
-            cout << OTP << "\nPlease renter the OTP\n";
+    //generates a 4 digit OTP
+    OTP = stringifyotp(rand() % 10000);
+    cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
+    cin >> renter;
+
+    //Verify the OTP has been rentered correctly
+    //user has 3 tries to enter OTP, if still incorrect, OTP changes
+    while (renter != OTP) {
+        for (int i = 0; renter != OTP && i < 2; i++) {
+            cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
             cin >> renter;
         }
+        if (renter == OTP) {
+            break;
+        }
+        cout << setw(horizontal / 2) << "Your OTP has changed\n";
+        cout << setw(horizontal / 2) << "This is your new OTP\n";
+        srand(time(0));
+        OTP = stringifyotp(rand() % 10000);
+        cout << OTP << "\nPlease renter the OTP\n";
+        cin >> renter;
+    }
 
-        userslist[session_user.ID].email = UserEmailVerify;
-        delay(3.0);
+    userslist[session_user.ID].email = UserEmailVerify;
+    delay(3.0);
 
     clear();
 
@@ -1099,77 +1209,281 @@ void ChangeContactInfo() {
         cin >> renter;
     }
 
-        cout << "Please enter your new Phone number in the format: +CCXXXXXXXXXX\n";
+    cout << "Please enter your new Phone number in the format: +CCXXXXXXXXXX\n";
 
-        cin >> PhoneNumberVerify;
-        cin.ignore(1000,'\n');
+    cin >> PhoneNumberVerify;
+    cin.ignore(1000, '\n');
 
-        PhoneNumberVerify[0] = '+';
+    PhoneNumberVerify[0] = '+';
 
-        while (masterbreaker == 0) {
-            if (PhoneNumberVerify.length() != 13) { //checks if entered number is 13 character long ex: +20XXXXXXXXXX
+    while (masterbreaker == 0) {
+        if (PhoneNumberVerify.length() != 13) { //checks if entered number is 13 character long ex: +20XXXXXXXXXX
 
-                cout << "phone number must have 13 digits\nPlease re-enter your new phone number in the format: +CCXXXXXXXXXX\n";
+            cout << "phone number must have 13 digits\nPlease re-enter your new phone number in the format: +CCXXXXXXXXXX\n";
 
-                cin >> PhoneNumberVerify;
-                cin.ignore(1000,'\n');
+            cin >> PhoneNumberVerify;
+            cin.ignore(1000, '\n');
 
-                PhoneNumberVerify[0] = '+';
+            PhoneNumberVerify[0] = '+';
 
 
-                for (int i = 1; i < 13; i++) {//first character will be always '+' so i starts with the second character ⁂int i = 1;
+            for (int i = 1; i < 13; i++) {//first character will be always '+' so i starts with the second character ⁂int i = 1;
 
-                    if (PhoneNumberVerify[i] < '0' || PhoneNumberVerify[i] > '9') {//check if the character entered in PhoneNumberVerify is a digit
+                if (PhoneNumberVerify[i] < '0' || PhoneNumberVerify[i] > '9') {//check if the character entered in PhoneNumberVerify is a digit
 
-                        cout << "Phone number cant contain characters other than [0-9]\nPlease re-enter your phone number in the format: +CCXXXXXXXXXX\n";
-                        cin >> PhoneNumberVerify;
-                        cin.ignore(1000,'\n');
-                        PhoneNumberVerify[0] = '+';
+                    cout << "Phone number cant contain characters other than [0-9]\nPlease re-enter your phone number in the format: +CCXXXXXXXXXX\n";
+                    cin >> PhoneNumberVerify;
+                    cin.ignore(1000, '\n');
+                    PhoneNumberVerify[0] = '+';
 
-                        i = 0;
+                    i = 0;
 
-                    }
                 }
-            }
-            else {
-                break;
-
             }
         }
-        if (masterbreaker == 0) {
+        else {
+            break;
 
-            //randomizing OTP
-            cout << setw(horizontal / 2) << "This is your OTP\n";
-            srand(time(0));
-            string OTP, renter;
-            //generates a 4 digit OTP
-            OTP = stringifyotp(rand() % 10000);
-            cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
-            cin >> renter;
+        }
+    }
+    if (masterbreaker == 0) {
 
-            //Verify the OTP has been rentered correctly
-            //user has 3 tries to enter OTP, if still incorrect, OTP changes
-            while (renter != OTP) {
-                for (int i = 0; renter != OTP && i < 2; i++) {
-                    cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
-                    cin >> renter;
-                }
-                if (renter == OTP) {
-                    break;
-                }
-                cout << setw(horizontal / 2) << "Your OTP has changed\n";
-                cout << setw(horizontal / 2) << "This is your new OTP\n";
-                srand(time(0));
-                OTP = stringifyotp(rand() % 10000);
-                cout << OTP << "\nPlease renter the OTP\n";
+        //randomizing OTP
+        cout << setw(horizontal / 2) << "This is your OTP\n";
+        srand(time(0));
+        string OTP, renter;
+        //generates a 4 digit OTP
+        OTP = stringifyotp(rand() % 10000);
+        cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
+        cin >> renter;
+
+        //Verify the OTP has been rentered correctly
+        //user has 3 tries to enter OTP, if still incorrect, OTP changes
+        while (renter != OTP) {
+            for (int i = 0; renter != OTP && i < 2; i++) {
+                cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
                 cin >> renter;
             }
-            
+            if (renter == OTP) {
+                break;
+            }
+            cout << setw(horizontal / 2) << "Your OTP has changed\n";
+            cout << setw(horizontal / 2) << "This is your new OTP\n";
+            srand(time(0));
+            OTP = stringifyotp(rand() % 10000);
+            cout << OTP << "\nPlease renter the OTP\n";
+            cin >> renter;
         }
-        userslist[session_user.ID].contactinfo = PhoneNumberVerify;
+
+    }
+    userslist[session_user.ID].contactinfo = PhoneNumberVerify;
 
     clear();
     Account();
+}
+
+void AChangeEmail() { //change email function
+
+    string TempMail;
+    string UserEmailVerify;
+    //randomizing OTP
+    cout << setw(horizontal / 2) << "This is your OTP\n";
+    srand(time(0));
+    string OTP, renter;
+    //generates a 4 digit OTP
+    OTP = stringifyotp(rand() % 10000);
+    cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
+    cin >> renter;
+
+    //Verify the OTP has been rentered correctly
+    //user has 3 tries to enter OTP, if still incorrect, OTP changes
+    while (renter != OTP) {
+        for (int i = 0; renter != OTP && i < 2; i++) {
+            cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
+            cin >> renter;
+        }
+        if (renter == OTP) {
+            break;
+        }
+        cout << setw(horizontal / 2) << "Your OTP has changed\n";
+        cout << setw(horizontal / 2) << "This is your new OTP\n";
+        srand(time(0));
+        OTP = stringifyotp(rand() % 10000);
+        cout << OTP << "\nPlease renter the OTP\n";
+        cin >> renter;
+    }
+    bool masterbreaker = 0;
+
+    TempMail = session_admin.email;
+
+    cout << "Enter your new email:\n";
+
+    while (masterbreaker == 0) {
+
+        getline(cin, TempMail);
+
+        if (TempMail.find('@') == string::npos) {//checks that email has @
+
+            cout << "Email must contain @ please enter a valid email\n";
+            continue;
+        }
+        else {
+
+            if (TempMail.length() < 4) {
+
+                cout << "email must be atleast 4 characters\nplease enter a valid email\n";
+                continue;
+            }
+            else {
+                bool continuefrominsideloop = 0;
+                for (int i = 0; i < TempMail.length(); i++) {//check that email doesnt contain spaces
+
+                    if (TempMail[i] == ' ') {
+
+                        cout << "Email cant contain spaces please enter a valid email \n";
+                        continuefrominsideloop = 1;
+                        break;
+                    }
+                }
+                if (continuefrominsideloop == 1) {
+                    continue;
+                }
+
+            }
+
+        }
+        masterbreaker = 1;
+    }
+    cout << "\nValidation passed\n\n";
+
+
+    cout << "Please re-enter your new email:\n";
+
+    getline(cin, UserEmailVerify);
+
+    int i = 0;
+
+    while (TempMail.compare(UserEmailVerify) != 0) {
+
+        if (i == 3) {
+            cout << "\nEmail couldn't be changed\nReason: Max number of tries reached\nyou will be returned to account page\n";
+            delay(3.0);
+            break;
+        }
+
+        cout << "Emails dont match please re-enter your email:\n";
+        cout << 3 - i << " tries left \n";
+
+        getline(cin, UserEmailVerify);
+        i++;
+    }
+
+    //randomizing OTP
+    cout << setw(horizontal / 2) << "This is your OTP\n";
+    srand(time(0));
+
+    //generates a 4 digit OTP
+    OTP = stringifyotp(rand() % 10000);
+    cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
+    cin >> renter;
+
+    //Verify the OTP has been rentered correctly
+    //user has 3 tries to enter OTP, if still incorrect, OTP changes
+    while (renter != OTP) {
+        for (int i = 0; renter != OTP && i < 2; i++) {
+            cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
+            cin >> renter;
+        }
+        if (renter == OTP) {
+            break;
+        }
+        cout << setw(horizontal / 2) << "Your OTP has changed\n";
+        cout << setw(horizontal / 2) << "This is your new OTP\n";
+        srand(time(0));
+        OTP = stringifyotp(rand() % 10000);
+        cout << OTP << "\nPlease renter the OTP\n";
+        cin >> renter;
+    }
+    TempMail = session_admin.email;
+    delay(3.0);
+
+    clear();
+
+    Account();
+
+}
+
+void AChangePass() {
+
+    bool masterbreaker = 0;
+
+    string PassVerify;
+    string userpasstemp = session_admin.password;
+
+    cout << "Please enter current password: ";
+
+    getline(cin, PassVerify);
+
+    int i = 0;
+
+    while (i < 3) {
+
+        if (userpasstemp.compare(PassVerify) != 0) {//compare original password with the password entered
+
+            cout << "Password is incorrect re-enter your password: " << 3 - i << " tries left\n";
+
+            getline(cin, PassVerify);
+
+            i++;
+
+        }
+        else {
+
+            break;
+
+        }
+    }
+    if (i != 3) {
+        while (true) {
+
+            cout << "Enter your new password: \n";
+
+            getline(cin, userpasstemp);
+
+            cout << "Re-enter your password: \n";
+
+            getline(cin, PassVerify);
+
+            if (userpasstemp.compare(PassVerify) != 0) {
+
+                cout << "Passwords dont match\n";
+
+            }
+            else {
+
+                if (PassVerify.empty()) {
+
+                    cout << "Password cannot be empty\n";
+
+                }
+                else {
+
+                    break;
+                }
+            }
+        }
+    }
+
+    session_admin.password = userpasstemp;
+
+    cout << "Password changed successfully\nReturning to account page";
+
+    delay(3.0);
+
+    clear();
+
+    Account();
+
 }
 
 
@@ -1200,7 +1514,7 @@ admin AddAdmins(admin reg) {
     // automatically create id
     reg.id = adminlist.size() + 1;
     cout << "enter Admin's name";
-    cin.ignore(1000,'\n');  // clear input buffer
+    cin.ignore(1000, '\n');  // clear input buffer
     getline(cin, reg.name);
     cout << "enter Admin's email";
     getline(cin, reg.email);
@@ -1300,21 +1614,21 @@ void adminlogin() {
     string choice;
     cout << "Please enter your email ";
     getline(cin, data.email);
-    cin.ignore(1000,'\n');
+    cin.ignore(1000, '\n');
     while (!is_there(adminlist, data)) {
         cout << "This email is not linked to an account\n";
         cout << "Please contact a prime admin to add your account or press 1 to re-enter your email\n";
         getline(cin, choice);
-        cin.ignore(1000,'\n');
+        cin.ignore(1000, '\n');
         //verify input is within range
         while (choice != "1") {
             cout << "Invalid choice, please renter\n";
             getline(cin, choice);
-            cin.ignore(1000,'\n');
+            cin.ignore(1000, '\n');
         }
         if (choice == "1") {
             getline(cin, data.email);
-            cin.ignore(1000,'\n');
+            cin.ignore(1000, '\n');
         }
 
     }
@@ -1322,12 +1636,12 @@ void adminlogin() {
     cout << "Account located successfully\nPlease enter your password\n";
     string password;
     getline(cin, password);
-    cin.ignore(1000,'\n');
+    cin.ignore(1000, '\n');
     datamatch = find(adminlist, data);
     while (datamatch.password != password) {
         cout << "Incorrect password, please renter your password\n";
         getline(cin, password);
-        cin.ignore(1000,'\n');
+        cin.ignore(1000, '\n');
     }
     cout << "Password confirmed\nRedirecting to dashboard...\n";
 
