@@ -40,10 +40,15 @@ struct user {
 struct transaction {
     double amount;
     string receiver_name; // will need user info
-    string sender_name;   // will need user info
+    string sender_name;
+    string email;// will need user info
     int transaction_id;    // will need user info
     string currency = "$";
     string status;
+    string type;
+    string scheduled_date;
+    string source;
+    string receiver_contact;
 };
 struct admin {
     int id;
@@ -289,7 +294,7 @@ void transactionfile(transaction tx) {
 }
 int generateid() {
     srand(time(0));
-    return rand() % 99999 + 1
+    return rand() % 99999 + 1;
 }
 int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
     transaction tx; // instance
@@ -299,8 +304,8 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     gl(tx.receiver_contact);
     cout << "Choose the source of funds (e.g., Bank or Wallet): ";
     gl(tx.source);
-    tx.sender_name = session_name;
-    tx.email = session_email;
+    tx.sender_name = session_user.name;
+    tx.email = session_user.email;
     tx.transaction_id = generateid(); //
     tx.status = "pending"; //
     tx.amount = GetValidAmount(tx.receiver_name);
@@ -318,7 +323,7 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     if (transactionType == 2) {
         tx.type = "scheduled";
         cout << "Enter the scheduled date (YYYY-MM-DD): ";
-        gl(tx.scheduled_date)
+        gl(tx.scheduled_date);
 
     }
     else {
@@ -329,7 +334,7 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     isBalanceSufficient = HasEnoughBalance(sender_balance, tx.amount);
     if (!isBalanceSufficient) {
         tx.status = "Cancelled";
-        transactionfile(tx)
+        transactionfile(tx);
 
             return 0;
     }
@@ -340,7 +345,7 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     if (answer == 'N' || answer == 'n') {
         cout << "Transaction cancelled." << endl;
         tx.status = "Cancelled";
-        transactionfile(tx)
+        transactionfile(tx);
             return 0;
     }
 
