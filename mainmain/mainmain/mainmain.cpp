@@ -275,9 +275,9 @@ void transactionfile(transaction tx) {
         O << s << endl;
     }
     H.close();
-    int _status = remove("history.txt");
-    ofstream("history.txt", ios::app);
-    H.open("history.txt");
+    int _status = remove("transactionhistory.txt");
+    ofstream("transactionhistory.txt", ios::app);
+    H.open("transactionhistory.txt");
     if (tx.status == "completed") H << "Transaction Successful!" << endl;
     else if (tx.status == "Cancelled") H << "Transaction Failed!" << endl;
     else H << "Transaction Pending!" << endl;
