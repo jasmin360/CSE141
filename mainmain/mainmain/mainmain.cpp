@@ -305,6 +305,33 @@ double UpdateReceiverBalance(double receiver_balance, double amount_received) {
 void analyzeuser(user u) {
     cout << "Logged in: " << u.logincounter << "times.\n";
 }
+string fileifytransaction(transaction tx) {
+    string s;
+    if (tx.status == "completed") s += "Transaction Successful!";
+    else if (tx.status == "Cancelled") s += "Transaction Failed!";
+    else s += "Transaction Pending!";
+    s += "Transaction ID: " + to_string(tx.transaction_id) + "\n";
+    s += "Sender: " + tx.sender_email + "\n";
+    s += "Receiver: " + tx.receiver_email + "\n";
+    s += "Receiver contact info: " + tx.receiver_contact + "\n";
+    s += "Source: " + tx.source + "\n";
+    s += "Amount: " + tx.currency + to_string(tx.amount) + "\n";
+    s += "Type: " + tx.type + "\n";
+    if (tx.type == "scheduled") {
+        s+= "Scheduled Date: " + tx.scheduled_date + "\n";
+    }
+    time_t timern = time(0);
+    fstream T; T.open("ttt.txt");
+    T << ctime(&timern);
+    T.seekg(0);
+    string a;
+    s += "Time: ";
+    getline(T, a); s += a;
+    s+= "\n--------------------------------------\n";
+    T.close();
+    remove("ttt.txt");
+    return s;
+}
 void transactionfile(transaction tx) {
     ofstream("temp.txt");
     fstream O; O.open("temp.txt");
@@ -317,28 +344,20 @@ void transactionfile(transaction tx) {
     int _status = remove("history.txt");
     ofstream("history.txt", ios::app);
     H.open("history.txt");
-    if (tx.status == "completed") H << "Transaction Successful!" << endl;
-    else if (tx.status == "Cancelled") H << "Transaction Failed!" << endl;
-    else H << "Transaction Pending!" << endl;
-    H << "Transaction ID: " << tx.transaction_id << endl;
-    H << "Sender: " << tx.sender_email << endl;
-    H << "Receiver: " << tx.receiver_email << endl;
-    H << "Reciever contact info: " << tx.receiver_contact << endl;
-    H << "Source: " << tx.source << endl;
-    H << "Amount: " << tx.currency << tx.amount << endl;
-    H << "Type" << tx.type << endl;
-    if (tx.type == "scheduled") {
-        H << "scheduled Date: " << tx.scheduled_date << endl;
-    }
-    time_t timern = time(0);
-    H << "Time: " << ctime(&timern) << endl;
-    H << "-------------------------------------" << endl;
+    H << fileifytransaction(tx);
     O.seekg(0);
     while (getline(O, s)) {
         H << s << endl;
     }
     O.close(); H.close();
     _status = remove("temp.txt");
+}
+void displaytransactionhistory(string filter="") {
+    fstream H; H.open("history.txt");
+    string s;
+    while (getline(H, s)) {
+        cout << s << endl;
+    }
 }
 int generateid() {
     srand(time(0));
@@ -707,7 +726,9 @@ void Dashboard() { //function to output list of commands that can be used in das
         break;
     case 3:
         clear();
-        cout << "3";
+        displaytransactionhistory();
+        clear();
+        Dashboard();
         break;//redirect to transaction history
 
     }
@@ -1654,15 +1675,20 @@ void adminlogin() {
     //redirection to admin dashboard
 }
 
-void displayhistory() {
-    fstream H; H.open("history.txt");
-    string s;
-    while (getline(H, s)) cout << s << endl;
-    return;
-}
 
 int main()
 {
+    fstream U; U.open("users.txt");
+    while (true) {
+        user u;
+        if (!(U >> u.ID)) break;
+        U >> u.name >> u.email >> u.password >> u.contactinfo;
+        int x; double y;
+        U >> x >> y;
+        u.linkedbankacc_balance.push_back({ x,y });
+        userslist.push_back(u);
+    }
+    U.close();
     ofstream("history.txt");
     // initialized prime admins
     ad1.id = 0; ad1.name = "omar"; ad1.email = "omar@gmail.com"; ad1.is_prime = 1; ad1.permission[0] = 1; ad1.permission[1] = 1; ad1.permission[2] = 1; ad1.role = "manager"; ad1.password = "000";
