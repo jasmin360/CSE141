@@ -86,12 +86,11 @@ const int horizontal = 120, vertical = 20;
 admin session_admin;
 user session_user;
 //ADD YOUR FUNCTIONS HERE
-void aa();
-void ma();
-void tsr();
-void hndldspts();
+void view_profiles();
+void suspend_accs(admin person);
+
 void mngtrans();
-void vwprfl();
+
 void adminCTRL();
 
 
@@ -1628,7 +1627,7 @@ void suspend_accs(admin person) {
 
 
     // suspend the account
-    matchfound.linkedbankacc_balance.erase(matchfound.linkedbankacc_balance.begin() + choice - 1);
+    matchfound.is_suspended = true;
 
 
 }
