@@ -48,7 +48,7 @@ struct transaction {
     string type;
     string scheduled_date;
     string source;
-    string receiver_contact;
+    string recieversnumber;
 };
 struct admin {
     int id;
@@ -312,7 +312,7 @@ void transactionfile(transaction tx) {
     H << "Sender: " << tx.sender_name << endl;
     H << "Sender: " << tx.email << endl;
     H << "Receiver: " << tx.receiver_name << endl;
-    H << "Reciever contact info: " << tx.receiver_contact << endl;
+    H << "Reciever contact info: " << tx.recieversnumber << endl;
     H << "Source: " << tx.source << endl;
     H << "Amount: " << tx.currency << tx.amount << endl;
     H << "Type" << tx.type << endl;
@@ -338,7 +338,16 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     cout << "Enter the recipient's name: ";
     gl(tx.receiver_name);
     cout << "Enter the recipient's phone number or account details: ";
-    gl(tx.receiver_contact);
+    while (true) {
+        gl(tx.recieversnumber);
+        if (tx.recieversnumber.size() == 13) {
+            break;
+        }
+        else {
+            cout << "please enter 13 digits phone number";
+            
+        }
+    }
     cout << "Choose the source of funds (e.g., Bank or Wallet): ";
     gl(tx.source);
     tx.sender_name = session_user.name;
