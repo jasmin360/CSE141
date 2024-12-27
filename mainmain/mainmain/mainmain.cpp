@@ -40,9 +40,8 @@ struct user {
 };
 struct transaction {
     double amount;
-    string receiver_name; 
-    string sender_name;
-    string email;
+    string receiver_email;
+    string sender_email;
     int transaction_id;  
     string currency = "$";
     string status;
@@ -297,6 +296,9 @@ double UpdateReceiverBalance(double receiver_balance, double amount_received) {
     return receiver_balance += amount_received;
 }
 
+void analyzeuser(user u) {
+    cout << "Logged in: " << u.logincounter << "times.\n";
+}
 void transactionfile(transaction tx) {
     ofstream("temp.txt");
     fstream O; O.open("temp.txt");
@@ -306,16 +308,15 @@ void transactionfile(transaction tx) {
         O << s << endl;
     }
     H.close();
-    int _status = remove("transactionhistory.txt");
-    ofstream("transactionhistory.txt", ios::app);
-    H.open("transactionhistory.txt");
+    int _status = remove("history.txt");
+    ofstream("history.txt", ios::app);
+    H.open("history.txt");
     if (tx.status == "completed") H << "Transaction Successful!" << endl;
     else if (tx.status == "Cancelled") H << "Transaction Failed!" << endl;
     else H << "Transaction Pending!" << endl;
     H << "Transaction ID: " << tx.transaction_id << endl;
-    H << "Sender: " << tx.sender_name << endl;
-    H << "Sender: " << tx.email << endl;
-    H << "Receiver: " << tx.receiver_name << endl;
+    H << "Sender: " << tx.sender_email << endl;
+    H << "Receiver: " << tx.receiver_email << endl;
     H << "Reciever contact info: " << tx.receiver_contact << endl;
     H << "Source: " << tx.source << endl;
     H << "Amount: " << tx.currency << tx.amount << endl;
@@ -365,15 +366,14 @@ int ProcessTransaction() { // to use it in main function properly
         cout << "User not found. Try again" << endl;
     }
     user reciever = userslist[r_idx];
-    tx.receiver_name = reciever.name;
+    tx.receiver_email = reciever.email;
     tx.receiver_contact = reciever.contactinfo;
     cout << "Choose the source of funds (e.g., Bank or Wallet): ";
     gl(tx.source);
-    tx.sender_name = session_user.name;
-    tx.email = session_user.email;
+    tx.sender_email = session_user.name;
     tx.transaction_id = generateid(); //
     tx.status = "pending"; //
-    tx.amount = GetValidAmount(tx.receiver_name);
+    tx.amount = GetValidAmount(tx.receiver_email);
     char answer = 'Y';
     bool isBalanceSufficient = 0;
     double updated_sender_balance;
@@ -389,21 +389,18 @@ int ProcessTransaction() { // to use it in main function properly
         tx.type = "scheduled";
         cout << "Enter the scheduled date (YYYY-MM-DD): ";
         gl(tx.scheduled_date);
-
     }
     else {
         tx.type = "instant";
     }
-
     isBalanceSufficient = HasEnoughBalance(sender_balance, tx.amount);
     if (!isBalanceSufficient) {
         tx.status = "Cancelled";
         transactionfile(tx);
-
-            return 0;
+        return 0;
     }
 
-    cout << "Are u sure u want to send " << tx.amount << " to " << tx.receiver_name << " ? If yes type Y If not type N. (Default is : Y) " << endl;
+    cout << "Are u sure u want to send " << tx.amount << " to " << tx.receiver_email << " ? If yes type Y If not type N. (Default is : Y) " << endl;
     cin >> answer;
     cin.ignore(1000,'\n'); // tx.currency picks up answer did this to fix it
     if (answer == 'N' || answer == 'n') {
@@ -1342,6 +1339,7 @@ void displayhistory() {
 
 int main()
 {
+    ofstream("history.txt");
     // initialized prime admins
     ad1.id = 0; ad1.name = "omar"; ad1.email = "omar@gmail.com"; ad1.is_prime = 1; ad1.permission[0] = 1; ad1.permission[1] = 1; ad1.permission[2] = 1; ad1.role = "manager";
     ad2.id = 1; ad2.name = "jasmin"; ad2.email = "jasmin@gmail.com"; ad2.is_prime = 1; ad2.permission[0] = 1; ad2.permission[1] = 1; ad2.permission[2] = 1; ad2.role = "moderator";
