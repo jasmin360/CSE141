@@ -362,18 +362,20 @@ void signup() {
     user data;
     cout << setw(horizontal / 2) << "Please enter your email\n";
     getline(cin, data.email);
-
+    cin.ignore();
     //verfiy that this email does not exist
     //if already linked, user is prompted to either login or renter email
     while (is_there(userslist, data)) {
         string choice;
         cout << setw(horizontal / 2) << "This email is already linked to an account\n";
         cout << setw(horizontal / 2) << "If you wish to login please press 1\nIf you wish to renter your email please press 2\n";
-        gl(choice);
+        getline(cin,choice);
+        cin.ignore();
         //verify input is within range
         while (choice != "1" && choice != "2") {
             cout << setw(horizontal / 2) << "Invalid choice, please renter\n";
             getline(cin, choice);
+            cin.ignore();
         }
         if (choice == "1") {
             //exits current fujnction and redirects to login
@@ -382,22 +384,28 @@ void signup() {
         }
         else if (choice == "2") {
             getline(cin, data.email);
+            cin.ignore();
         }
     }
     cout << setw(horizontal / 2) << "Please enter your name\n";
     getline(cin, data.name);
+    cin.ignore();
     cout << setw(horizontal / 2) << "Please enter your password\n";
     getline(cin, data.password);
+    cin.ignore();
     while (data.password.size() < 8) {
         cout << "Password must contain at least 8 characters";
         getline(cin, data.password);
+        cin.ignore();
     }
     cout << "\"" << data.password << "\"\n";
     cout << setw(horizontal / 2) << "Please enter phone number in the format: +CCXXXXXXXXXX\n";
     getline(cin, data.contactinfo);
+    cin.ignore();
     while (data.contactinfo.size() != 11) {
         cout << "your phone number must be 11 digits long";
         getline(cin, data.contactinfo);
+        cin.ignore();
     }
     //adding id as size of set + 1 as the new user has not been inserted yet
     data.ID = userslist.size() + 1;
