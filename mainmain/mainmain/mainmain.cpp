@@ -279,7 +279,7 @@ void transactionfile(transaction tx) {
     H << "Sender: " << tx.email << endl;
     H << "Receiver: " << tx.receiver_name << endl;
     H << "Reciever contact info: " << tx.receiver_contact << endl;
-    H <<
+    H << "Source: " << tx.source << endl;
     H << "Amount: " << tx.currency << tx.amount << endl;
     H << "Type" << tx.type << endl;
     if (tx.type == "scheduled") {
