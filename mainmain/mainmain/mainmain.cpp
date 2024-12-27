@@ -589,7 +589,7 @@ void signup() {
 
     delay(3.0);
     clear();
-    Dashboard();
+    ADashboard();
 }
 
 
@@ -786,9 +786,9 @@ void ADashboard() { //function to output list of commands that can be used in da
 }
 
 void adminCTRL() {
-
+    int dashboard_nav;
     if (find(adminlist, session_admin).is_prime == 1) {
-        int counter = 0;
+        
         string dashboard[] = {
         "Add Admins (1)",
         "View Profiles (2)",
@@ -806,7 +806,7 @@ void adminCTRL() {
                 cout << endl << dashboard[i] << endl;
             }
         }
-        int dashboard_nav;
+        
         cin >> dashboard_nav;
         while (dashboard_nav != 1 && dashboard_nav != 2 && dashboard_nav != 3 && dashboard_nav != 4 && dashboard_nav != 5) {
             cout << "invalid number please re-enter navigation number";
@@ -842,6 +842,22 @@ void adminCTRL() {
         }
 
     }
+    else if (find(adminlist, session_admin).permission[0]) {
+        cout << "View Profiles (1)";
+        cin >> dashboard_nav;
+        while (dashboard_nav != 1) {
+            cout << "invalid navigation number please re-enter\n";
+            cin >> dashboard_nav;
+        }
+        view_profiles();
+    }else if (find(adminlist, session_admin).permission[1]) {
+        cout << "View Profiles (1)\n";
+        cin >> dashboard_nav;
+        while (dashboard_nav != 1 && dashboard_nav != 2) {
+            cout << "invalid navigation number please re-enter\n";
+            cin >> dashboard_nav;
+        }switch
+
 
 }
 
