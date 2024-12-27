@@ -11,6 +11,17 @@
 #include <fstream>
 
 using namespace std;
+int session_id = -1;
+string session_name = "12";
+string session_email = "ss";
+string session_password = "11";
+string session_contactinfo = "123";
+
+int session_id = -1;
+string session_name = "12";
+string session_email = "ss";
+string session_password = "11";
+string session_contactinfo = "123";
 
 
 //ADD STRUCTS HERE
@@ -155,8 +166,8 @@ string stringifyotp(int x, int n=4) {
 }
 
 void gl(string &s) {
-    getline(cin, s);
-    while (s.empty() || s[0] == '\n') getline(cin, s);
+    gl(s);
+    while (s.empty() || s[0] == '\n') gl( s);
 }
 
 //declaring login function before signup() since login() is called inside signup()
@@ -262,7 +273,7 @@ void transactionfile(transaction tx) {
     }
     H.close();
     int _status = remove("history.txt");
-    ofstream("history.txt");
+    ofstream("history.txt",ios::app);
     H.open("history.txt");
     if (tx.status == "completed") H << "Transaction Successful!" << endl;
     else if (tx.status == "Cancelled") H << "Transaction Failed!" << endl;
@@ -271,7 +282,8 @@ void transactionfile(transaction tx) {
     H << "Sender: " << tx.sender_name << endl;
     H << "Receiver: " << tx.receiver_name << endl;
     H << "Amount: " << tx.currency << tx.amount << endl;
-    H << "Time: " << clock() << endl;
+    time_t timern = time(0);
+    H << "Time: " << ctime(&timern) << endl;
     H << "-------------------------------------" << endl;
     O.seekg(0);
     while (getline(O, s)) {
@@ -308,21 +320,19 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
         return 0;
     }
 
-    cout << "Please enter the currency. Type $ for dollars or type € for euros. (Default is : $) " << endl;
-    cin >> tx.currency;
-    if (tx.currency != "€" && tx.currency != "$") {
-        tx.currency = "$"; // default value
+    cout << "Please enter the currency. Type $ for dollars or type € for euros." << endl;
+    while (true) {
+        cin >> tx.currency;
+        if (tx.currency == "$" || tx.currency == "€") {
+            break;  // Valid currency input, exit loop
+        }
+        cout << "Invalid input. Please enter $ or €: ";
     }
    
     updated_sender_balance = UpdateSenderBalance(sender_balance, tx.amount);
     updated_receiver_balance = UpdateReceiverBalance(receiver_balance, tx.amount);
     tx.status = "completed";
-
-    cout << "\nTransaction Successful!" << endl;
-    cout << "Transaction ID: " << tx.transaction_id << endl;
-    cout << "Sender: " << tx.sender_name << endl;
-    cout << "Receiver: " << tx.receiver_name << endl;
-    cout << "Amount: " << tx.currency << tx.amount << endl;
+    transactionfile(tx);
     cout << "Sender's New Balance: " << tx.currency << updated_sender_balance  << endl;
     cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
     
@@ -577,7 +587,61 @@ void Dashboard() { //function to output list of commands that can be used in das
 
 	}
 }
+void ADashboard() { //function to output list of commands that can be used in dashboard
 
+    string dashboard[] = {
+
+        "   choose a number to navigate   ",
+        "   user.name   ", //output name stored in user struct
+        "   user.balance   ", //output balance stored in user struct
+        "   Send Money (1)                 Account Management (2)   ",/*PLEASE DONT REMOVE THE BLANK OUTPUT!!!*/ "",// (1) redirects to money transfer page (2) redirects to account page
+        "   Most recent transaction   ",
+        "   (Function of most recent transaction)   ", //should output data for the most recent transaction (sent/recieved - value - date - status)
+        "   Open Transaction History (3)   ",
+        "   Admin Controls (4)"
+
+    };
+    int n = 9;
+    for (int i = 0; i < n; i++) {
+        if (i != 1 && i != 2) {
+            center(dashboard[i], 100);
+        }
+        else {
+            cout << endl << dashboard[i] << endl;
+        }
+    }
+    int dashboard_nav;
+    cin >> dashboard_nav;
+    while (dashboard_nav != 1 && dashboard_nav != 2 && dashboard_nav != 3 && dashboard_nav != 4) {
+        cout << "invalid number please re-enter navigation number";
+        cin >> dashboard_nav;
+    }
+
+    switch (dashboard_nav) {
+
+    case 1:
+        clear();
+        cout << "1";
+        break;//redirect to money transfer
+    case 2:
+        clear();
+        Account();
+
+    case 3:
+        clear();
+        cout << "3";
+        break;//redirect to transaction history
+
+    case 4:
+        clear();
+        cout << "admin controls";
+        break;
+    }
+}
+
+void adminCTRL() {
+
+}
 void Account() {
 
 	int accountnav;
@@ -662,7 +726,7 @@ void ChangeEmail() { //change email function
 
 		while (masterbreaker == 0) {
 
-			getline(cin, TempMail);
+			gl( TempMail);
 
 			if (TempMail.find('@') == string::npos) {//checks that email has @
 
@@ -701,7 +765,7 @@ void ChangeEmail() { //change email function
 
 		cout << "Please re-enter your new email:\n";
 
-		getline(cin, UserEmailVerify);
+		gl( UserEmailVerify);
 
 		int i = 0;
 
@@ -716,7 +780,7 @@ void ChangeEmail() { //change email function
 			cout << "Emails dont match please re-enter your email:\n";
 			cout << 3 - i << " tries left \n";
 
-			getline(cin, UserEmailVerify);
+			gl( UserEmailVerify);
 			i++;
 		}
 
@@ -765,7 +829,7 @@ void ChangePass() {
 
 	cout << "Please enter current password: ";
 
-	getline(cin, PassVerify);
+	gl( PassVerify);
 
 	int i = 0;
 
@@ -775,7 +839,7 @@ void ChangePass() {
 
 			cout << "Password is incorrect re-enter your password: " << 3 - i << " tries left\n";
 
-			getline(cin, PassVerify);
+			gl( PassVerify);
 
 			i++;
 
@@ -791,11 +855,11 @@ void ChangePass() {
 
 			cout << "Enter your new password: \n";
 
-			getline(cin, userpasstemp);
+			gl( userpasstemp);
 
 			cout << "Re-enter your password: \n";
 
-			getline(cin, PassVerify);
+			gl( PassVerify);
 
 			if (userpasstemp.compare(PassVerify) != 0) {
 
@@ -942,7 +1006,7 @@ admin AddAdmins(admin reg) {
     reg.id = adminlist.size() + 1;
     cout << "enter Admin's name";
     cin.ignore();  // clear input buffer
-    getline(cin, reg.name);
+    gl( reg.name);
     cout << "enter Admin's email";
     getline(cin, reg.email);
     cout << "enter Admin's password";
