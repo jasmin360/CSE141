@@ -1,9 +1,12 @@
 ﻿  mainmain.cpp
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(403,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(408,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(427,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(527,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(632,43): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1015,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1102,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  mainmain.vcxproj -> C:\Users\Middle East\source\repos\CSE141\mainmain\x64\Debug\mainmain.exe
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(415,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(420,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(439,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(440,27): error C2440: '=': cannot convert from 'std::string' to 'int'
+      C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(440,27):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+  
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(539,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(644,43): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1027,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Middle East\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1114,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data

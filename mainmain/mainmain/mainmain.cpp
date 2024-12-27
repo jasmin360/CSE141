@@ -220,7 +220,7 @@ double GetValidAmount(string receiver_name) {
     cout << "How much money would u like to send to " << receiver_name << endl; // receiver_name will be changed need info
     cin >> amount;
     while (true) {
-        while (cin.fail()) { // error
+        while (cin.fail()) { // error wrong data type
             cin.clear();              // clear error input
             cin.ignore(1000, '\n');   // ignore invalid input
             cout << "Invalid Character,please enter a real number. " << endl;
@@ -234,7 +234,6 @@ double GetValidAmount(string receiver_name) {
     }
     return amount;
 }
-
 
 // checks if he has enough money
 bool HasEnoughBalance(double balance, double amount) {
@@ -274,6 +273,10 @@ void transactionfile(transaction tx) {
     H << "Sender: " << tx.sender_name << endl;
     H << "Receiver: " << tx.receiver_name << endl;
     H << "Amount: " << tx.currency << tx.amount << endl;
+    H << "Type" << tx.type << endl;
+    if (tx.type == "scheduled") {
+        H << "scheduled Date: " << tx.scheduled_date << endl;
+    }
     time_t timern = time(0);
     H << "Time: " << ctime(&timern) << endl;
     H << "-------------------------------------" << endl;
@@ -284,32 +287,61 @@ void transactionfile(transaction tx) {
     O.close(); H.close();
     _status = remove("temp.txt");
 }
-
+int generateid() {
+    srand(time(0));
+    return rand() % 99999 + 1
+}
 int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
     transaction tx; // instance
-    tx.sender_name = "User1"; //
-    tx.receiver_name = "Omar"; //
-    tx.transaction_id = 101; //
+    cout << "Enter the recipient's name: ";
+    gl(tx.receiver_name);
+    cout << "Enter the recipient's phone number or account details: ";
+    gl(tx.receiver_contact);
+    cout << "Choose the source of funds (e.g., Bank or Wallet): ";
+    gl(tx.source);
+    tx.sender_name = session_name;
+    tx.email = session_email;
+    tx.transaction_id = generateid(); //
     tx.status = "pending"; //
     tx.amount = GetValidAmount(tx.receiver_name);
     char answer = 'Y';
     bool isBalanceSufficient = 0;
     double updated_sender_balance;
     double updated_receiver_balance;
+    int transactionType;
+    cout << "Select transaction type (1 for Instant, 2 for Scheduled): ";
+    cin >> transactionType;
+    while (transactionType != 1 && transactionType != 2) {
+        cout << "Invalid choice. Please enter 1 for Instant or 2 for Scheduled: ";
+        cin >> transactionType;
+    }
+    if (transactionType == 2) {
+        tx.type = "scheduled";
+        cout << "Enter the scheduled date (YYYY-MM-DD): ";
+        gl(tx.scheduled_date)
+
+    }
+    else {
+        tx.type = "instant";
+    }
+
 
     isBalanceSufficient = HasEnoughBalance(sender_balance, tx.amount);
     if (!isBalanceSufficient) {
         tx.status = "Cancelled";
-        return 0;
+        transactionfile(tx)
+
+            return 0;
     }
 
     cout << "Are u sure u want to send " << tx.amount << " to " << tx.receiver_name << " ? If yes type Y If not type N. (Default is : Y) " << endl;
     cin >> answer;
     cin.ignore(); // tx.currency picks up answer did this to fix it
     if (answer == 'N' || answer == 'n') {
-        cout << "Transaction cancelled";
+        cout << "Transaction cancelled." << endl;
         tx.status = "Cancelled";
-        return 0;
+        transactionfile(tx)
+            return 0;
     }
 
     cout << "Please enter the currency. Type $ for dollars or type € for euros." << endl;
@@ -328,7 +360,7 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     cout << "Sender's New Balance: " << tx.currency << updated_sender_balance << endl;
     cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
 
-    return 1; // returns success
+    return 1;
 }
 void Display_login_interface();
 
