@@ -217,8 +217,35 @@ void login() {
         cout << "Incorrect password, please renter your password\n";
         cin >> password;
     }
-    cout << "Password confirmed\nRedirecting to dashboard...\n";
+    cout << "Password confirmed\n";
     datamatch.logincounter++;
+    //randomizing OTP
+    cout << setw(horizontal / 2) << "This is your OTP\n";
+    srand(time(0));
+    string OTP, renter;
+    //generates a 4 digit OTP
+    OTP = stringifyotp(rand() % 10000);
+    cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
+    cin >> renter;
+
+    //Verify the OTP has been rentered correctly
+    //user has 3 tries to enter OTP, if still incorrect, OTP changes
+    while (renter != OTP) {
+        for (int i = 0; renter != OTP && i < 2; i++) {
+            cout << setw(horizontal / 2) << "OTP does not match, please renter\n" << 2 - i << " tr" << (2 - i != 1 ? "ies" : "y") << " left\n";
+            cin >> renter;
+        }
+        if (renter == OTP) {
+            break;
+        }
+        cout << setw(horizontal / 2) << "Your OTP has changed\n";
+        cout << setw(horizontal / 2) << "This is your new OTP\n";
+        srand(time(0));
+        OTP = stringifyotp(rand() % 10000);
+        cout << OTP << "\nPlease renter the OTP\n";
+        cin >> renter;
+    }
+    cout << "Redirecting to dashboard...\n";
     session_user = datamatch;
     //redirection to dashboard
     delay(3.0);
@@ -1225,6 +1252,8 @@ void displayhistory() {
     while (getline(H, s)) cout << s << endl;
     return;
 }
+
+void 
 
 int main()
 {
