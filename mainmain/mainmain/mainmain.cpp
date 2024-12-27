@@ -17,12 +17,6 @@ string session_email = "ss";
 string session_password = "11";
 string session_contactinfo = "123";
 
-int session_id = -1;
-string session_name = "12";
-string session_email = "ss";
-string session_password = "11";
-string session_contactinfo = "123";
-
 
 //ADD STRUCTS HERE
 
@@ -77,6 +71,7 @@ struct admin {
 admin ad1;
 admin ad2;
 admin ad3;
+
 
 vector <user> userslist;
 vector <admin> adminlist;
@@ -242,6 +237,7 @@ double GetValidAmount(string receiver_name) {
     return amount;
 }
 
+
 // checks if he has enough money
 bool HasEnoughBalance(double balance, double amount) {
     if (balance >= amount) {
@@ -271,7 +267,7 @@ void transactionfile(transaction tx) {
     }
     H.close();
     int _status = remove("history.txt");
-    ofstream("history.txt");
+    ofstream("history.txt",ios::app);
     H.open("history.txt");
     if (tx.status == "completed") H << "Transaction Successful!" << endl;
     else if (tx.status == "Cancelled") H << "Transaction Failed!" << endl;
@@ -280,7 +276,8 @@ void transactionfile(transaction tx) {
     H << "Sender: " << tx.sender_name << endl;
     H << "Receiver: " << tx.receiver_name << endl;
     H << "Amount: " << tx.currency << tx.amount << endl;
-    H << "Time: " << clock() << endl;
+    time_t timern = time(0);
+    H << "Time: " << ctime(&timern) << endl;
     H << "-------------------------------------" << endl;
     O.seekg(0);
     while (getline(O, s)) {
@@ -317,21 +314,19 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
         return 0;
     }
 
-    cout << "Please enter the currency. Type $ for dollars or type € for euros. (Default is : $) " << endl;
-    cin >> tx.currency;
-    if (tx.currency != "€" && tx.currency != "$") {
-        tx.currency = "$"; // default value
+    cout << "Please enter the currency. Type $ for dollars or type € for euros." << endl;
+    while (true) {
+        cin >> tx.currency;
+        if (tx.currency == "$" || tx.currency == "€") {
+            break;  // Valid currency input, exit loop
+        }
+        cout << "Invalid input. Please enter $ or €: ";
     }
    
     updated_sender_balance = UpdateSenderBalance(sender_balance, tx.amount);
     updated_receiver_balance = UpdateReceiverBalance(receiver_balance, tx.amount);
     tx.status = "completed";
-
-    cout << "\nTransaction Successful!" << endl;
-    cout << "Transaction ID: " << tx.transaction_id << endl;
-    cout << "Sender: " << tx.sender_name << endl;
-    cout << "Receiver: " << tx.receiver_name << endl;
-    cout << "Amount: " << tx.currency << tx.amount << endl;
+    transactionfile(tx);
     cout << "Sender's New Balance: " << tx.currency << updated_sender_balance  << endl;
     cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
     
@@ -997,16 +992,42 @@ void ChangeContactInfo() {
 	Account();
 }
 
+
 //function that should only work when prime admin to add new admins
-admin AdminInfo(admin reg) {
-    cout << "enter Admin's ID";
-    cin >> reg.id;
+// ONLY RETURNS AN ELEMENT OF THE VECTOR
+// ** RETURNED VALUE MUST BE PUSHED INTO THE VECTOR ** 
+
+//function to find user email, returns matchfound
+user email_search(const vector <user>& userslist) {
+    user matchfound;
+    string email;
+    bool flag = false;
+    do {
+        cout << "Enter users' email :\n";
+        cin >> email;
+        for (int i = 0; i < userslist.size(); i++) {
+            if (userslist[i].email == email) {
+                matchfound = userslist[i];
+                flag = true;
+                break;
+            }
+        }
+    } while (flag == false);
+    return matchfound;
+}
+
+admin AddAdmins(admin reg) {
+    // automatically create id
+    reg.id = adminlist.size() + 1;
     cout << "enter Admin's name";
     cin.ignore();  // clear input buffer
     gl( reg.name);
     cout << "enter Admin's email";
-    cin >> reg.email;
+    getline(cin, reg.email);
+    cout << "enter Admin's password";
+    getline(cin, reg.password);
     cout << "enter Admin's role"; // it will just appear in the dashboard (Doesnt affect code)
+    getline(cin, reg.role);
 
     int choice; // Prime Admin choices
     cout << "enter Admin's permissions";
@@ -1048,6 +1069,51 @@ admin AdminInfo(admin reg) {
 
     return reg;
 }
+
+// View profiles takes in
+void view_profiles() {
+    user matchfound;
+    string AdminIn; // admin input of user's email
+
+    // search for email
+    matchfound = email_search(userslist);
+    cout << "ID : ";
+    cout << matchfound.ID;
+    cout << "Name : ";
+    cout << matchfound.name;
+    cout << "Email : ";
+    cout << matchfound.email;
+    cout << "Contact Info : ";
+    cout << matchfound.contactinfo;
+    cout << "Bank accounts : \n";
+
+    for (int i = 0; i < matchfound.linkedbankacc_balance.size(); i++) {
+        cout << matchfound.linkedbankacc_balance[i].first << " : " << matchfound.linkedbankacc_balance[i].second;
+    }
+}
+
+void suspend_accs(admin person) {
+    user matchfound;
+    string AdminIn; // admin input of user's email
+
+    // search for email
+    matchfound = email_search(userslist);
+
+    // prompt admin to choose the bankaccount to suspend
+    for (int i = 1; i < matchfound.linkedbankacc_balance.size(); i++) {
+        cout << i << " : " << matchfound.linkedbankacc_balance[i - 1].first;
+    }
+    cout << "Enter the bank account you want to suspend : ";
+    int choice; cin >> choice;
+    choice = val_choices(choice, 1, matchfound.linkedbankacc_balance.size());
+
+
+    // suspend the account
+    matchfound.linkedbankacc_balance.erase(matchfound.linkedbankacc_balance.begin() + choice - 1);
+
+
+}
+
 
 void adminlogin() {
     admin data, datamatch;
@@ -1094,8 +1160,8 @@ int main()
 {
     // initialized prime admins
     ad1.id = 0; ad1.name = "omar"; ad1.email = "omar@gmail.com"; ad1.is_prime = 1; ad1.permission[0] = 1; ad1.permission[1] = 1; ad1.permission[2] = 1; ad1.role = "manager";
-    ad2.id = 0; ad2.name = "jasmin"; ad2.email = "jasmin@gmail.com"; ad2.is_prime = 1; ad2.permission[0] = 1; ad2.permission[1] = 1; ad2.permission[2] = 1; ad2.role = "moderator";
-    ad3.id = 0; ad2.name = "jasmin"; ad3.email = "jasmin@gmail.com"; ad3.is_prime = 1; ad3.permission[0] = 1; ad3.permission[1] = 1; ad3.permission[2] = 1; ad3.role = "branch manager";
+    ad2.id = 1; ad2.name = "jasmin"; ad2.email = "jasmin@gmail.com"; ad2.is_prime = 1; ad2.permission[0] = 1; ad2.permission[1] = 1; ad2.permission[2] = 1; ad2.role = "moderator";
+    ad3.id = 2; ad3.name = "eyad"; ad3.email = "eyad@gmail.com"; ad3.is_prime = 1; ad3.permission[0] = 1; ad3.permission[1] = 1; ad3.permission[2] = 1; ad3.role = "branch manager";
     adminlist.push_back(ad1); adminlist.push_back(ad2); adminlist.push_back(ad3);
 
     while (true) {

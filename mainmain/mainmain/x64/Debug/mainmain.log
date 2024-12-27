@@ -1,6 +1,9 @@
 ﻿  mainmain.cpp
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(403,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(408,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(427,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(527,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(409,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(414,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(433,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(533,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1019,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(1106,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Habeb\source\repos\CSE141\mainmain\mainmain\mainmain.cpp(165,1): warning C4717: 'gl': recursive on all control paths, function will cause runtime stack overflow
   mainmain.vcxproj -> C:\Users\Habeb\source\repos\CSE141\mainmain\x64\Debug\mainmain.exe
