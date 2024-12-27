@@ -8,8 +8,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
-#include <fstream>
-
+#include<fstream>
 using namespace std;
 
 
@@ -36,10 +35,9 @@ struct user {
             vector<pair<int,pair<double, char>>> linkedbankacc_balance;
             double accbalance;
     */
-    int logincounter = 0;
 
 };
-struct transaction {
+struct Transaction {
     double amount;
     string receiver_name; // will need user info
     string sender_name;   // will need user info
@@ -47,12 +45,13 @@ struct transaction {
     string currency = "$";
     string status;
 };
+
+// admin struct
 struct admin {
     int id;
     string name;
     string email;
     string role;
-    string password;
     bool is_prime = 0; // 1-> prime admin can creat enew admins 0-> cannot create new admins
 
     // access level- i=0 : view profiles i = 1: suspend accounts i = 2: handle disputes
@@ -63,14 +62,10 @@ struct admin {
 
 //ADD GLOBAL VARIABLES HERE
 
-admin ad1;
-admin ad2;
-admin ad3;
-
 vector <user> userslist;
-vector <admin> adminlist;
 
 string FakeUserPass = "test"; // replace where this is used with user pass stored in user struct when full implementation
+
 
 string emailone;
 string passwordone;
@@ -82,8 +77,6 @@ const int horizontal = 120, vertical = 20;
 
 //ADD YOUR FUNCTIONS HERE
 
-
-
 // function that validates choices; takes 3 parameters 1. choice to validate 2. lb : lower-bound 2. ub : upper-bound
 int val_choices(int choice, int lb, int ub) {
     while (choice < lb || choice >ub) {
@@ -92,14 +85,7 @@ int val_choices(int choice, int lb, int ub) {
     }
     return choice;
 }
-void delay(double delay = 1) {
 
-    clock_t start_time = clock();
-    while ((clock() - start_time) / 1000 < delay);
-}
-void clear() {
-    system("cls");
-}
 
 //this function DOES NOT deal with cases where there is no data match
 //user emails have been proved to exist in userslist using is_there in all instances where this function is used below
@@ -114,18 +100,6 @@ user find(const vector <user>& userslist, user datamatch) {
     return matchfound;
 }
 
-admin find(const vector <admin>& userslist, admin datamatch) {
-    admin matchfound;
-    for (int i = 0; i < userslist.size(); i++) {
-        if (userslist[i].email == datamatch.email) {
-            matchfound = userslist[i];
-            break;
-        }
-    }
-    return matchfound;
-}
-
-
 //this function returns a boolean value to describe weather or not a certain email is linked to a user
 bool is_there(const vector <user>& userslist, user datamatch) {
     for (int i = 0; i < userslist.size(); i++) {
@@ -136,60 +110,43 @@ bool is_there(const vector <user>& userslist, user datamatch) {
     return false;
 }
 
-bool is_there(const vector <admin>& userslist, admin datamatch) {
-    for (int i = 0; i < userslist.size(); i++) {
-        if (userslist[i].email == datamatch.email) {
-            return true;
-        }
-    }
-    return false;
-}
-
-string stringifyotp(int x, int n=4) {
-    string s;
-    while (x) s.push_back('0' + x%10), x /= 10;
-    while (s.size() < n) s.push_back('0');
-    reverse(s.begin(), s.end());
-    return s;
-}
-
 void gl(string &s) {
     getline(cin, s);
-    while (s.empty() || s[0] == '\n') getline(cin, s);
+    if (s.empty() || s[0] == '\n') getline(cin, s);
 }
 
 //declaring login function before signup() since login() is called inside signup()
 void login();
 void signup();
-void Dashboard();
+
 
 void login() {
 
     // user is redirected here if login option is chosen
     user data, datamatch;
-    string choice;
+    int choice;
     cout << "Please enter your email ";
-    gl(data.email);
+    cin >> data.email;
 
     //verfies that email is linked to an account
     //if not linked, user is prompted to either sign up or renter email
     while (!is_there(userslist, data)) {
         cout << "This email is not linked to an account\n";
         cout << "If you wish to signup please press 1\nIf you wish to renter your email please press 2\n";
-        gl(choice);
+        cin >> choice;
 
         //verify input is within range
-        while (choice != "1" && choice != "2") {
+        while (choice != 1 && choice != 2) {
             cout << "Invalid choice, please renter\n";
-            gl(choice);
+            cin >> choice;
         }
-        if (choice == "1") {
+        if (choice == 1) {
 
             //exits current function and redirects to signup
             return signup();
         }
-        else if (choice == "2") {
-            gl(data.email);
+        else if (choice == 2) {
+            cin >> data.email;
         }
     }
 
@@ -203,11 +160,7 @@ void login() {
         cin >> password;
     }
     cout << "Password confirmed\nRedirecting to dashboard...\n";
-    datamatch.logincounter++;
     //redirection to dashboard
-    delay(3.0);
-    clear();
-    Dashboard();
 }
 
 // (needs user2.name), checks data type and amount
@@ -250,37 +203,26 @@ double UpdateReceiverBalance(double receiver_balance, double amount_received) {
     return receiver_balance += amount_received;
 }
 
-void transactionfile(transaction tx) {
-    ofstream("temp.txt");
-    fstream O; O.open("temp.txt");
-    fstream H; H.open("history.txt");
-    string s;
-    while (getline(H, s)) {
-        O << s << endl;
-    }
-    H.close();
-    int _status = remove("history.txt");
-    ofstream("history.txt");
-    H.open("history.txt");
-    if (tx.status == "completed") H << "Transaction Successful!" << endl;
-    else if (tx.status == "Cancelled") H << "Transaction Failed!" << endl;
-    else H << "Transaction Pending!" << endl;
-    H << "Transaction ID: " << tx.transaction_id << endl;
-    H << "Sender: " << tx.sender_name << endl;
-    H << "Receiver: " << tx.receiver_name << endl;
-    H << "Amount: " << tx.currency << tx.amount << endl;
-    H << "Time: " << clock() << endl;
-    H << "-------------------------------------" << endl;
-    O.seekg(0);
-    while (getline(O, s)) {
-        H << s << endl;
-    }
-    O.close(); H.close();
-    _status = remove("temp.txt");
-}
 
-int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
-    transaction tx; // instance
+void transactionfile(Transaction tx, double sender_balance, double receiver_balance) {
+    ofstream transaction("transactionhistory.txt", ios::app);
+    if (transaction.is_open()) {
+        transaction << "Transaction ID: " << tx.transaction_id << endl;
+        transaction << "Sender: " << tx.sender_name << endl;
+        transaction << "Receiver: " << tx.receiver_name << endl;
+        transaction << "Amount: " << tx.currency << tx.amount << endl;
+        transaction << "Sender's New Balance: " << sender_balance << tx.currency << endl;
+        transaction << "Receiver's New Balance: " << receiver_balance << tx.currency << endl;
+        transaction << "Status: " << tx.status << endl;
+        time_t now = time(0);
+        transaction << "Time: " << ctime(&now) << endl;
+
+        transaction.close();
+    }
+
+}
+int ProcessTransaction(double& sender_balance, double& receiver_balance) {
+    Transaction tx; // instance
     tx.sender_name = "User1"; //
     tx.receiver_name = "Omar"; //
     tx.transaction_id = 101; //
@@ -288,8 +230,6 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
     tx.amount = GetValidAmount(tx.receiver_name);
     char answer = 'Y';
     bool isBalanceSufficient = 0;
-    double updated_sender_balance;
-    double updated_receiver_balance;
 
     isBalanceSufficient = HasEnoughBalance(sender_balance, tx.amount);
     if (!isBalanceSufficient) {
@@ -308,24 +248,22 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
 
     cout << "Please enter the currency. Type $ for dollars or type € for euros. (Default is : $) " << endl;
     cin >> tx.currency;
-    if (tx.currency != "€" && tx.currency != "$") {
-        tx.currency = "$"; // default value
+    while (true) {
+        if (tx.currency == "$" || tx.currency == "€") {
+            break;
+        }
+        cout << "Invalid input. Please enter $ or €: ";
     }
    
     updated_sender_balance = UpdateSenderBalance(sender_balance, tx.amount);
     updated_receiver_balance = UpdateReceiverBalance(receiver_balance, tx.amount);
     tx.status = "completed";
-
-    cout << "\nTransaction Successful!" << endl;
-    cout << "Transaction ID: " << tx.transaction_id << endl;
-    cout << "Sender: " << tx.sender_name << endl;
-    cout << "Receiver: " << tx.receiver_name << endl;
-    cout << "Amount: " << tx.currency << tx.amount << endl;
-    cout << "Sender's New Balance: " << tx.currency << updated_sender_balance  << endl;
-    cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
-    
-    return 1; // returns success
+    transactionfile(tx, sender_balance, receiver_balance);
+    cout << "Your new balance is " << updated_sender_balance << endl;
+    return 1; 
 }
+
+void clear();
 void Display_login_interface();
 
 // Function to set the console text and background color
@@ -356,49 +294,47 @@ void setborder() {
     }
 }
 
-void adminlogin();
+void delay(double delay = 1) {
+
+    clock_t start_time = clock();
+    while ((clock() - start_time) / 1000 < delay);
+}
+
 void signup() {
     // user is redirected here if signup option is chosen
     user data;
     cout << setw(horizontal / 2) << "Please enter your email\n";
-    gl(data.email);
+    cin >> data.email;
 
     //verfiy that this email does not exist
     //if already linked, user is prompted to either login or renter email
     while (is_there(userslist, data)) {
-        string choice;
+        int choice;
         cout << setw(horizontal / 2) << "This email is already linked to an account\n";
         cout << setw(horizontal / 2) << "If you wish to login please press 1\nIf you wish to renter your email please press 2\n";
-        gl (choice);
+        cin >> choice;
         //verify input is within range
-        while (choice != "1" && choice != "2") {
+        while (choice != 1 && choice != 2) {
             cout << setw(horizontal / 2) << "Invalid choice, please renter\n";
-            gl(choice);
+            cin >> choice;
         }
-        if (choice == "1") {
+        if (choice == 1) {
             //exits current fujnction and redirects to login
             clear();
             return login();
         }
-        else if (choice == "2") {
-            gl(data.email);
+        else if (choice == 2) {
+            cin >> data.email;
         }
     }
     cout << setw(horizontal / 2) << "Please enter your name\n";
-    gl(data.name);
+    // Clearing input buffer
+    getline(cin, data.name);
     cout << setw(horizontal / 2) << "Please enter your password\n";
-    gl(data.password);
-    while (data.password.size() < 8) {
-        cout << "Password must contain at least 8 characters";
-        gl(data.password);
-    }
+    cin.ignore(); getline(cin, data.password);
     cout << "\"" << data.password << "\"\n";
-    cout << setw(horizontal / 2) << "Please enter phone number in the format: +CCXXXXXXXXXX\n";
-    gl(data.contactinfo);
-    while (data.contactinfo.size() != 11) {
-        cout << "your phone number must be 11 digits long";
-        gl(data.contactinfo);
-    }
+    cout << setw(horizontal / 2) << "Please enter phone number\n";
+    cin >> data.contactinfo;
     //adding id as size of set + 1 as the new user has not been inserted yet
     data.ID = userslist.size() + 1;
     userslist.push_back(data);
@@ -408,7 +344,7 @@ void signup() {
     srand(time(0));
     string OTP, renter;
     //generates a 4 digit OTP
-    OTP = stringifyotp(rand() % 10000);
+    OTP = to_string(rand() % 10000);
     cout << OTP << setw(horizontal / 2) << "\nPlease renter the OTP\n";
     cin >> renter;
 
@@ -425,7 +361,7 @@ void signup() {
         cout << setw(horizontal / 2) << "Your OTP has changed\n";
         cout << setw(horizontal / 2) << "This is your new OTP\n";
         srand(time(0));
-        OTP = stringifyotp(rand() % 10000);
+        OTP = to_string(rand() % 10000);
         cout << OTP << "\nPlease renter the OTP\n";
         cin >> renter;
     }
@@ -439,6 +375,9 @@ void signup() {
     Display_login_interface();
 }
 
+void clear() {
+    system("cls");
+}
 
 void Display_login_interface() {
     for (int i = 1; i <= horizontal; i++) {
@@ -456,38 +395,25 @@ void Display_login_interface() {
             cout << setw((horizontal - 2) / 2 - 10) << "||";
         }
         else if (i == vertical / 2 - 1) {
-            cout << "||";
-            cout << string(((horizontal - 2) / 2 - 6), ' ');
-            SetColor(15, 5);
+            cout << "||" << setw((horizontal - 2) / 2 + 5);
+            SetColor(15, 0);
             cout << "Sign up (1)";
             SetColor(14, 0);
-            cout << string(((horizontal - 2) / 2 - 7), ' ');
-            cout << "||";
+            cout << setw((horizontal - 2) / 2 - 5) << "||";
         }
         else if (i == vertical / 2) {
-            cout << "||";
-            cout << string(((horizontal - 2) / 2 - 6), ' ');
-            SetColor(15, 5);
+            cout << "||" << setw((horizontal - 2) / 2 + 5);
+            SetColor(15, 0);
             cout << "Sign in (2)";
             SetColor(14, 0);
-            cout << string(((horizontal - 2) / 2 - 7), ' '); 
-            cout << "||";
-        }
-        else if (i == vertical / 2 + 1) {
-            cout << "||";
-            cout << string(((horizontal - 2) / 2 - 10), ' ');
-            SetColor(15, 5);
-            cout << "Sign in as admin (3)";
-            SetColor(14, 0);
-            cout << string(((horizontal - 2) / 2 - 12), ' ');
-            cout << "||";
+            cout << setw((horizontal - 2) / 2 - 5) << "||";
         }
         else if (i == vertical - 2) {
-            cout << "||" << setw((horizontal - 2) / 2 + 8);
-            SetColor(10, 0);
-            cout << "Choose an option";
+            cout << "||" << setw((horizontal - 2) / 2 + 12);
+            SetColor(12, 0);
+            cout << "Please choose an option";
             SetColor(14, 0);
-            cout << setw((horizontal - 2) / 2 - 8) << "||";
+            cout << setw((horizontal - 2) / 2 - 12) << "||";
         }
         else {
             cout << "||" << setw(horizontal - 2) << "||";
@@ -508,10 +434,6 @@ void Display_login_interface() {
     case 2:
         clear();
         login();
-        break;
-    case 3:
-        clear();
-        adminlogin();
         break;
     }
 }
@@ -982,59 +904,14 @@ admin AdminInfo(admin reg) {
     return reg;
 }
 
-void adminlogin() {
-    admin data, datamatch;
-    string choice;
-    cout << "Please enter your email ";
-    gl(data.email);
-    while (!is_there(adminlist, data)) {
-        cout << "This email is not linked to an account\n";
-        cout << "Please contact a prime admin to add your account or press 1 to re-enter your email\n";
-        gl(choice);
-
-        //verify input is within range
-        while (choice != "1") {
-            cout << "Invalid choice, please renter\n";
-            gl(choice);
-        }
-        if (choice == "1") {
-            gl(data.email);
-            
-        }
-   
-    }
-    //password checking
-    cout << "Account located successfully\nPlease enter your password\n";
-    string password;
-    gl(password);
-    datamatch = find(adminlist, data);
-    while (datamatch.password != password) {
-        cout << "Incorrect password, please renter your password\n";
-        gl(password);
-    }
-    cout << "Password confirmed\nRedirecting to dashboard...\n";
-    //redirection to admin dashboard
-}
-
-void displayhistory() {
-    fstream H; H.open("history.txt");
-    string s;
-    while (getline(H, s)) cout << s << endl;
-    return;
-}
 
 int main()
 {
-    // initialized prime admins
-    ad1.id = 0; ad1.name = "omar"; ad1.email = "omar@gmail.com"; ad1.is_prime = 1; ad1.permission[0] = 1; ad1.permission[1] = 1; ad1.permission[2] = 1; ad1.role = "manager";
-    ad2.id = 0; ad2.name = "jasmin"; ad2.email = "jasmin@gmail.com"; ad2.is_prime = 1; ad2.permission[0] = 1; ad2.permission[1] = 1; ad2.permission[2] = 1; ad2.role = "moderator";
-    ad3.id = 0; ad2.name = "jasmin"; ad3.email = "jasmin@gmail.com"; ad3.is_prime = 1; ad3.permission[0] = 1; ad3.permission[1] = 1; ad3.permission[2] = 1; ad3.role = "branch manager";
-    adminlist.push_back(ad1); adminlist.push_back(ad2); adminlist.push_back(ad3);
-
-    while (true) {
+    /*while (true) {
         Display_login_interface();
         clear();
-    }
-    /*Account();*/
+    }*/
+    Account();
     return 0;
 }
+
