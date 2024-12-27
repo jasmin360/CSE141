@@ -35,20 +35,20 @@ struct user {
             double accbalance;
     */
     int logincounter = 0;
+    bool is_suspended = false;
 
 };
 struct transaction {
     double amount;
-    string receiver_name; 
-    string sender_name;
-    string email;
+    string receiver_email;
+    string sender_email;
     int transaction_id;  
     string currency = "$";
     string status;
     string type;
     string scheduled_date;
     string source;
-    string recieversnumber;
+    string receiver_contact;
 };
 struct admin {
     int id;
@@ -206,7 +206,10 @@ void login() {
             }
         }
     }
-
+    if (session_user.is_suspended == true) {
+        cout << "Your account is suspended";
+        return;
+    }
     //password checking
     cout << "Account located successfully\nPlease enter your password\n";
     string password;
@@ -293,6 +296,9 @@ double UpdateReceiverBalance(double receiver_balance, double amount_received) {
     return receiver_balance += amount_received;
 }
 
+void analyzeuser(user u) {
+    cout << "Logged in: " << u.logincounter << "times.\n";
+}
 void transactionfile(transaction tx) {
     ofstream("temp.txt");
     fstream O; O.open("temp.txt");
@@ -302,17 +308,16 @@ void transactionfile(transaction tx) {
         O << s << endl;
     }
     H.close();
-    int _status = remove("transactionhistory.txt");
-    ofstream("transactionhistory.txt", ios::app);
-    H.open("transactionhistory.txt");
+    int _status = remove("history.txt");
+    ofstream("history.txt", ios::app);
+    H.open("history.txt");
     if (tx.status == "completed") H << "Transaction Successful!" << endl;
     else if (tx.status == "Cancelled") H << "Transaction Failed!" << endl;
     else H << "Transaction Pending!" << endl;
     H << "Transaction ID: " << tx.transaction_id << endl;
-    H << "Sender: " << tx.sender_name << endl;
-    H << "Sender: " << tx.email << endl;
-    H << "Receiver: " << tx.receiver_name << endl;
-    H << "Reciever contact info: " << tx.recieversnumber << endl;
+    H << "Sender: " << tx.sender_email << endl;
+    H << "Receiver: " << tx.receiver_email << endl;
+    H << "Reciever contact info: " << tx.receiver_contact << endl;
     H << "Source: " << tx.source << endl;
     H << "Amount: " << tx.currency << tx.amount << endl;
     H << "Type" << tx.type << endl;
@@ -333,28 +338,42 @@ int generateid() {
     srand(time(0));
     return rand() % 99999 + 1;
 }
-int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to use it in main function properly
+int ProcessTransaction() { // to use it in main function properly
     transaction tx; // instance
-    cout << "Enter the recipient's name: ";
-    gl(tx.receiver_name);
-    cout << "Enter the recipient's phone number or account details: ";
-    while (true) {
-        gl(tx.recieversnumber);
-        if (tx.recieversnumber.size() == 13) {
-            break;
+    int bankID;
+    int sender_balance, idx = -1;
+    while (idx == -1) {
+        cout << "Choose a bank account ID" << endl;
+        cin >> bankID;
+        user sender = session_user;
+        for (int i = 0;i < sender.linkedbankacc_balance.size();i++) {
+            if (sender.linkedbankacc_balance[i].first == bankID) sender_balance = sender.linkedbankacc_balance[i].second, idx = i;
         }
-        else {
-            cout << "please enter 13 digits phone number";
-            
-        }
+        if (idx == -1) cout << "Bank accound not found. Try again." << endl;
     }
+    cout << "Enter reciever email: ";
+    bool flag = 0;
+    int r_idx = 0;
+    while (!flag) {
+        string r_email;
+        gl(r_email);
+        for (int i = 0;i < userslist.size();i++) {
+            if (userslist[i].email == r_email) {
+                flag = 1; r_idx = i; break;
+            }
+        }
+        if (flag) break;
+        cout << "User not found. Try again" << endl;
+    }
+    user reciever = userslist[r_idx];
+    tx.receiver_email = reciever.email;
+    tx.receiver_contact = reciever.contactinfo;
     cout << "Choose the source of funds (e.g., Bank or Wallet): ";
     gl(tx.source);
-    tx.sender_name = session_user.name;
-    tx.email = session_user.email;
+    tx.sender_email = session_user.name;
     tx.transaction_id = generateid(); //
     tx.status = "pending"; //
-    tx.amount = GetValidAmount(tx.receiver_name);
+    tx.amount = GetValidAmount(tx.receiver_email);
     char answer = 'Y';
     bool isBalanceSufficient = 0;
     double updated_sender_balance;
@@ -370,50 +389,49 @@ int ProcessTransaction(double& sender_balance, double& receiver_balance) { // to
         tx.type = "scheduled";
         cout << "Enter the scheduled date (YYYY-MM-DD): ";
         gl(tx.scheduled_date);
-
     }
     else {
         tx.type = "instant";
     }
-
-
     isBalanceSufficient = HasEnoughBalance(sender_balance, tx.amount);
     if (!isBalanceSufficient) {
-        tx.status = "Cancelled";
-        transactionfile(tx);
-
-            return 0;
-    }
-
-    cout << "Are u sure u want to send " << tx.amount << " to " << tx.receiver_name << " ? If yes type Y If not type N. (Default is : Y) " << endl;
-    cin >> answer;
-    cin.ignore(1000,'\n'); // tx.currency picks up answer did this to fix it
-    if (answer == 'N' || answer == 'n') {
-        cout << "Transaction cancelled." << endl;
         tx.status = "Cancelled";
         transactionfile(tx);
         return 0;
     }
 
-    cout << "Please enter the currency. Type $ for dollars or type € for euros." << endl;
-    while (true) {
-        cin >> tx.currency;
-        if (tx.currency == "$" || tx.currency == "€") {
-            break;  // Valid currency input, exit loop
-        }
-        cout << "Invalid input. Please enter $ or €: ";
+    cout << "Are u sure u want to send " << tx.amount << " to " << tx.receiver_email << " ? If yes type Y If not type N. (Default is : Y) " << endl;
+    cin >> answer;
+    cin.ignore(1000,'\n'); // tx.currency picks up answer did this to fix it
+    if (answer == 'N' || answer == 'n') {
+        //cout << "Transaction cancelled." << endl;
+        tx.status = "Cancelled";
+        transactionfile(tx);
+        return 0;
     }
 
+    //cout << "Please enter the currency. Type $ for dollars or type € for euros." << endl;
+    //while (true) {
+    //    cin >> tx.currency;
+    //    if (tx.currency == "$" || tx.currency == "€") {
+    //        break;  // Valid currency input, exit loop
+    //    }
+    //    cout << "Invalid input. Please enter $ or €: ";
+    //}
+
     updated_sender_balance = UpdateSenderBalance(sender_balance, tx.amount);
-    updated_receiver_balance = UpdateReceiverBalance(receiver_balance, tx.amount);
+    updated_receiver_balance = UpdateReceiverBalance(reciever.linkedbankacc_balance[0].second, tx.amount);
     tx.status = "completed";
     transactionfile(tx);
     cout << "Sender's New Balance: " << tx.currency << updated_sender_balance << endl;
     cout << "Receiver's New Balance: " << tx.currency << updated_receiver_balance << endl;
     
-    sender_balance = updated_receiver_balance;
-    receiver_balance = updated_receiver_balance;
+    session_user.linkedbankacc_balance[idx].second = updated_receiver_balance;
+    reciever.linkedbankacc_balance[0].second = updated_receiver_balance;
     
+
+    userslist[r_idx] = reciever;
+
     return 1;
 }
 void Display_login_interface();
@@ -674,11 +692,12 @@ void Dashboard() { //function to output list of commands that can be used in das
     case 1:
         clear();
         cout << "1";
+        ProcessTransaction();
         break;//redirect to money transfer
     case 2:
         clear();
         Account();
-
+        break;
     case 3:
         clear();
         cout << "3";
@@ -748,8 +767,8 @@ void addbk() {
     int banklink;
     cout << "Enter how many bank accounts you wish to link with your insta-pay account\n"; cin >> banklink;
     for (int i = session_user.linkedbankacc_balance.size(); i < banklink + session_user.linkedbankacc_balance.size(); i++) {
-        cout << "Enter your bank account ID\n"; cin >> session_user.linkedbankacc_balance[i].first;
-        cout << "Enter your deposit in USD\n"; cin >> session_user.linkedbankacc_balance[i].second;
+        cout << "Enter your bank account ID\n"; cin >> userslist[session_user.ID].linkedbankacc_balance[i].first;
+        cout << "Enter your deposit in USD\n"; cin >> userslist[session_user.ID].linkedbankacc_balance[i].second;
     }
 }
 //removes bank account
@@ -936,6 +955,7 @@ void ChangeEmail() { //change email function
             i++;
         }
 
+
         //randomizing OTP
         cout << setw(horizontal / 2) << "This is your OTP\n";
         srand(time(0));
@@ -962,6 +982,8 @@ void ChangeEmail() { //change email function
             cout << OTP << "\nPlease renter the OTP\n";
             cin >> renter;
         }
+
+        userslist[session_user.ID].email = UserEmailVerify;
         delay(3.0);
 
     clear();
@@ -1031,7 +1053,7 @@ void ChangePass() {
         }
     }
 
-    FakeUserPass = userpasstemp;
+    userslist[session_user.ID].password = userpasstemp;
 
     cout << "Password changed successfully\nReturning to account page";
 
@@ -1144,6 +1166,7 @@ void ChangeContactInfo() {
             }
             
         }
+        userslist[session_user.ID].contactinfo = PhoneNumberVerify;
 
     clear();
     Account();
@@ -1320,6 +1343,7 @@ void displayhistory() {
 
 int main()
 {
+    ofstream("history.txt");
     // initialized prime admins
     ad1.id = 0; ad1.name = "omar"; ad1.email = "omar@gmail.com"; ad1.is_prime = 1; ad1.permission[0] = 1; ad1.permission[1] = 1; ad1.permission[2] = 1; ad1.role = "manager";
     ad2.id = 1; ad2.name = "jasmin"; ad2.email = "jasmin@gmail.com"; ad2.is_prime = 1; ad2.permission[0] = 1; ad2.permission[1] = 1; ad2.permission[2] = 1; ad2.role = "moderator";
