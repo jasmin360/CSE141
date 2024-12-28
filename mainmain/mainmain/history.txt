@@ -1,4 +1,24 @@
 Transaction Successful!
+Transaction ID: 29104
+Sender: ccc\
+Receiver: a@
+Receiver contact info: 1
+Source: bank
+Amount: $250.000000
+Type: instant
+Time: 
+--------------------------------------
+Transaction Successful!
+Transaction ID: 26100
+Sender: b
+Receiver: b@
+Receiver contact info: 1
+Source: bank
+Amount: $20.000000
+Type: instant
+Time: 
+--------------------------------------
+Transaction Successful!
 Transaction ID: 19738
 Sender: b@
 Receiver: a@

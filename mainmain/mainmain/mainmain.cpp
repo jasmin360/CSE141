@@ -86,14 +86,12 @@ const int horizontal = 120, vertical = 20;
 admin session_admin;
 user session_user;
 //ADD YOUR FUNCTIONS HERE
+void ADashboard();
+admin AddAdmins();
+void mngtrans();
+void adminCTRL();
 void view_profiles();
 void suspend_accs(admin person);
-
-void mngtrans();
-
-void adminCTRL();
-
-
 // function that validates choices; takes 3 parameters 1. choice to validate 2. lb : lower-bound 2. ub : upper-bound
 int val_choices(int choice, int lb, int ub) {
     while (choice < lb || choice >ub) {
@@ -609,7 +607,6 @@ void signup() {
     ADashboard();
 }
 
-
 void Display_login_interface() {
     for (int i = 1; i <= horizontal; i++) {
         SetColor(14, 0);
@@ -692,7 +689,6 @@ void ChangeEmail();
 void center(string& text, int boxwidth);
 void ChangePass();
 void ChangeContactInfo();
-void adminCTRL();
 
 void center(string& text, int boxwidth = 50) {
     int numspc = (boxwidth - text.length()) / 2;
@@ -755,8 +751,8 @@ void ADashboard() { //function to output list of commands that can be used in da
     string dashboard[] = {
 
         "   choose a number to navigate   ",
-        session_user.name, //output name stored in user struct
-        to_string(session_user.linkedbankacc_balance[0].second), //output balance stored in user struct
+        session_admin.name, //output name stored in user struct
+        "$$$$$$$$$$$$$", //output balance stored in user struct
         "   Send Money (1)                 Account Management (2)   ",/*PLEASE DONT REMOVE THE BLANK OUTPUT!!!*/ "",// (1) redirects to money transfer page (2) redirects to account page
         "   Most recent transaction ",
         "   (Function of most recent transaction)   ", //should output data for the most recent transaction (sent/recieved - value - date - status)
@@ -804,7 +800,7 @@ void ADashboard() { //function to output list of commands that can be used in da
 
 void adminCTRL() {
     int dashboard_nav;
-    if (find(adminlist, session_admin).is_prime == 1) {
+    if (true) { // find(adminlist, session_admin).is_prime == 1
         
         string dashboard[] = {
         "Add Admins (1)",
@@ -834,17 +830,17 @@ void adminCTRL() {
 
         case 1:
             clear();
-            cout << "redirect to Add Admins page";
+            adminlist.push_back(AddAdmins());
             delay(3.0);
             break;
         case 2:
             clear();
-            cout << "redirect view profiles page";
+            view_profiles();
             delay(3.0);
             break;
         case 3:
             clear();
-            cout << "redirect to susped account page";
+            suspend_accs(session_admin);
             delay(3.0);
             break;
 
@@ -867,15 +863,15 @@ void adminCTRL() {
             cin >> dashboard_nav;
         }
         view_profiles();
-    }else if (find(adminlist, session_admin).permission[1]) {
+    }
+    else if (find(adminlist, session_admin).permission[1]) {
         cout << "View Profiles (1)\n";
         cin >> dashboard_nav;
         while (dashboard_nav != 1 && dashboard_nav != 2) {
             cout << "invalid navigation number please re-enter\n";
             cin >> dashboard_nav;
-        }switch
-
-
+        }
+    }
 }
 
 void mngtrans() {
@@ -1568,7 +1564,8 @@ user email_search(const vector <user>& userslist) {
     return matchfound;
 }
 
-admin AddAdmins(admin reg) {
+admin AddAdmins() {
+    admin reg;
     // automatically create id
     reg.id = adminlist.size() + 1;
     cout << "enter Admin's name";
@@ -1661,7 +1658,7 @@ void suspend_accs(admin person) {
 
 
     // suspend the account
-    matchfound.is_suspended = true;
+    matchfound.linkedbankacc_balance.erase(matchfound.linkedbankacc_balance.begin() + choice - 1);
 
 
 }
@@ -1706,6 +1703,7 @@ void adminlogin() {
     cout << "Password confirmed\nRedirecting to dashboard...\n";
 
     //redirection to admin dashboard
+    ADashboard();
 }
 
 
